@@ -36,15 +36,26 @@ def index_sample_corpus() -> None:
 
 
 @app.command("assess-idea")
-def assess_idea(input_path: Path) -> None:
+def assess_idea(
+    input_path: Path,
+    retrieval_mode: str = typer.Option(
+        "",
+        "--retrieval-mode",
+        help="Retrieval mode: sparse, dense, or hybrid. Defaults to config strategy.",
+    ),
+) -> None:
     """Assess a research idea from a JSON file and print JSON result."""
     config = get_config()
     if not config.paths.sparse_index_path.exists():
         raise typer.BadParameter(
             f"Index not found at {config.paths.sparse_index_path}. Run `sakana index-sample-corpus` first."
         )
+    if not config.paths.processed_corpus_path.exists():
+        raise typer.BadParameter(
+            f"Processed corpus not found at {config.paths.processed_corpus_path}. Run `sakana index-sample-corpus` first."
+        )
     idea = IdeaInput.model_validate_json(input_path.read_text(encoding="utf-8"))
-    pipeline = PriorArtAssessmentPipeline(config)
+    pipeline = PriorArtAssessmentPipeline(config, retrieval_strategy=retrieval_mode or None)
     result = pipeline.assess(idea)
     typer.echo(json.dumps(result.model_dump(mode="json"), indent=2, ensure_ascii=False))
 

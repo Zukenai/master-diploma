@@ -15,6 +15,7 @@ def build_explanation(
         )
 
     top_titles = ", ".join(item.title for item in evidence[:2])
+    sources = sorted({source for item in evidence for source in item.source_retrievers})
     overlap_summary = "; ".join(
         f"{item.paper_id}: matched {len(item.overlap_signals.get('matched_terms', []))} terms"
         for item in evidence[:3]
@@ -22,6 +23,7 @@ def build_explanation(
     return (
         f"The idea is assessed as {risk_label} with score {risk_score:.2f}. "
         f"Top overlapping papers include {top_titles}. "
+        f"Evidence was gathered via {', '.join(sources) if sources else 'the active retriever'} retrieval. "
         f"Observed overlap signals: {overlap_summary}. "
         "This verdict is evidence-grounded and limited to the local indexed corpus."
     )

@@ -7,6 +7,8 @@ from app.schemas.paper import RetrievedCandidate
 
 
 class BaseRetriever(ABC):
+    name: str
+
     @abstractmethod
-    def retrieve(self, idea: IdeaInput) -> list[RetrievedCandidate]:
+    def retrieve(self, idea: IdeaInput, top_k: int | None = None) -> list[RetrievedCandidate]:
         raise NotImplementedError

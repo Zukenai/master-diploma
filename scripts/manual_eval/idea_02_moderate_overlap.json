@@ -1,0 +1,16 @@
+{
+  "idea_id": "MANUAL-002",
+  "title": "Hybrid retrieval support for scholarly idea screening with explainable overlap signals",
+  "abstract": "The system would help researchers screen early-stage ideas by combining sparse retrieval with future dense components, then reporting interpretable overlap indicators and evidence-backed risk labels over scholarly documents.",
+  "keywords": [
+    "hybrid retrieval",
+    "scholarly discovery",
+    "overlap indicators",
+    "explainable screening"
+  ],
+  "claims": [
+    "combine sparse retrieval with future dense retrieval",
+    "support evidence-backed idea screening",
+    "keep the first version transparent and reproducible"
+  ]
+}

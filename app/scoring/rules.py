@@ -25,6 +25,7 @@ def score_candidates(
             "avg_top_similarity": 0.0,
             "count_above_threshold": 0,
             "aggregate_keyword_overlap": 0,
+            "evidence_sources": [],
             "decision_basis": "no_retrieved_candidates",
         }
         return 0.0, "low prior-art risk", [], debug
@@ -53,13 +54,20 @@ def score_candidates(
             paper_id=candidate.paper.paper_id,
             title=candidate.paper.title,
             score=candidate.score,
+            source_retrievers=candidate.source_retrievers,
+            sparse_score=candidate.sparse_score,
+            dense_score=candidate.dense_score,
+            fused_score=candidate.fused_score,
+            rerank_score=candidate.rerank_score,
             overlap_signals={
                 "matched_terms": candidate.matched_terms,
                 "title_overlap_terms": candidate.title_overlap_terms,
                 "keyword_overlap_terms": candidate.keyword_overlap_terms,
+                "source_retrievers": candidate.source_retrievers,
             },
             rationale=(
                 f"Retrieved with score {candidate.score:.3f}; "
+                f"sources={','.join(candidate.source_retrievers)}; "
                 f"title overlap={len(candidate.title_overlap_terms)}, "
                 f"keyword overlap={len(candidate.keyword_overlap_terms)}."
             ),
@@ -72,6 +80,13 @@ def score_candidates(
         "avg_top_similarity": round(avg_top_similarity, 4),
         "count_above_threshold": count_above_threshold,
         "aggregate_keyword_overlap": aggregate_keyword_overlap,
+        "evidence_sources": sorted(
+            {
+                source
+                for candidate in candidates[:3]
+                for source in candidate.source_retrievers
+            }
+        ),
         "decision_basis": (
             "high_overlap_signals"
             if label == "high prior-art risk"

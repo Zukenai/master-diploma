@@ -45,6 +45,14 @@ sakana index-sample-corpus
 sakana assess-idea scripts/sample_idea.json
 ```
 
+Optional retrieval modes:
+
+```bash
+sakana assess-idea scripts/sample_idea.json --retrieval-mode sparse
+sakana assess-idea scripts/sample_idea.json --retrieval-mode dense
+sakana assess-idea scripts/sample_idea.json --retrieval-mode hybrid
+```
+
 4. Show current config:
 
 ```bash

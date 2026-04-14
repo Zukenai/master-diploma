@@ -34,6 +34,12 @@ The baseline retriever:
 - scores local documents by cosine similarity
 - returns top-k candidates with overlap metadata
 
+Available retrieval modes:
+
+- `sparse`: TF-IDF-like lexical baseline
+- `dense`: local dense latent semantic retrieval
+- `hybrid`: reciprocal-rank fusion of sparse and dense
+
 ## Scoring
 
 The risk score uses transparent features:
@@ -54,5 +60,13 @@ The assessment result contains:
 - `evidence`
 - `explanation`
 - `debug`
+
+Evidence items may additionally expose:
+
+- `source_retrievers`
+- `sparse_score`
+- `dense_score`
+- `fused_score`
+- `rerank_score`
 
 The output is intentionally thesis-friendly: deterministic, inspectable, and easy to describe in methodology and experiment chapters.

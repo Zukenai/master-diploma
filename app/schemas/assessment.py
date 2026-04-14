@@ -9,6 +9,11 @@ class EvidenceItem(BaseModel):
     paper_id: str
     title: str
     score: float
+    source_retrievers: list[str] = Field(default_factory=list)
+    sparse_score: float | None = None
+    dense_score: float | None = None
+    fused_score: float | None = None
+    rerank_score: float | None = None
     overlap_signals: dict[str, float | int | list[str]]
     rationale: str
 

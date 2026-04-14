@@ -7,12 +7,15 @@ from pathlib import Path
 from app.config.settings import RetrievalConfig
 from app.retrieval.base import BaseRetriever
 from app.retrieval.query import build_query_text
+from app.retrieval.signals import build_overlap_metadata
 from app.schemas.idea import IdeaInput
 from app.schemas.paper import PaperRecord, RetrievedCandidate
-from app.utils.text import compute_overlap_terms, cosine_similarity, term_frequency, tokenize
+from app.utils.text import cosine_similarity, term_frequency, tokenize
 
 
 class SparseRetriever(BaseRetriever):
+    name = "sparse"
+
     def __init__(self, index_path: Path, config: RetrievalConfig):
         payload = json.loads(index_path.read_text(encoding="utf-8"))
         self.document_count = payload["document_count"]
@@ -37,8 +40,8 @@ class SparseRetriever(BaseRetriever):
             query_vector[token] = round(boosted, 6)
         return query_vector, query_tokens, title_tokens, keyword_tokens
 
-    def retrieve(self, idea: IdeaInput) -> list[RetrievedCandidate]:
-        query_vector, query_tokens, title_tokens, keyword_tokens = self._query_vector(idea)
+    def retrieve(self, idea: IdeaInput, top_k: int | None = None) -> list[RetrievedCandidate]:
+        query_vector, _, _, _ = self._query_vector(idea)
         candidates: list[RetrievedCandidate] = []
 
         for entry in self.documents:
@@ -46,19 +49,24 @@ class SparseRetriever(BaseRetriever):
             if score < self.config.min_score:
                 continue
             paper = PaperRecord.model_validate(entry["paper"])
-            matched_terms = compute_overlap_terms(query_tokens, entry["tokens"])
-            title_overlap_terms = compute_overlap_terms(title_tokens, entry["title_tokens"])
-            candidate_keyword_terms = entry["keyword_tokens"]
-            keyword_overlap_terms = compute_overlap_terms(keyword_tokens, candidate_keyword_terms)
+            overlap_metadata = build_overlap_metadata(idea, paper)
             candidates.append(
                 RetrievedCandidate(
                     paper=paper,
                     score=round(score, 4),
-                    matched_terms=matched_terms[:10],
-                    title_overlap_terms=title_overlap_terms[:8],
-                    keyword_overlap_terms=keyword_overlap_terms[:8],
+                    source_retrievers=[self.name],
+                    sparse_score=round(score, 4),
+                    matched_terms=overlap_metadata["matched_terms"],
+                    title_overlap_terms=overlap_metadata["title_overlap_terms"],
+                    keyword_overlap_terms=overlap_metadata["keyword_overlap_terms"],
+                    debug_signals={
+                        "retriever": self.name,
+                        "matched_term_count": overlap_metadata["matched_term_count"],
+                        "title_overlap_count": overlap_metadata["title_overlap_count"],
+                        "keyword_overlap_count": overlap_metadata["keyword_overlap_count"],
+                    },
                 )
             )
 
         candidates.sort(key=lambda item: item.score, reverse=True)
-        return candidates[: self.config.top_k]
+        return candidates[: (top_k or self.config.top_k)]

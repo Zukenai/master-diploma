@@ -1,6 +1,7 @@
 # Iteration 02 Done Criteria
 
-- [ ] dense retrieval path exists or is concretely stubbed
-- [ ] hybrid retrieval design is explicit in code and docs
-- [ ] reranker interface is usable from the pipeline
-- [ ] MVP path still runs without regression
+- [x] dense retrieval path exists and runs locally
+- [x] hybrid retrieval path is explicit in code and docs
+- [x] reranker interface is usable from the pipeline
+- [x] evidence exposes sparse, dense, fused, and rerank-aware signals
+- [x] MVP path still runs without regression

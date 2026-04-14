@@ -1,0 +1,16 @@
+{
+  "idea_id": "MANUAL-005",
+  "title": "Claim-aware evidence retrieval for screening novelty risk in technical disclosures",
+  "abstract": "We study claim-aware evidence retrieval for screening technical disclosures against prior work, using title overlap, claim term overlap, and aggregate similarity features to support transparent early-stage novelty risk analysis.",
+  "keywords": [
+    "claim-aware retrieval",
+    "technical disclosures",
+    "novelty risk",
+    "similarity features"
+  ],
+  "claims": [
+    "use claim terms as retrieval signals",
+    "aggregate transparent similarity features",
+    "support early-stage screening rather than absolute judgement"
+  ]
+}

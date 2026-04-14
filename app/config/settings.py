@@ -7,10 +7,23 @@ from pydantic import BaseModel, Field
 
 
 class RetrievalConfig(BaseModel):
+    strategy: str = "sparse"
     top_k: int = 5
     min_score: float = 0.05
+    dense_min_score: float = 0.02
     title_boost: float = 1.2
     keyword_boost: float = 1.1
+    candidate_pool_size: int = 8
+    fusion_constant: int = 60
+    dense_embedding_dims: int = 8
+
+
+class RerankerConfig(BaseModel):
+    strategy: str = "overlap"
+    title_overlap_bonus: float = 0.02
+    keyword_overlap_bonus: float = 0.015
+    matched_term_bonus: float = 0.005
+    max_bonus: float = 0.08
 
 
 class ScoringConfig(BaseModel):
@@ -32,6 +45,7 @@ class PathConfig(BaseModel):
 
 class AppConfig(BaseModel):
     retrieval: RetrievalConfig = Field(default_factory=RetrievalConfig)
+    reranker: RerankerConfig = Field(default_factory=RerankerConfig)
     scoring: ScoringConfig = Field(default_factory=ScoringConfig)
     paths: PathConfig = Field(default_factory=PathConfig)
 

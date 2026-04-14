@@ -12,6 +12,13 @@
 6. Template-based explanation produces an evidence-grounded summary.
 7. CLI prints a structured JSON result.
 
+`Iteration 02` extends retrieval with:
+
+1. `SparseRetriever` as the baseline path
+2. `DenseRetriever` using local latent semantic embeddings built from TF-IDF + SVD
+3. `HybridRetriever` using reciprocal-rank fusion over sparse and dense results
+4. `OverlapReranker` as a minimal reranker-ready layer
+
 ## Intentional Boundaries
 
 - No dense retrieval in code yet
@@ -25,6 +32,8 @@
 The package layout is already separated for later upgrades:
 
 - `app/retrieval/base.py` for retriever interfaces
+- `app/retrieval/dense.py` for local dense retrieval
+- `app/retrieval/hybrid.py` for reproducible fusion
 - `app/rerank/base.py` for reranker interfaces
 - `app/scoring/` for transparent verdict logic
 - `app/pipeline/` for orchestration

@@ -1,7 +1,7 @@
 # Iteration 02 Deliverables
 
 - improved retrieval interfaces
-- dense retrieval path or stub
-- hybrid retrieval design or prototype
+- real local dense retrieval path
+- reproducible hybrid retrieval path
 - reranker-ready pipeline flow
-- better evidence model
+- better evidence model with per-retriever signals

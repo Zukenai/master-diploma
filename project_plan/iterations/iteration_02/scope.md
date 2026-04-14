@@ -3,8 +3,8 @@
 Included in planning:
 
 - retriever interface hardening
-- dense retriever stub or initial local implementation
-- hybrid fusion design
+- real local dense retriever implementation
+- hybrid fusion implementation
 - reranker interface integration
 - improved evidence representation
 - config cleanup

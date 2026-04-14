@@ -1,8 +1,9 @@
 # Iteration 02 Tasks
 
-- [ ] Review retrieval abstractions after MVP usage
-- [ ] Add dense retrieval module or concrete stub
-- [ ] Design hybrid retrieval combination strategy
-- [ ] Add reranker contract and baseline implementation
-- [ ] Expand evidence metadata beyond sparse overlap terms
-- [ ] Add config profiles for retrieval experiments
+- [x] Review retrieval abstractions after MVP usage and manual eval findings
+- [x] Add real local dense retrieval module
+- [x] Implement reproducible hybrid retrieval combination strategy
+- [x] Add reranker contract and baseline implementation
+- [x] Expand evidence metadata beyond sparse overlap terms
+- [x] Keep CLI and JSON output compatible
+- [x] Rerun manual eval cases after implementation
