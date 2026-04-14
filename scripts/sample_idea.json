@@ -1,0 +1,16 @@
+{
+  "idea_id": "IDEA-001",
+  "title": "Evidence-grounded overlap risk assessment for new research ideas",
+  "abstract": "We want to build an offline-first module that accepts a research idea, retrieves relevant scientific papers from a local corpus, estimates overlap risk with prior literature, and returns a transparent verdict with evidence and explanation.",
+  "keywords": [
+    "prior-art risk assessment",
+    "retrieval",
+    "evidence grounding",
+    "offline first"
+  ],
+  "claims": [
+    "estimate overlap risk rather than absolute novelty",
+    "use transparent scoring thresholds",
+    "ground the verdict in retrieved literature evidence"
+  ]
+}

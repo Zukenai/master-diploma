@@ -1,0 +1,98 @@
+[
+  {
+    "paper_id": "P001",
+    "title": "Retrieval-Augmented Generation for Scientific Literature Synthesis",
+    "abstract": "This paper studies retrieval-augmented generation for scientific literature synthesis by combining sparse retrieval, evidence selection, and grounded summaries over article abstracts.",
+    "keywords": [
+      "retrieval augmented generation",
+      "scientific literature",
+      "evidence grounding"
+    ],
+    "claims": [
+      "retrieve relevant papers before synthesis",
+      "ground output in cited evidence"
+    ],
+    "year": 2023,
+    "venue": "ACL Findings"
+  },
+  {
+    "paper_id": "P002",
+    "title": "Neural and Sparse Hybrid Search for Scholarly Discovery",
+    "abstract": "The study compares sparse, dense, and hybrid search strategies for scholarly discovery and shows that hybrid retrieval improves recall for semantically related technical queries.",
+    "keywords": [
+      "hybrid retrieval",
+      "dense retrieval",
+      "scholarly discovery"
+    ],
+    "claims": [
+      "hybrid search improves recall",
+      "retrieval quality depends on domain terms"
+    ],
+    "year": 2022,
+    "venue": "ECIR"
+  },
+  {
+    "paper_id": "P003",
+    "title": "Assessing Novelty Risk in Research Proposals with Literature Evidence",
+    "abstract": "We propose a transparent risk assessment framework for research proposals that estimates overlap with prior literature using retrieved evidence, thresholded similarity, and explanation templates.",
+    "keywords": [
+      "novelty risk",
+      "research proposals",
+      "retrieved evidence"
+    ],
+    "claims": [
+      "estimate overlap risk instead of absolute novelty",
+      "use transparent thresholds and explanations"
+    ],
+    "year": 2024,
+    "venue": "JASIST"
+  },
+  {
+    "paper_id": "P004",
+    "title": "Claim-Aware Similarity Signals for Patent Prior Art Screening",
+    "abstract": "This work introduces claim-aware similarity features for screening patent applications against prior art using claim terms, title overlap, and aggregate similarity indicators.",
+    "keywords": [
+      "claim-aware retrieval",
+      "prior art screening",
+      "similarity signals"
+    ],
+    "claims": [
+      "claim terms improve screening",
+      "aggregate features support transparent decisions"
+    ],
+    "year": 2021,
+    "venue": "Information Processing and Management"
+  },
+  {
+    "paper_id": "P005",
+    "title": "Benchmarking Sparse Retrieval Baselines for Domain-Specific Corpora",
+    "abstract": "The paper benchmarks BM25-like sparse retrieval baselines on domain-specific corpora and argues that strong local baselines are essential before adding dense or reranking components.",
+    "keywords": [
+      "sparse retrieval",
+      "bm25 baseline",
+      "domain corpora"
+    ],
+    "claims": [
+      "establish reproducible sparse baseline first",
+      "measure improvements incrementally"
+    ],
+    "year": 2020,
+    "venue": "SIGIR Workshop"
+  },
+  {
+    "paper_id": "P006",
+    "title": "Offline-First Experimentation Pipelines for Academic AI Systems",
+    "abstract": "This paper discusses offline-first experimentation pipelines for academic AI systems, emphasizing reproducibility, local artifacts, small demo corpora, and explicit iteration planning.",
+    "keywords": [
+      "offline first",
+      "reproducibility",
+      "iteration planning"
+    ],
+    "claims": [
+      "keep early iterations local and reproducible",
+      "store planning context with code"
+    ],
+    "year": 2024,
+    "venue": "ReproNLP"
+  }
+]
