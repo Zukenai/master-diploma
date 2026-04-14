@@ -25,6 +25,11 @@ def score_candidates(
             "avg_top_similarity": 0.0,
             "count_above_threshold": 0,
             "aggregate_keyword_overlap": 0,
+            "aggregate_claim_overlap": 0,
+            "aggregate_title_overlap": 0,
+            "facet_coverage": 0.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 0,
             "evidence_sources": [],
             "decision_basis": "no_retrieved_candidates",
         }
@@ -37,16 +42,57 @@ def score_candidates(
         1 for score in similarities if score >= config.moderate_similarity_threshold
     )
     aggregate_keyword_overlap = sum(len(candidate.keyword_overlap_terms) for candidate in candidates[:3])
+    aggregate_claim_overlap = sum(len(candidate.claim_overlap_terms) for candidate in candidates[:3])
+    aggregate_title_overlap = sum(len(candidate.title_overlap_terms) for candidate in candidates[:3])
+    facet_coverages = [
+        sum(
+            1
+            for overlap_terms in [
+                candidate.title_overlap_terms,
+                candidate.keyword_overlap_terms,
+                candidate.claim_overlap_terms,
+            ]
+            if overlap_terms
+        )
+        / 3
+        for candidate in candidates[:3]
+    ]
+    facet_coverage = mean(facet_coverages) if facet_coverages else 0.0
+    evidence_count_ratio = min(len(candidates[:3]) / 3, 1.0)
+    multi_source_ratio = sum(
+        1
+        for candidate in candidates[:3]
+        if len([source for source in candidate.source_retrievers if source != "hybrid"]) >= 2
+    ) / max(min(3, len(candidates)), 1)
+    weak_support_count = sum(
+        1
+        for candidate in candidates[:3]
+        if (
+            len(candidate.claim_overlap_terms) == 0
+            and len(candidate.title_overlap_terms) == 0
+            and len(candidate.keyword_overlap_terms) == 0
+        )
+        or candidate.score < config.weak_support_threshold
+    )
 
     count_ratio = min(count_above_threshold / 3, 1.0)
     keyword_ratio = min(aggregate_keyword_overlap / 6, 1.0)
+    claim_ratio = min(aggregate_claim_overlap / 4, 1.0)
+    title_ratio = min(aggregate_title_overlap / 4, 1.0)
+    weak_support_penalty = min(weak_support_count / 3, 1.0)
     risk_score = (
         max_similarity * config.max_similarity_weight
         + avg_top_similarity * config.avg_top_similarity_weight
         + count_ratio * config.count_above_threshold_weight
         + keyword_ratio * config.keyword_overlap_weight
+        + claim_ratio * config.claim_overlap_weight
+        + title_ratio * config.title_overlap_weight
+        + facet_coverage * config.facet_coverage_weight
+        + multi_source_ratio * config.multi_source_weight
+        + evidence_count_ratio * config.evidence_count_weight
+        - weak_support_penalty * config.weak_support_penalty_weight
     )
-    risk_score = round(min(risk_score, 1.0), 4)
+    risk_score = round(min(max(risk_score, 0.0), 1.0), 4)
     label = _risk_label(risk_score, config)
 
     evidence = [
@@ -63,13 +109,16 @@ def score_candidates(
                 "matched_terms": candidate.matched_terms,
                 "title_overlap_terms": candidate.title_overlap_terms,
                 "keyword_overlap_terms": candidate.keyword_overlap_terms,
+                "claim_overlap_terms": candidate.claim_overlap_terms,
                 "source_retrievers": candidate.source_retrievers,
+                "debug_signals": candidate.debug_signals,
             },
             rationale=(
                 f"Retrieved with score {candidate.score:.3f}; "
                 f"sources={','.join(candidate.source_retrievers)}; "
                 f"title overlap={len(candidate.title_overlap_terms)}, "
-                f"keyword overlap={len(candidate.keyword_overlap_terms)}."
+                f"keyword overlap={len(candidate.keyword_overlap_terms)}, "
+                f"claim overlap={len(candidate.claim_overlap_terms)}."
             ),
         )
         for candidate in candidates[:3]
@@ -80,6 +129,12 @@ def score_candidates(
         "avg_top_similarity": round(avg_top_similarity, 4),
         "count_above_threshold": count_above_threshold,
         "aggregate_keyword_overlap": aggregate_keyword_overlap,
+        "aggregate_claim_overlap": aggregate_claim_overlap,
+        "aggregate_title_overlap": aggregate_title_overlap,
+        "facet_coverage": round(facet_coverage, 4),
+        "evidence_count_ratio": round(evidence_count_ratio, 4),
+        "multi_source_ratio": round(multi_source_ratio, 4),
+        "weak_support_count": weak_support_count,
         "evidence_sources": sorted(
             {
                 source

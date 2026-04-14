@@ -59,11 +59,14 @@ class SparseRetriever(BaseRetriever):
                     matched_terms=overlap_metadata["matched_terms"],
                     title_overlap_terms=overlap_metadata["title_overlap_terms"],
                     keyword_overlap_terms=overlap_metadata["keyword_overlap_terms"],
+                    claim_overlap_terms=overlap_metadata["claim_overlap_terms"],
                     debug_signals={
                         "retriever": self.name,
                         "matched_term_count": overlap_metadata["matched_term_count"],
                         "title_overlap_count": overlap_metadata["title_overlap_count"],
                         "keyword_overlap_count": overlap_metadata["keyword_overlap_count"],
+                        "claim_overlap_count": overlap_metadata["claim_overlap_count"],
+                        "facet_overlap_count": overlap_metadata["facet_overlap_count"],
                     },
                 )
             )

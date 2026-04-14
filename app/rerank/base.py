@@ -39,6 +39,7 @@ class OverlapReranker(BaseReranker):
             bonus = min(
                 len(candidate.title_overlap_terms) * self.config.title_overlap_bonus
                 + len(candidate.keyword_overlap_terms) * self.config.keyword_overlap_bonus
+                + len(candidate.claim_overlap_terms) * self.config.keyword_overlap_bonus
                 + len(candidate.matched_terms) * self.config.matched_term_bonus,
                 self.config.max_bonus,
             )

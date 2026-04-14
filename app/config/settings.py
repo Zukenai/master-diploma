@@ -35,18 +35,33 @@ class ScoringConfig(BaseModel):
     max_similarity_weight: float = 0.45
     avg_top_similarity_weight: float = 0.25
     count_above_threshold_weight: float = 0.10
+    claim_overlap_weight: float = 0.12
+    title_overlap_weight: float = 0.08
+    facet_coverage_weight: float = 0.10
+    multi_source_weight: float = 0.08
+    evidence_count_weight: float = 0.08
+    weak_support_penalty_weight: float = 0.18
+    weak_support_threshold: float = 0.34
+
+
+class EvaluationConfig(BaseModel):
+    default_modes: list[str] = Field(default_factory=lambda: ["sparse", "dense", "hybrid"])
 
 
 class PathConfig(BaseModel):
     raw_corpus_path: Path = Path("data/raw/sample_corpus.json")
     processed_corpus_path: Path = Path("data/processed/normalized_corpus.json")
     sparse_index_path: Path = Path("data/indexes/sparse_index.json")
+    manual_eval_dir: Path = Path("scripts/manual_eval")
+    manual_eval_expectations_path: Path = Path("data/eval/manual_eval_expectations.json")
+    manual_eval_report_path: Path = Path("data/processed/manual_eval_report.json")
 
 
 class AppConfig(BaseModel):
     retrieval: RetrievalConfig = Field(default_factory=RetrievalConfig)
     reranker: RerankerConfig = Field(default_factory=RerankerConfig)
     scoring: ScoringConfig = Field(default_factory=ScoringConfig)
+    evaluation: EvaluationConfig = Field(default_factory=EvaluationConfig)
     paths: PathConfig = Field(default_factory=PathConfig)
 
 

@@ -1,6 +1,6 @@
 # Manual Evaluation Notes
 
-This file is for fast human inspection before `Iteration 02`.
+This file supports repeatable manual-style inspection and comparison during `Iteration 03`.
 
 ## Goal
 
@@ -38,6 +38,13 @@ sakana assess-idea scripts/manual_eval/idea_04_lexical_trap.json
 sakana assess-idea scripts/manual_eval/idea_05_borderline_case.json
 ```
 
+Run the comparison harness:
+
+```bash
+sakana evaluate-manual-cases
+sakana evaluate-manual-cases --modes sparse,hybrid
+```
+
 ## What To Look At
 
 For each run, check:
@@ -58,14 +65,12 @@ Record notes in this form:
 - top paper ids
 - what looked right
 - what looked too lexical
-- what to improve in Iteration 02
+- what to improve in Iteration 03
 
-## Likely Iteration 02 Follow-Ups
+## Iteration 03 Focus
 
-Manual evaluation is expected to expose:
+Manual evaluation and comparison runs should expose:
 
-- sparse lexical bias
-- weak semantic generalization
-- explanation templates that are too shallow
-- need for denser evidence modeling
-- need for reranking or hybrid retrieval
+- whether claim-aware and facet-aware scoring reduces accidental positives
+- where dense or hybrid retrieval still overfires on the toy corpus
+- whether debug outputs are strong enough for comparative analysis

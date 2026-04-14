@@ -1,8 +1,7 @@
 # Iteration 03 Tasks
 
-- [ ] Implement dense retrieval in production form
-- [ ] Implement hybrid retrieval fusion
-- [ ] Add reranking stage with measurable effect
-- [ ] Expand scoring with claim-aware and facet-aware signals
-- [ ] Build evaluation harness
-- [ ] Add baseline comparison scripts and reports
+- [x] Expand scoring with claim-aware and facet-aware signals
+- [x] Build evaluation harness
+- [x] Add baseline comparison scripts and reports
+- [x] Keep Iteration 02 retrieval architecture intact
+- [x] Add comparative debug outputs suitable for experiment notes

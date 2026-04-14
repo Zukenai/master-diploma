@@ -1,6 +1,6 @@
 # Iteration 03 Done Criteria
 
-- [ ] dense, hybrid, and reranked paths are implemented
-- [ ] claim-aware overlap logic is documented and tested
-- [ ] evaluation harness can compare configurations
-- [ ] outputs are suitable for experimental analysis
+- [x] claim-aware and facet-aware overlap logic is documented and tested
+- [x] evaluation harness can compare sparse, dense, and hybrid configurations
+- [x] outputs expose enough debug signals for comparative analysis
+- [x] current CLI path still works without regression

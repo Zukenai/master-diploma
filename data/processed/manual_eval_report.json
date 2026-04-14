@@ -1,0 +1,466 @@
+{
+  "cases": [
+    {
+      "case_id": "MANUAL-001",
+      "title": "Transparent prior-art risk assessment for research proposals using retrieved literature evidence",
+      "expected_risk": "high prior-art risk",
+      "comparisons": [
+        {
+          "mode": "sparse",
+          "risk_label": "high prior-art risk",
+          "risk_score": 1.0,
+          "top_papers": [
+            "P003",
+            "P001",
+            "P004"
+          ],
+          "debug": {
+            "max_similarity": 0.8833,
+            "avg_top_similarity": 0.4759,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 8,
+            "aggregate_claim_overlap": 11,
+            "aggregate_title_overlap": 8,
+            "facet_coverage": 1.0,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 2,
+            "evidence_sources": [
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "sparse",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "dense",
+          "risk_label": "high prior-art risk",
+          "risk_score": 1.0,
+          "top_papers": [
+            "P003",
+            "P001",
+            "P004"
+          ],
+          "debug": {
+            "max_similarity": 1.0,
+            "avg_top_similarity": 0.6555,
+            "count_above_threshold": 2,
+            "aggregate_keyword_overlap": 8,
+            "aggregate_claim_overlap": 11,
+            "aggregate_title_overlap": 8,
+            "facet_coverage": 1.0,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 0,
+            "evidence_sources": [
+              "dense"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "dense",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "hybrid",
+          "risk_label": "high prior-art risk",
+          "risk_score": 1.0,
+          "top_papers": [
+            "P003",
+            "P001",
+            "P004"
+          ],
+          "debug": {
+            "max_similarity": 0.9945,
+            "avg_top_similarity": 0.6738,
+            "count_above_threshold": 3,
+            "aggregate_keyword_overlap": 8,
+            "aggregate_claim_overlap": 11,
+            "aggregate_title_overlap": 8,
+            "facet_coverage": 1.0,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 1.0,
+            "weak_support_count": 0,
+            "evidence_sources": [
+              "dense",
+              "hybrid",
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "hybrid",
+            "reranker_strategy": "overlap"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MANUAL-002",
+      "title": "Hybrid retrieval support for scholarly idea screening with explainable overlap signals",
+      "expected_risk": "medium prior-art risk",
+      "comparisons": [
+        {
+          "mode": "sparse",
+          "risk_label": "high prior-art risk",
+          "risk_score": 0.7818,
+          "top_papers": [
+            "P002",
+            "P004",
+            "P001"
+          ],
+          "debug": {
+            "max_similarity": 0.4572,
+            "avg_top_similarity": 0.331,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 7,
+            "aggregate_claim_overlap": 5,
+            "aggregate_title_overlap": 5,
+            "facet_coverage": 1.0,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 2,
+            "evidence_sources": [
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "sparse",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "dense",
+          "risk_label": "high prior-art risk",
+          "risk_score": 1.0,
+          "top_papers": [
+            "P002",
+            "P005",
+            "P004"
+          ],
+          "debug": {
+            "max_similarity": 0.9026,
+            "avg_top_similarity": 0.6346,
+            "count_above_threshold": 3,
+            "aggregate_keyword_overlap": 7,
+            "aggregate_claim_overlap": 7,
+            "aggregate_title_overlap": 5,
+            "facet_coverage": 1.0,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 0,
+            "evidence_sources": [
+              "dense"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "dense",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "hybrid",
+          "risk_label": "high prior-art risk",
+          "risk_score": 1.0,
+          "top_papers": [
+            "P002",
+            "P004",
+            "P005"
+          ],
+          "debug": {
+            "max_similarity": 0.7599,
+            "avg_top_similarity": 0.5984,
+            "count_above_threshold": 4,
+            "aggregate_keyword_overlap": 7,
+            "aggregate_claim_overlap": 7,
+            "aggregate_title_overlap": 5,
+            "facet_coverage": 1.0,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 1.0,
+            "weak_support_count": 0,
+            "evidence_sources": [
+              "dense",
+              "hybrid",
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "hybrid",
+            "reranker_strategy": "overlap"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MANUAL-003",
+      "title": "Computer vision system for greenhouse leaf disease detection from multispectral images",
+      "expected_risk": "low prior-art risk",
+      "comparisons": [
+        {
+          "mode": "sparse",
+          "risk_label": "low prior-art risk",
+          "risk_score": 0.0,
+          "top_papers": [],
+          "debug": {
+            "max_similarity": 0.0,
+            "avg_top_similarity": 0.0,
+            "count_above_threshold": 0,
+            "aggregate_keyword_overlap": 0,
+            "aggregate_claim_overlap": 0,
+            "aggregate_title_overlap": 0,
+            "facet_coverage": 0.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 0,
+            "evidence_sources": [],
+            "decision_basis": "no_retrieved_candidates",
+            "retrieval_strategy": "sparse",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "dense",
+          "risk_label": "medium prior-art risk",
+          "risk_score": 0.5237,
+          "top_papers": [
+            "P003"
+          ],
+          "debug": {
+            "max_similarity": 0.572,
+            "avg_top_similarity": 0.572,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 0,
+            "aggregate_claim_overlap": 1,
+            "aggregate_title_overlap": 0,
+            "facet_coverage": 0.3333,
+            "evidence_count_ratio": 0.3333,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 0,
+            "evidence_sources": [
+              "dense"
+            ],
+            "decision_basis": "moderate_overlap_signals",
+            "retrieval_strategy": "dense",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "hybrid",
+          "risk_label": "medium prior-art risk",
+          "risk_score": 0.5879,
+          "top_papers": [
+            "P003"
+          ],
+          "debug": {
+            "max_similarity": 0.6636,
+            "avg_top_similarity": 0.6636,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 0,
+            "aggregate_claim_overlap": 1,
+            "aggregate_title_overlap": 0,
+            "facet_coverage": 0.3333,
+            "evidence_count_ratio": 0.3333,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 0,
+            "evidence_sources": [
+              "dense",
+              "hybrid"
+            ],
+            "decision_basis": "moderate_overlap_signals",
+            "retrieval_strategy": "hybrid",
+            "reranker_strategy": "overlap"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MANUAL-004",
+      "title": "Academic workflow planning system for reproducible AI experiments",
+      "expected_risk": "low prior-art risk",
+      "comparisons": [
+        {
+          "mode": "sparse",
+          "risk_label": "high prior-art risk",
+          "risk_score": 0.9633,
+          "top_papers": [
+            "P006"
+          ],
+          "debug": {
+            "max_similarity": 0.7762,
+            "avg_top_similarity": 0.7762,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 3,
+            "aggregate_claim_overlap": 6,
+            "aggregate_title_overlap": 2,
+            "facet_coverage": 1.0,
+            "evidence_count_ratio": 0.3333,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 0,
+            "evidence_sources": [
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "sparse",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "dense",
+          "risk_label": "high prior-art risk",
+          "risk_score": 0.9483,
+          "top_papers": [
+            "P006",
+            "P005"
+          ],
+          "debug": {
+            "max_similarity": 1.0,
+            "avg_top_similarity": 0.5797,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 3,
+            "aggregate_claim_overlap": 7,
+            "aggregate_title_overlap": 2,
+            "facet_coverage": 0.6667,
+            "evidence_count_ratio": 0.6667,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 1,
+            "evidence_sources": [
+              "dense"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "dense",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "hybrid",
+          "risk_label": "high prior-art risk",
+          "risk_score": 0.9732,
+          "top_papers": [
+            "P006",
+            "P005"
+          ],
+          "debug": {
+            "max_similarity": 0.958,
+            "avg_top_similarity": 0.5949,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 3,
+            "aggregate_claim_overlap": 7,
+            "aggregate_title_overlap": 2,
+            "facet_coverage": 0.6667,
+            "evidence_count_ratio": 0.6667,
+            "multi_source_ratio": 0.5,
+            "weak_support_count": 1,
+            "evidence_sources": [
+              "dense",
+              "hybrid",
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "hybrid",
+            "reranker_strategy": "overlap"
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "MANUAL-005",
+      "title": "Claim-aware evidence retrieval for screening novelty risk in technical disclosures",
+      "expected_risk": "medium prior-art risk",
+      "comparisons": [
+        {
+          "mode": "sparse",
+          "risk_label": "high prior-art risk",
+          "risk_score": 0.9617,
+          "top_papers": [
+            "P004",
+            "P003",
+            "P002"
+          ],
+          "debug": {
+            "max_similarity": 0.6957,
+            "avg_top_similarity": 0.4255,
+            "count_above_threshold": 1,
+            "aggregate_keyword_overlap": 7,
+            "aggregate_claim_overlap": 12,
+            "aggregate_title_overlap": 6,
+            "facet_coverage": 0.8889,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 1,
+            "evidence_sources": [
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "sparse",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "dense",
+          "risk_label": "high prior-art risk",
+          "risk_score": 1.0,
+          "top_papers": [
+            "P004",
+            "P003",
+            "P002"
+          ],
+          "debug": {
+            "max_similarity": 1.0,
+            "avg_top_similarity": 0.584,
+            "count_above_threshold": 2,
+            "aggregate_keyword_overlap": 7,
+            "aggregate_claim_overlap": 12,
+            "aggregate_title_overlap": 6,
+            "facet_coverage": 0.8889,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 0.0,
+            "weak_support_count": 1,
+            "evidence_sources": [
+              "dense"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "dense",
+            "reranker_strategy": "overlap"
+          }
+        },
+        {
+          "mode": "hybrid",
+          "risk_label": "high prior-art risk",
+          "risk_score": 1.0,
+          "top_papers": [
+            "P004",
+            "P003",
+            "P002"
+          ],
+          "debug": {
+            "max_similarity": 0.8971,
+            "avg_top_similarity": 0.6155,
+            "count_above_threshold": 2,
+            "aggregate_keyword_overlap": 7,
+            "aggregate_claim_overlap": 12,
+            "aggregate_title_overlap": 6,
+            "facet_coverage": 0.8889,
+            "evidence_count_ratio": 1.0,
+            "multi_source_ratio": 1.0,
+            "weak_support_count": 1,
+            "evidence_sources": [
+              "dense",
+              "hybrid",
+              "sparse"
+            ],
+            "decision_basis": "high_overlap_signals",
+            "retrieval_strategy": "hybrid",
+            "reranker_strategy": "overlap"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "modes": [
+      "sparse",
+      "dense",
+      "hybrid"
+    ],
+    "case_count": 5,
+    "label_counts": {
+      "high prior-art risk": 12,
+      "low prior-art risk": 1,
+      "medium prior-art risk": 2
+    }
+  }
+}

@@ -1,0 +1,27 @@
+[
+  {
+    "case_id": "MANUAL-001",
+    "expected_risk": "high prior-art risk",
+    "notes": "deliberately close to the toy corpus topic"
+  },
+  {
+    "case_id": "MANUAL-002",
+    "expected_risk": "medium prior-art risk",
+    "notes": "semantically related but not near-duplicate"
+  },
+  {
+    "case_id": "MANUAL-003",
+    "expected_risk": "low prior-art risk",
+    "notes": "out-of-domain far case"
+  },
+  {
+    "case_id": "MANUAL-004",
+    "expected_risk": "low prior-art risk",
+    "notes": "lexical trap with workflow-management semantics"
+  },
+  {
+    "case_id": "MANUAL-005",
+    "expected_risk": "medium prior-art risk",
+    "notes": "borderline claim-aware screening case"
+  }
+]

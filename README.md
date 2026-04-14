@@ -65,6 +65,12 @@ sakana show-config
 pytest
 ```
 
+6. Run the manual evaluation harness:
+
+```bash
+sakana evaluate-manual-cases
+```
+
 ## Repository Layout
 
 - `app/` application code

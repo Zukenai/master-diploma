@@ -1,6 +1,6 @@
 # Iteration 03 Deliverables
 
-- balanced retrieval architecture
-- stronger scoring features
+- stronger claim-aware and facet-aware scoring features
 - repeatable evaluation harness
-- comparable experiment outputs
+- comparable baseline outputs across sparse, dense, and hybrid modes
+- thesis-friendly debug and comparison artifacts

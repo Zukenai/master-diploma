@@ -46,6 +46,9 @@ class HybridRetriever(BaseRetriever):
                 existing.keyword_overlap_terms = sorted(
                     set(existing.keyword_overlap_terms + candidate.keyword_overlap_terms)
                 )[:8]
+                existing.claim_overlap_terms = sorted(
+                    set(existing.claim_overlap_terms + candidate.claim_overlap_terms)
+                )[:8]
             else:
                 merged_candidates[paper_id] = candidate.model_copy(deep=True)
 
@@ -60,6 +63,15 @@ class HybridRetriever(BaseRetriever):
                 {
                     "retriever": self.name,
                     "fused_score": normalized_fused_score,
+                    "facet_overlap_count": sum(
+                        1
+                        for overlap_terms in [
+                            candidate.title_overlap_terms,
+                            candidate.keyword_overlap_terms,
+                            candidate.claim_overlap_terms,
+                        ]
+                        if overlap_terms
+                    ),
                 }
             )
             fused_candidates.append(candidate)

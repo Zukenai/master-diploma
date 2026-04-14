@@ -69,4 +69,14 @@ Evidence items may additionally expose:
 - `fused_score`
 - `rerank_score`
 
+## Evaluation Harness
+
+`Iteration 03` adds a repeatable comparison harness over the manual cases:
+
+```bash
+sakana evaluate-manual-cases
+```
+
+It compares configured retrieval modes and writes a JSON report that is suitable for early experiment notes and baseline comparisons on the toy setup.
+
 The output is intentionally thesis-friendly: deterministic, inspectable, and easy to describe in methodology and experiment chapters.

@@ -6,6 +6,7 @@ from pathlib import Path
 import typer
 
 from app.config.settings import get_config
+from app.evaluation.manual_eval import run_manual_evaluation
 from app.ingest.indexer import build_sparse_index
 from app.pipeline.assess import PriorArtAssessmentPipeline
 from app.schemas.idea import IdeaInput
@@ -65,6 +66,30 @@ def show_config() -> None:
     """Print the current application config."""
     config = get_config()
     typer.echo(json.dumps(config.model_dump(mode="json"), indent=2, ensure_ascii=False))
+
+
+@app.command("evaluate-manual-cases")
+def evaluate_manual_cases(
+    output_path: Path | None = typer.Option(
+        None,
+        "--output-path",
+        help="Optional path to save the evaluation report JSON.",
+    ),
+    modes: str = typer.Option(
+        "",
+        "--modes",
+        help="Comma-separated retrieval modes to evaluate. Defaults to config modes.",
+    ),
+) -> None:
+    """Run repeatable comparisons across the manual evaluation cases."""
+    config = get_config()
+    selected_modes = [mode.strip() for mode in modes.split(",") if mode.strip()] or None
+    report = run_manual_evaluation(
+        config,
+        output_path=output_path or config.paths.manual_eval_report_path,
+        modes=selected_modes,
+    )
+    typer.echo(json.dumps(report.model_dump(mode="json"), indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":

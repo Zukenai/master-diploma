@@ -14,7 +14,7 @@ class EvidenceItem(BaseModel):
     dense_score: float | None = None
     fused_score: float | None = None
     rerank_score: float | None = None
-    overlap_signals: dict[str, float | int | list[str]]
+    overlap_signals: dict[str, object]
     rationale: str
 
 
@@ -24,4 +24,24 @@ class AssessmentResult(BaseModel):
     risk_score: float = Field(..., ge=0.0, le=1.0)
     evidence: list[EvidenceItem]
     explanation: str
-    debug: dict[str, float | int | str | list[str]]
+    debug: dict[str, object]
+
+
+class ModeComparisonResult(BaseModel):
+    mode: str
+    risk_label: str
+    risk_score: float
+    top_papers: list[str] = Field(default_factory=list)
+    debug: dict[str, object]
+
+
+class ManualEvalCaseResult(BaseModel):
+    case_id: str
+    title: str
+    expected_risk: str
+    comparisons: list[ModeComparisonResult]
+
+
+class ManualEvalReport(BaseModel):
+    cases: list[ManualEvalCaseResult]
+    summary: dict[str, float | int | str | list[str] | dict[str, int]]

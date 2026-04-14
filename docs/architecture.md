@@ -19,6 +19,12 @@
 3. `HybridRetriever` using reciprocal-rank fusion over sparse and dense results
 4. `OverlapReranker` as a minimal reranker-ready layer
 
+`Iteration 03` extends decision quality with:
+
+1. claim-aware and facet-aware overlap signals
+2. richer scoring debug for comparative analysis
+3. a repeatable manual evaluation harness across retrieval modes
+
 ## Intentional Boundaries
 
 - No dense retrieval in code yet
