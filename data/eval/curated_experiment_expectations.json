@@ -1,0 +1,66 @@
+[
+  {
+    "case_id": "MANUAL-001",
+    "expected_risk": "high prior-art risk",
+    "expected_relevant_paper_ids": ["C005", "C007"],
+    "control_type": "legacy-positive",
+    "control_note": "Retained as a high-overlap positive anchor for the curated experiment.",
+    "failure_mode": "positive case underestimation by conservative verdict logic"
+  },
+  {
+    "case_id": "MANUAL-002",
+    "expected_risk": "medium prior-art risk",
+    "expected_relevant_paper_ids": ["C005", "C007"],
+    "control_type": "legacy-borderline",
+    "control_note": "Retained as a moderate-overlap case to monitor over-escalation into high risk.",
+    "failure_mode": "borderline cases collapsing into high-risk labels"
+  },
+  {
+    "case_id": "MANUAL-003",
+    "expected_risk": "low prior-art risk",
+    "expected_relevant_paper_ids": [],
+    "control_type": "legacy-negative",
+    "control_note": "Retained as an out-of-domain negative control.",
+    "failure_mode": "semantic adjacency causing false-positive dense or hybrid verdicts"
+  },
+  {
+    "case_id": "MANUAL-004",
+    "expected_risk": "low prior-art risk",
+    "expected_relevant_paper_ids": [],
+    "control_type": "legacy-lexical-stress",
+    "control_note": "Retained to test lexical coincidence against workflow-management semantics.",
+    "failure_mode": "generic academic wording triggering false overlap signals"
+  },
+  {
+    "case_id": "MANUAL-005",
+    "expected_risk": "high prior-art risk",
+    "expected_relevant_paper_ids": ["C001", "C002", "C003", "C004"],
+    "control_type": "legacy-positive",
+    "control_note": "Retained as a claim-aware positive case on the curated scholarly setup.",
+    "failure_mode": "underestimating strong claim-aware overlap"
+  },
+  {
+    "case_id": "CURATED-006",
+    "expected_risk": "low prior-art risk",
+    "expected_relevant_paper_ids": [],
+    "control_type": "new-negative-control",
+    "control_note": "Added to test domain-adjacent scholarly process language that should remain low risk because it is about peer-review operations rather than prior-art assessment.",
+    "failure_mode": "mode overprediction on semantically adjacent but non-overlap reviewer workflow cases"
+  },
+  {
+    "case_id": "CURATED-007",
+    "expected_risk": "medium prior-art risk",
+    "expected_relevant_paper_ids": ["C005", "C007"],
+    "control_type": "new-borderline-control",
+    "control_note": "Added as a borderline research-proposal screening case that should surface real literature overlap without collapsing into a high-risk verdict by default.",
+    "failure_mode": "borderline proposal-screening cases receiving inflated high-risk labels"
+  },
+  {
+    "case_id": "CURATED-008",
+    "expected_risk": "low prior-art risk",
+    "expected_relevant_paper_ids": [],
+    "control_type": "new-lexical-stress-control",
+    "control_note": "Added to separate patent-and-claim operational workflow language from substantive prior-art search and novelty-risk assessment behavior.",
+    "failure_mode": "lexical coincidence around patent claims and evidence causing false positives"
+  }
+]

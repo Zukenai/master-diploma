@@ -39,10 +39,18 @@ pip install -e ".[dev]"
 sakana index-sample-corpus
 ```
 
+Build the curated scholarly corpus and its local index:
+
+```bash
+sakana acquire-curated-corpus
+sakana index-curated-corpus
+```
+
 3. Run assessment on the demo idea:
 
 ```bash
 sakana assess-idea scripts/sample_idea.json
+sakana assess-idea scripts/sample_idea.json --corpus curated
 ```
 
 Optional retrieval modes:
@@ -71,10 +79,17 @@ pytest
 sakana evaluate-manual-cases
 ```
 
+7. Run the curated experiment protocol:
+
+```bash
+sakana run-curated-experiment
+```
+
 ## Repository Layout
 
 - `app/` application code
 - `data/raw/` sample corpus
+- `data/provenance/` corpus manifests and provenance records
 - `data/processed/` normalized corpus artifacts
 - `data/indexes/` retrieval index artifacts
 - `docs/` technical documentation
@@ -105,3 +120,5 @@ This repository does not currently implement:
 - LLM-as-judge core logic
 
 Those are planned but intentionally deferred to later iterations and documented in `project_plan/`.
+
+Public scholarly metadata APIs are used only for offline acquisition of the curated corpus. The main pipeline remains local and reproducible after acquisition.

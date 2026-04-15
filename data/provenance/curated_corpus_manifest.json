@@ -1,0 +1,67 @@
+{
+  "source": "OpenAlex",
+  "selection_queries": [
+    "PatentMatch: A Dataset for Matching Patent Claims & Prior Art",
+    "A Fast and Scalable Algorithm for Prior Art Search",
+    "SEARCHFORMER: Semantic patent embeddings by siamese transformers for prior art search",
+    "Comparing Complex Concepts with Transformers: Matching Patent Claims Against Natural Language Text",
+    "LitSearch: A Retrieval Benchmark for Scientific Literature Search",
+    "Can LLMs Generate Novel Research Ideas? A Large-Scale Human Study with 100+ NLP Researchers",
+    "OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment"
+  ],
+  "selection_logic": [
+    "keep the corpus small and domain-relevant to prior-art or scholarly idea evaluation",
+    "prefer records with abstracts available from OpenAlex metadata",
+    "include both prior-art screening works and scholarly retrieval / novelty-evaluation works",
+    "freeze exact OpenAlex IDs for reproducibility"
+  ],
+  "limitations": [
+    "the corpus is small and intentionally focused rather than comprehensive",
+    "OpenAlex metadata coverage may omit or normalize some fields differently from publisher records",
+    "the corpus supports controlled experiments, not universal novelty claims"
+  ],
+  "selected_works": [
+    {
+      "paper_id": "C001",
+      "openalex_id": "W4394648521",
+      "title_query": "PatentMatch: A Dataset for Matching Patent Claims & Prior Art",
+      "selection_reason": "claim-to-prior-art matching baseline for overlap screening"
+    },
+    {
+      "paper_id": "C002",
+      "openalex_id": "W4206811151",
+      "title_query": "A Fast and Scalable Algorithm for Prior Art Search",
+      "selection_reason": "published prior-art search method with retrieval focus"
+    },
+    {
+      "paper_id": "C003",
+      "openalex_id": "W4362640873",
+      "title_query": "SEARCHFORMER: Semantic patent embeddings by siamese transformers for prior art search",
+      "selection_reason": "semantic prior-art retrieval method"
+    },
+    {
+      "paper_id": "C004",
+      "openalex_id": "W4400709937",
+      "title_query": "Comparing Complex Concepts with Transformers: Matching Patent Claims Against Natural Language Text",
+      "selection_reason": "claim-aware matching and semantic comparison"
+    },
+    {
+      "paper_id": "C005",
+      "openalex_id": "W4404782900",
+      "title_query": "LitSearch: A Retrieval Benchmark for Scientific Literature Search",
+      "selection_reason": "real scholarly retrieval benchmark relevant to literature grounding"
+    },
+    {
+      "paper_id": "C006",
+      "openalex_id": "W4403586302",
+      "title_query": "Can LLMs Generate Novel Research Ideas? A Large-Scale Human Study with 100+ NLP Researchers",
+      "selection_reason": "real novelty-related scholarly context for research idea evaluation"
+    },
+    {
+      "paper_id": "C007",
+      "openalex_id": "W7118383363",
+      "title_query": "OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment",
+      "selection_reason": "direct novelty-assessment reference point for the thesis module"
+    }
+  ]
+}

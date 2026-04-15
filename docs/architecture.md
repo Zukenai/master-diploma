@@ -25,6 +25,13 @@
 2. richer scoring debug for comparative analysis
 3. a repeatable manual evaluation harness across retrieval modes
 
+`Iteration 04` extends the repository into core experimental setup:
+
+1. small curated scholarly corpus acquisition from public metadata
+2. provenance tracking and frozen local corpus snapshot
+3. local indexing and retrieval on the curated corpus
+4. experiment protocol outputs separated into retrieval and verdict observations
+
 ## Intentional Boundaries
 
 - No dense retrieval in code yet

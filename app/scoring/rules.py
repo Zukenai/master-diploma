@@ -29,6 +29,9 @@ def score_candidates(
             "aggregate_title_overlap": 0,
             "facet_coverage": 0.0,
             "multi_source_ratio": 0.0,
+            "strong_support_count": 0,
+            "shallow_support_count": 0,
+            "lexical_only_count": 0,
             "weak_support_count": 0,
             "evidence_sources": [],
             "decision_basis": "no_retrieved_candidates",
@@ -44,6 +47,12 @@ def score_candidates(
     aggregate_keyword_overlap = sum(len(candidate.keyword_overlap_terms) for candidate in candidates[:3])
     aggregate_claim_overlap = sum(len(candidate.claim_overlap_terms) for candidate in candidates[:3])
     aggregate_title_overlap = sum(len(candidate.title_overlap_terms) for candidate in candidates[:3])
+    overlap_totals = [
+        len(candidate.title_overlap_terms)
+        + len(candidate.keyword_overlap_terms)
+        + len(candidate.claim_overlap_terms)
+        for candidate in candidates[:3]
+    ]
     facet_coverages = [
         sum(
             1
@@ -64,6 +73,25 @@ def score_candidates(
         for candidate in candidates[:3]
         if len([source for source in candidate.source_retrievers if source != "hybrid"]) >= 2
     ) / max(min(3, len(candidates)), 1)
+    strong_support_count = sum(
+        1
+        for overlap_total in overlap_totals
+        if overlap_total >= config.strong_support_overlap_threshold
+    )
+    shallow_support_count = sum(
+        1
+        for overlap_total in overlap_totals
+        if overlap_total <= config.shallow_support_overlap_threshold
+    )
+    lexical_only_count = sum(
+        1
+        for candidate in candidates[:3]
+        if (
+            len(candidate.keyword_overlap_terms) > 0
+            and len(candidate.title_overlap_terms) == 0
+            and len(candidate.claim_overlap_terms) == 0
+        )
+    )
     weak_support_count = sum(
         1
         for candidate in candidates[:3]
@@ -72,13 +100,20 @@ def score_candidates(
             and len(candidate.title_overlap_terms) == 0
             and len(candidate.keyword_overlap_terms) == 0
         )
-        or candidate.score < config.weak_support_threshold
+        or (
+            candidate.score < config.weak_support_threshold
+            and len(candidate.claim_overlap_terms) == 0
+            and len(candidate.title_overlap_terms) == 0
+        )
     )
 
     count_ratio = min(count_above_threshold / 3, 1.0)
     keyword_ratio = min(aggregate_keyword_overlap / 6, 1.0)
     claim_ratio = min(aggregate_claim_overlap / 4, 1.0)
     title_ratio = min(aggregate_title_overlap / 4, 1.0)
+    strong_support_ratio = min(strong_support_count / 3, 1.0)
+    shallow_support_penalty = min(shallow_support_count / 3, 1.0)
+    lexical_only_penalty = min(lexical_only_count / 3, 1.0)
     weak_support_penalty = min(weak_support_count / 3, 1.0)
     risk_score = (
         max_similarity * config.max_similarity_weight
@@ -90,6 +125,9 @@ def score_candidates(
         + facet_coverage * config.facet_coverage_weight
         + multi_source_ratio * config.multi_source_weight
         + evidence_count_ratio * config.evidence_count_weight
+        + strong_support_ratio * config.strong_support_weight
+        - shallow_support_penalty * config.shallow_support_penalty_weight
+        - lexical_only_penalty * config.lexical_only_penalty_weight
         - weak_support_penalty * config.weak_support_penalty_weight
     )
     risk_score = round(min(max(risk_score, 0.0), 1.0), 4)
@@ -134,6 +172,9 @@ def score_candidates(
         "facet_coverage": round(facet_coverage, 4),
         "evidence_count_ratio": round(evidence_count_ratio, 4),
         "multi_source_ratio": round(multi_source_ratio, 4),
+        "strong_support_count": strong_support_count,
+        "shallow_support_count": shallow_support_count,
+        "lexical_only_count": lexical_only_count,
         "weak_support_count": weak_support_count,
         "evidence_sources": sorted(
             {

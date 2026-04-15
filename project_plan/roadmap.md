@@ -8,7 +8,7 @@ Goal:
 
 Status:
 
-- active implementation scope
+- completed
 
 ## Iteration 02 — Retrieval Upgrade
 
@@ -27,7 +27,7 @@ Planned focus:
 
 Status:
 
-- planning only
+- completed
 
 ## Iteration 03 — Balanced Architecture and Evaluation Harness
 
@@ -47,22 +47,36 @@ Planned focus:
 
 Status:
 
-- planning only
+- completed
 
-## Iteration 04 — Thesis and Experiment Support
+## Iteration 04 — Core Experimental Setup
 
 Goal:
 
-- polish the repository for experiments, reproducibility, and chapter-friendly outputs
+- move from toy-only setup to a small curated real scholarly corpus with reproducible acquisition and thesis-grade experimental support
 
 Planned focus:
 
-- richer docs
-- experiment scripts
-- reproducibility notes
-- ablation support
-- thesis-oriented result packaging
+- curated scholarly corpus
+- provenance and acquisition workflow
+- local integration into indexing and retrieval
+- repeatable evaluation on the curated setup
+- sparse/dense/hybrid comparison artifacts
+- final constrained calibration and curated-control strengthening pass
 
 Status:
 
-- planning only
+- completed as the final core development phase
+
+## Next Phase — Thesis-Oriented Packaging
+
+Scope:
+
+- experiment presentation
+- chapter-friendly summaries
+- reproducibility framing
+- appendix/support materials
+
+Status:
+
+- remaining work after core development stop

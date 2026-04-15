@@ -14,6 +14,11 @@ The pipeline accepts an idea JSON file with:
 
 The sample corpus is stored in `data/raw/sample_corpus.json`.
 
+The curated scholarly corpus is stored in:
+
+- `data/raw/curated_scholarly_corpus.json`
+- `data/provenance/curated_corpus_provenance.json`
+
 The indexing command:
 
 ```bash
@@ -24,6 +29,17 @@ creates:
 
 - `data/processed/normalized_corpus.json`
 - `data/indexes/sparse_index.json`
+
+The curated indexing command:
+
+```bash
+sakana index-curated-corpus
+```
+
+creates:
+
+- `data/processed/curated_normalized_corpus.json`
+- `data/indexes/curated_sparse_index.json`
 
 ## Retrieval
 
@@ -78,5 +94,20 @@ sakana evaluate-manual-cases
 ```
 
 It compares configured retrieval modes and writes a JSON report that is suitable for early experiment notes and baseline comparisons on the toy setup.
+
+`Iteration 04` adds a curated experiment protocol over the real scholarly corpus:
+
+```bash
+sakana run-curated-experiment
+```
+
+It saves:
+
+- corpus summary
+- run configuration summary
+- per-case comparisons
+- retrieval observations
+- verdict observations
+- limitation notes
 
 The output is intentionally thesis-friendly: deterministic, inspectable, and easy to describe in methodology and experiment chapters.
