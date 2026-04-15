@@ -1,5 +1,6 @@
 {
   "idea_id": "MANUAL-004",
+  "case_type": "lexical_stress",
   "title": "Academic workflow planning system for reproducible AI experiments",
   "abstract": "This project focuses on organizing research work with explicit iteration planning, reproducibility notes, local artifacts, and experiment tracking for AI projects in academic settings.",
   "keywords": [

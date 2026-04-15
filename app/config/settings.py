@@ -70,6 +70,7 @@ class PathConfig(BaseModel):
     curated_eval_expectations_path: Path = Path("data/eval/curated_experiment_expectations.json")
     curated_experiment_report_path: Path = Path("data/processed/curated_experiment_report.json")
     curated_experiment_notes_path: Path = Path("data/processed/curated_experiment_notes.md")
+    evaluation_annotation_protocol_path: Path = Path("docs/evaluation_annotation_protocol.md")
 
 
 class AppConfig(BaseModel):

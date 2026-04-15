@@ -12,6 +12,12 @@
     "raw_corpus_path": "data/raw/curated_scholarly_corpus.json",
     "provenance_path": "data/provenance/curated_corpus_provenance.json"
   },
+  "annotation_protocol": {
+    "path": "docs/evaluation_annotation_protocol.md",
+    "relative_to_fixed_corpus_snapshot": true,
+    "relative_to_available_evidence": true,
+    "absolute_novelty_detection": false
+  },
   "run_configuration": {
     "corpus": "curated",
     "modes": [
@@ -20,7 +26,96 @@
       "hybrid"
     ],
     "top_k": 5,
-    "reranker_strategy": "overlap"
+    "reranker_strategy": "overlap",
+    "temporal_admissibility": "not_implemented"
+  },
+  "dataset_summary": {
+    "case_count": 8,
+    "case_type_distribution": {
+      "near_duplicate": 1,
+      "borderline": 2,
+      "clear_negative": 1,
+      "lexical_stress": 2,
+      "clear_positive": 1,
+      "adjacent_distinct": 1
+    },
+    "expected_label_distribution": {
+      "low prior-art risk": 4,
+      "medium prior-art risk": 2,
+      "high prior-art risk": 2
+    },
+    "oracle_annotation_coverage": "8/8",
+    "case_catalog": [
+      {
+        "case_id": "MANUAL-001",
+        "case_type": "near_duplicate",
+        "expected_risk": "high prior-art risk",
+        "oracle_evidence_ids": [
+          "C005",
+          "C007"
+        ],
+        "annotation_rationale": "Direct overlap with the module topic and evidence-grounded literature risk framing."
+      },
+      {
+        "case_id": "MANUAL-002",
+        "case_type": "borderline",
+        "expected_risk": "medium prior-art risk",
+        "oracle_evidence_ids": [
+          "C005",
+          "C007"
+        ],
+        "annotation_rationale": "Substantively related to literature screening but not a near-duplicate of existing prior-art risk systems."
+      },
+      {
+        "case_id": "MANUAL-003",
+        "case_type": "clear_negative",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "annotation_rationale": "Out-of-domain computer vision task with no admissible prior-art evidence in the curated corpus."
+      },
+      {
+        "case_id": "MANUAL-004",
+        "case_type": "lexical_stress",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "annotation_rationale": "Shares academic workflow wording with the corpus but does not perform prior-art assessment."
+      },
+      {
+        "case_id": "MANUAL-005",
+        "case_type": "clear_positive",
+        "expected_risk": "high prior-art risk",
+        "oracle_evidence_ids": [
+          "C001",
+          "C003",
+          "C004"
+        ],
+        "annotation_rationale": "Strong claim-aware and prior-art-search overlap with multiple curated scholarly records."
+      },
+      {
+        "case_id": "CURATED-006",
+        "case_type": "adjacent_distinct",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "annotation_rationale": "Scholarly process tooling adjacent to peer review, but distinct from prior-art overlap assessment."
+      },
+      {
+        "case_id": "CURATED-007",
+        "case_type": "borderline",
+        "expected_risk": "medium prior-art risk",
+        "oracle_evidence_ids": [
+          "C005",
+          "C007"
+        ],
+        "annotation_rationale": "Proposal-screening overlap is real, but the idea stops short of stronger claim-level novelty analysis."
+      },
+      {
+        "case_id": "CURATED-008",
+        "case_type": "lexical_stress",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "annotation_rationale": "Patent and claim operations wording overlaps lexically with the corpus but remains operational rather than prior-art analytic."
+      }
+    ]
   },
   "cases": [
     {
@@ -31,7 +126,12 @@
         "C005",
         "C007"
       ],
-      "control_type": "legacy-positive",
+      "oracle_evidence_ids": [
+        "C005",
+        "C007"
+      ],
+      "case_type": "near_duplicate",
+      "annotation_rationale": "Direct overlap with the module topic and evidence-grounded literature risk framing.",
       "control_note": "Retained as a high-overlap positive anchor for the curated experiment.",
       "failure_mode": "positive case underestimation by conservative verdict logic",
       "comparisons": [
@@ -146,7 +246,12 @@
         "C005",
         "C007"
       ],
-      "control_type": "legacy-borderline",
+      "oracle_evidence_ids": [
+        "C005",
+        "C007"
+      ],
+      "case_type": "borderline",
+      "annotation_rationale": "Substantively related to literature screening but not a near-duplicate of existing prior-art risk systems.",
       "control_note": "Retained as a moderate-overlap case to monitor over-escalation into high risk.",
       "failure_mode": "borderline cases collapsing into high-risk labels",
       "comparisons": [
@@ -258,7 +363,9 @@
       "title": "Computer vision system for greenhouse leaf disease detection from multispectral images",
       "expected_risk": "low prior-art risk",
       "expected_relevant_paper_ids": [],
-      "control_type": "legacy-negative",
+      "oracle_evidence_ids": [],
+      "case_type": "clear_negative",
+      "annotation_rationale": "Out-of-domain computer vision task with no admissible prior-art evidence in the curated corpus.",
       "control_note": "Retained as an out-of-domain negative control.",
       "failure_mode": "semantic adjacency causing false-positive dense or hybrid verdicts",
       "comparisons": [
@@ -362,7 +469,9 @@
       "title": "Academic workflow planning system for reproducible AI experiments",
       "expected_risk": "low prior-art risk",
       "expected_relevant_paper_ids": [],
-      "control_type": "legacy-lexical-stress",
+      "oracle_evidence_ids": [],
+      "case_type": "lexical_stress",
+      "annotation_rationale": "Shares academic workflow wording with the corpus but does not perform prior-art assessment.",
       "control_note": "Retained to test lexical coincidence against workflow-management semantics.",
       "failure_mode": "generic academic wording triggering false overlap signals",
       "comparisons": [
@@ -471,7 +580,13 @@
         "C003",
         "C004"
       ],
-      "control_type": "legacy-positive",
+      "oracle_evidence_ids": [
+        "C001",
+        "C003",
+        "C004"
+      ],
+      "case_type": "clear_positive",
+      "annotation_rationale": "Strong claim-aware and prior-art-search overlap with multiple curated scholarly records.",
       "control_note": "Retained as a claim-aware positive case on the curated scholarly setup.",
       "failure_mode": "underestimating strong claim-aware overlap",
       "comparisons": [
@@ -583,7 +698,9 @@
       "title": "Reviewer workload forecasting for conference program committees",
       "expected_risk": "low prior-art risk",
       "expected_relevant_paper_ids": [],
-      "control_type": "new-negative-control",
+      "oracle_evidence_ids": [],
+      "case_type": "adjacent_distinct",
+      "annotation_rationale": "Scholarly process tooling adjacent to peer review, but distinct from prior-art overlap assessment.",
       "control_note": "Added to test domain-adjacent scholarly process language that should remain low risk because it is about peer-review operations rather than prior-art assessment.",
       "failure_mode": "mode overprediction on semantically adjacent but non-overlap reviewer workflow cases",
       "comparisons": [
@@ -696,7 +813,12 @@
         "C005",
         "C007"
       ],
-      "control_type": "new-borderline-control",
+      "oracle_evidence_ids": [
+        "C005",
+        "C007"
+      ],
+      "case_type": "borderline",
+      "annotation_rationale": "Proposal-screening overlap is real, but the idea stops short of stronger claim-level novelty analysis.",
       "control_note": "Added as a borderline research-proposal screening case that should surface real literature overlap without collapsing into a high-risk verdict by default.",
       "failure_mode": "borderline proposal-screening cases receiving inflated high-risk labels",
       "comparisons": [
@@ -807,7 +929,9 @@
       "title": "Patent claim workflow tracking for internal legal operations",
       "expected_risk": "low prior-art risk",
       "expected_relevant_paper_ids": [],
-      "control_type": "new-lexical-stress-control",
+      "oracle_evidence_ids": [],
+      "case_type": "lexical_stress",
+      "annotation_rationale": "Patent and claim operations wording overlaps lexically with the corpus but remains operational rather than prior-art analytic.",
       "control_note": "Added to separate patent-and-claim operational workflow language from substantive prior-art search and novelty-risk assessment behavior.",
       "failure_mode": "lexical coincidence around patent claims and evidence causing false positives",
       "comparisons": [
@@ -915,194 +1039,2109 @@
       ]
     }
   ],
-  "retrieval_summary": {
-    "sparse": {
-      "case_count": 8,
-      "positive_case_count": 4,
-      "positive_hit_top3_count": 4,
-      "positive_hit_top3_rate": 1.0,
-      "negative_case_count": 4,
-      "negative_clear_count": 2,
-      "negative_clear_rate": 0.5,
-      "no_evidence_cases": [
-        "MANUAL-003",
-        "MANUAL-004"
-      ]
+  "retrieval_evaluation": {
+    "modes": {
+      "sparse": {
+        "summary": {
+          "case_count": 8,
+          "positive_case_count": 4,
+          "positive_hit_top3_count": 4,
+          "positive_hit_top3_rate": 1.0,
+          "negative_case_count": 4,
+          "negative_clear_count": 2,
+          "negative_clear_rate": 0.5,
+          "no_evidence_cases": [
+            "MANUAL-003",
+            "MANUAL-004"
+          ]
+        },
+        "case_type_breakdown": {
+          "near_duplicate": {
+            "case_count": 1,
+            "match_count": 1,
+            "match_rate": 1.0
+          },
+          "borderline": {
+            "case_count": 2,
+            "match_count": 2,
+            "match_rate": 1.0
+          },
+          "clear_negative": {
+            "case_count": 1,
+            "match_count": 1,
+            "match_rate": 1.0
+          },
+          "lexical_stress": {
+            "case_count": 2,
+            "match_count": 1,
+            "match_rate": 0.5
+          },
+          "clear_positive": {
+            "case_count": 1,
+            "match_count": 1,
+            "match_rate": 1.0
+          },
+          "adjacent_distinct": {
+            "case_count": 1,
+            "match_count": 0,
+            "match_rate": 0.0
+          }
+        },
+        "cases": [
+          {
+            "case_id": "MANUAL-001",
+            "case_type": "near_duplicate",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C003",
+              "C005"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-002",
+            "case_type": "borderline",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C005",
+              "C006"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-003",
+            "case_type": "clear_negative",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 0
+          },
+          {
+            "case_id": "MANUAL-004",
+            "case_type": "lexical_stress",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 0
+          },
+          {
+            "case_id": "MANUAL-005",
+            "case_type": "clear_positive",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [
+              "C001",
+              "C002",
+              "C003",
+              "C004"
+            ],
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "CURATED-006",
+            "case_type": "adjacent_distinct",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 1
+          },
+          {
+            "case_id": "CURATED-007",
+            "case_type": "borderline",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C005"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 2
+          },
+          {
+            "case_id": "CURATED-008",
+            "case_type": "lexical_stress",
+            "mode": "sparse",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C001",
+              "C007",
+              "C003"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          }
+        ]
+      },
+      "dense": {
+        "summary": {
+          "case_count": 8,
+          "positive_case_count": 4,
+          "positive_hit_top3_count": 4,
+          "positive_hit_top3_rate": 1.0,
+          "negative_case_count": 4,
+          "negative_clear_count": 0,
+          "negative_clear_rate": 0.0,
+          "no_evidence_cases": []
+        },
+        "case_type_breakdown": {
+          "near_duplicate": {
+            "case_count": 1,
+            "match_count": 1,
+            "match_rate": 1.0
+          },
+          "borderline": {
+            "case_count": 2,
+            "match_count": 2,
+            "match_rate": 1.0
+          },
+          "clear_negative": {
+            "case_count": 1,
+            "match_count": 0,
+            "match_rate": 0.0
+          },
+          "lexical_stress": {
+            "case_count": 2,
+            "match_count": 0,
+            "match_rate": 0.0
+          },
+          "clear_positive": {
+            "case_count": 1,
+            "match_count": 1,
+            "match_rate": 1.0
+          },
+          "adjacent_distinct": {
+            "case_count": 1,
+            "match_count": 0,
+            "match_rate": 0.0
+          }
+        },
+        "cases": [
+          {
+            "case_id": "MANUAL-001",
+            "case_type": "near_duplicate",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C003",
+              "C002"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-002",
+            "case_type": "borderline",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C005",
+              "C006"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-003",
+            "case_type": "clear_negative",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C004",
+              "C003",
+              "C001"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-004",
+            "case_type": "lexical_stress",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C005",
+              "C006",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-005",
+            "case_type": "clear_positive",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [
+              "C001",
+              "C002",
+              "C003",
+              "C004"
+            ],
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "CURATED-006",
+            "case_type": "adjacent_distinct",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "CURATED-007",
+            "case_type": "borderline",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C005",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "CURATED-008",
+            "case_type": "lexical_stress",
+            "mode": "dense",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C003",
+              "C001",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          }
+        ]
+      },
+      "hybrid": {
+        "summary": {
+          "case_count": 8,
+          "positive_case_count": 4,
+          "positive_hit_top3_count": 4,
+          "positive_hit_top3_rate": 1.0,
+          "negative_case_count": 4,
+          "negative_clear_count": 0,
+          "negative_clear_rate": 0.0,
+          "no_evidence_cases": []
+        },
+        "case_type_breakdown": {
+          "near_duplicate": {
+            "case_count": 1,
+            "match_count": 1,
+            "match_rate": 1.0
+          },
+          "borderline": {
+            "case_count": 2,
+            "match_count": 2,
+            "match_rate": 1.0
+          },
+          "clear_negative": {
+            "case_count": 1,
+            "match_count": 0,
+            "match_rate": 0.0
+          },
+          "lexical_stress": {
+            "case_count": 2,
+            "match_count": 0,
+            "match_rate": 0.0
+          },
+          "clear_positive": {
+            "case_count": 1,
+            "match_count": 1,
+            "match_rate": 1.0
+          },
+          "adjacent_distinct": {
+            "case_count": 1,
+            "match_count": 0,
+            "match_rate": 0.0
+          }
+        },
+        "cases": [
+          {
+            "case_id": "MANUAL-001",
+            "case_type": "near_duplicate",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C003",
+              "C002"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-002",
+            "case_type": "borderline",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C005",
+              "C006"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-003",
+            "case_type": "clear_negative",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C004",
+              "C003",
+              "C001"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-004",
+            "case_type": "lexical_stress",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C005",
+              "C006",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "MANUAL-005",
+            "case_type": "clear_positive",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [
+              "C001",
+              "C002",
+              "C003",
+              "C004"
+            ],
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "CURATED-006",
+            "case_type": "adjacent_distinct",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "CURATED-007",
+            "case_type": "borderline",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [
+              "C005",
+              "C007"
+            ],
+            "top_papers": [
+              "C007",
+              "C005",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "top_paper_count": 3
+          },
+          {
+            "case_id": "CURATED-008",
+            "case_type": "lexical_stress",
+            "mode": "hybrid",
+            "expected_relevant_paper_ids": [],
+            "top_papers": [
+              "C001",
+              "C003",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "top_paper_count": 3
+          }
+        ]
+      }
     },
-    "dense": {
-      "case_count": 8,
-      "positive_case_count": 4,
-      "positive_hit_top3_count": 4,
-      "positive_hit_top3_rate": 1.0,
-      "negative_case_count": 4,
-      "negative_clear_count": 0,
-      "negative_clear_rate": 0.0,
-      "no_evidence_cases": []
-    },
-    "hybrid": {
-      "case_count": 8,
-      "positive_case_count": 4,
-      "positive_hit_top3_count": 4,
-      "positive_hit_top3_rate": 1.0,
-      "negative_case_count": 4,
-      "negative_clear_count": 0,
-      "negative_clear_rate": 0.0,
-      "no_evidence_cases": []
-    }
+    "observations": [
+      "sparse: hit@3=4/4, negative clear=2/4.",
+      "dense: hit@3=4/4, negative clear=0/4.",
+      "hybrid: hit@3=4/4, negative clear=0/4."
+    ]
   },
-  "verdict_summary": {
-    "sparse": {
-      "case_count": 8,
-      "verdict_match_count": 5,
-      "verdict_match_rate": 0.625,
-      "average_risk_score": 0.2633,
-      "label_counts": {
+  "oracle_verdict_evaluation": {
+    "summary": {
+      "accuracy": 0.625,
+      "macro_f1": 0.4667,
+      "per_label": {
+        "low prior-art risk": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "support": 4
+        },
+        "medium prior-art risk": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 2
+        },
+        "high prior-art risk": {
+          "precision": 0.3333,
+          "recall": 0.5,
+          "f1": 0.4,
+          "support": 2
+        }
+      },
+      "confusion": {
+        "low prior-art risk": {
+          "low prior-art risk": 4,
+          "medium prior-art risk": 0,
+          "high prior-art risk": 0
+        },
+        "medium prior-art risk": {
+          "low prior-art risk": 0,
+          "medium prior-art risk": 0,
+          "high prior-art risk": 2
+        },
+        "high prior-art risk": {
+          "low prior-art risk": 0,
+          "medium prior-art risk": 1,
+          "high prior-art risk": 1
+        }
+      },
+      "predicted_label_distribution": {
+        "low prior-art risk": 4,
+        "medium prior-art risk": 1,
+        "high prior-art risk": 3
+      },
+      "expected_label_distribution": {
+        "low prior-art risk": 4,
         "medium prior-art risk": 2,
-        "low prior-art risk": 6
+        "high prior-art risk": 2
       },
-      "mismatch_cases": [
-        "MANUAL-001",
-        "MANUAL-002",
-        "MANUAL-005"
-      ]
+      "case_type_breakdown": {
+        "near_duplicate": {
+          "case_count": 1,
+          "match_count": 1,
+          "match_rate": 1.0
+        },
+        "borderline": {
+          "case_count": 2,
+          "match_count": 0,
+          "match_rate": 0.0
+        },
+        "clear_negative": {
+          "case_count": 1,
+          "match_count": 1,
+          "match_rate": 1.0
+        },
+        "lexical_stress": {
+          "case_count": 2,
+          "match_count": 2,
+          "match_rate": 1.0
+        },
+        "clear_positive": {
+          "case_count": 1,
+          "match_count": 0,
+          "match_rate": 0.0
+        },
+        "adjacent_distinct": {
+          "case_count": 1,
+          "match_count": 1,
+          "match_rate": 1.0
+        }
+      }
     },
-    "dense": {
-      "case_count": 8,
-      "verdict_match_count": 6,
-      "verdict_match_rate": 0.75,
-      "average_risk_score": 0.6124,
-      "label_counts": {
-        "high prior-art risk": 3,
-        "low prior-art risk": 3,
-        "medium prior-art risk": 2
+    "cases": [
+      {
+        "case_id": "MANUAL-001",
+        "case_type": "near_duplicate",
+        "expected_risk": "high prior-art risk",
+        "oracle_evidence_ids": [
+          "C005",
+          "C007"
+        ],
+        "missing_oracle_ids": [],
+        "risk_label": "high prior-art risk",
+        "risk_score": 0.954,
+        "verdict_matches_expectation": true,
+        "evidence_strengths": [
+          "direct overlap",
+          "direct overlap"
+        ],
+        "top_papers": [
+          "C007",
+          "C005"
+        ],
+        "debug": {
+          "max_similarity": 1.0,
+          "avg_top_similarity": 0.985,
+          "count_above_threshold": 2,
+          "aggregate_keyword_overlap": 0,
+          "aggregate_claim_overlap": 7,
+          "aggregate_title_overlap": 2,
+          "facet_coverage": 0.6667,
+          "evidence_count_ratio": 0.6667,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 2,
+          "shallow_support_count": 0,
+          "lexical_only_count": 0,
+          "weak_support_count": 0,
+          "evidence_sources": [
+            "oracle"
+          ],
+          "decision_basis": "high_overlap_signals",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The idea is assessed as high prior-art risk with score 0.95. Top overlapping papers include OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment, LitSearch: A Retrieval Benchmark for Scientific Literature Search. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C007: matched 10 terms, claims 4; C005: matched 9 terms, claims 3. This verdict is evidence-grounded and limited to the local indexed corpus."
       },
-      "mismatch_cases": [
-        "MANUAL-002",
-        "CURATED-008"
-      ]
+      {
+        "case_id": "MANUAL-002",
+        "case_type": "borderline",
+        "expected_risk": "medium prior-art risk",
+        "oracle_evidence_ids": [
+          "C005",
+          "C007"
+        ],
+        "missing_oracle_ids": [],
+        "risk_label": "high prior-art risk",
+        "risk_score": 0.9346,
+        "verdict_matches_expectation": false,
+        "evidence_strengths": [
+          "direct overlap",
+          "direct overlap"
+        ],
+        "top_papers": [
+          "C007",
+          "C005"
+        ],
+        "debug": {
+          "max_similarity": 0.9,
+          "avg_top_similarity": 0.8625,
+          "count_above_threshold": 2,
+          "aggregate_keyword_overlap": 1,
+          "aggregate_claim_overlap": 4,
+          "aggregate_title_overlap": 2,
+          "facet_coverage": 0.8333,
+          "evidence_count_ratio": 0.6667,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 2,
+          "shallow_support_count": 0,
+          "lexical_only_count": 0,
+          "weak_support_count": 0,
+          "evidence_sources": [
+            "oracle"
+          ],
+          "decision_basis": "high_overlap_signals",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The idea is assessed as high prior-art risk with score 0.93. Top overlapping papers include OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment, LitSearch: A Retrieval Benchmark for Scientific Literature Search. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C007: matched 6 terms, claims 2; C005: matched 2 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus."
+      },
+      {
+        "case_id": "MANUAL-003",
+        "case_type": "clear_negative",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "missing_oracle_ids": [],
+        "risk_label": "low prior-art risk",
+        "risk_score": 0.0,
+        "verdict_matches_expectation": true,
+        "evidence_strengths": [],
+        "top_papers": [],
+        "debug": {
+          "max_similarity": 0.0,
+          "avg_top_similarity": 0.0,
+          "count_above_threshold": 0,
+          "aggregate_keyword_overlap": 0,
+          "aggregate_claim_overlap": 0,
+          "aggregate_title_overlap": 0,
+          "facet_coverage": 0.0,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 0,
+          "shallow_support_count": 0,
+          "lexical_only_count": 0,
+          "weak_support_count": 0,
+          "evidence_sources": [],
+          "decision_basis": "no_retrieved_candidates",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The current corpus did not return sufficiently similar papers, so the idea is assessed as low prior-art risk relative to this baseline."
+      },
+      {
+        "case_id": "MANUAL-004",
+        "case_type": "lexical_stress",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "missing_oracle_ids": [],
+        "risk_label": "low prior-art risk",
+        "risk_score": 0.0,
+        "verdict_matches_expectation": true,
+        "evidence_strengths": [],
+        "top_papers": [],
+        "debug": {
+          "max_similarity": 0.0,
+          "avg_top_similarity": 0.0,
+          "count_above_threshold": 0,
+          "aggregate_keyword_overlap": 0,
+          "aggregate_claim_overlap": 0,
+          "aggregate_title_overlap": 0,
+          "facet_coverage": 0.0,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 0,
+          "shallow_support_count": 0,
+          "lexical_only_count": 0,
+          "weak_support_count": 0,
+          "evidence_sources": [],
+          "decision_basis": "no_retrieved_candidates",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The current corpus did not return sufficiently similar papers, so the idea is assessed as low prior-art risk relative to this baseline."
+      },
+      {
+        "case_id": "MANUAL-005",
+        "case_type": "clear_positive",
+        "expected_risk": "high prior-art risk",
+        "oracle_evidence_ids": [
+          "C001",
+          "C003",
+          "C004"
+        ],
+        "missing_oracle_ids": [],
+        "risk_label": "medium prior-art risk",
+        "risk_score": 0.5489,
+        "verdict_matches_expectation": false,
+        "evidence_strengths": [
+          "partial overlap",
+          "lexical-only similarity",
+          "adjacent-but-distinct similarity"
+        ],
+        "top_papers": [
+          "C001",
+          "C003",
+          "C004"
+        ],
+        "debug": {
+          "max_similarity": 0.775,
+          "avg_top_similarity": 0.6533,
+          "count_above_threshold": 2,
+          "aggregate_keyword_overlap": 3,
+          "aggregate_claim_overlap": 2,
+          "aggregate_title_overlap": 0,
+          "facet_coverage": 0.2222,
+          "evidence_count_ratio": 1.0,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 1,
+          "shallow_support_count": 1,
+          "lexical_only_count": 1,
+          "weak_support_count": 1,
+          "evidence_sources": [
+            "oracle"
+          ],
+          "decision_basis": "moderate_overlap_signals",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The idea is assessed as medium prior-art risk with score 0.55. Top overlapping papers include PatentMatch: A Dataset for Matching Patent Claims & Prior Art, SEARCHFORMER: Semantic patent embeddings by siamese transformers for prior art search. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C001: matched 7 terms, claims 2; C003: matched 8 terms, claims 0; C004: matched 3 terms, claims 0. This verdict is evidence-grounded and limited to the local indexed corpus."
+      },
+      {
+        "case_id": "CURATED-006",
+        "case_type": "adjacent_distinct",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "missing_oracle_ids": [],
+        "risk_label": "low prior-art risk",
+        "risk_score": 0.0,
+        "verdict_matches_expectation": true,
+        "evidence_strengths": [],
+        "top_papers": [],
+        "debug": {
+          "max_similarity": 0.0,
+          "avg_top_similarity": 0.0,
+          "count_above_threshold": 0,
+          "aggregate_keyword_overlap": 0,
+          "aggregate_claim_overlap": 0,
+          "aggregate_title_overlap": 0,
+          "facet_coverage": 0.0,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 0,
+          "shallow_support_count": 0,
+          "lexical_only_count": 0,
+          "weak_support_count": 0,
+          "evidence_sources": [],
+          "decision_basis": "no_retrieved_candidates",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The current corpus did not return sufficiently similar papers, so the idea is assessed as low prior-art risk relative to this baseline."
+      },
+      {
+        "case_id": "CURATED-007",
+        "case_type": "borderline",
+        "expected_risk": "medium prior-art risk",
+        "oracle_evidence_ids": [
+          "C005",
+          "C007"
+        ],
+        "missing_oracle_ids": [],
+        "risk_label": "high prior-art risk",
+        "risk_score": 0.8961,
+        "verdict_matches_expectation": false,
+        "evidence_strengths": [
+          "direct overlap",
+          "partial overlap"
+        ],
+        "top_papers": [
+          "C005",
+          "C007"
+        ],
+        "debug": {
+          "max_similarity": 1.0,
+          "avg_top_similarity": 0.895,
+          "count_above_threshold": 2,
+          "aggregate_keyword_overlap": 1,
+          "aggregate_claim_overlap": 5,
+          "aggregate_title_overlap": 1,
+          "facet_coverage": 0.6667,
+          "evidence_count_ratio": 0.6667,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 1,
+          "shallow_support_count": 0,
+          "lexical_only_count": 0,
+          "weak_support_count": 0,
+          "evidence_sources": [
+            "oracle"
+          ],
+          "decision_basis": "high_overlap_signals",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The idea is assessed as high prior-art risk with score 0.90. Top overlapping papers include LitSearch: A Retrieval Benchmark for Scientific Literature Search, OpenNovelty: An LLM-powered Agentic System for Verifiable Scholarly Novelty Assessment. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C005: matched 9 terms, claims 3; C007: matched 10 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus."
+      },
+      {
+        "case_id": "CURATED-008",
+        "case_type": "lexical_stress",
+        "expected_risk": "low prior-art risk",
+        "oracle_evidence_ids": [],
+        "missing_oracle_ids": [],
+        "risk_label": "low prior-art risk",
+        "risk_score": 0.0,
+        "verdict_matches_expectation": true,
+        "evidence_strengths": [],
+        "top_papers": [],
+        "debug": {
+          "max_similarity": 0.0,
+          "avg_top_similarity": 0.0,
+          "count_above_threshold": 0,
+          "aggregate_keyword_overlap": 0,
+          "aggregate_claim_overlap": 0,
+          "aggregate_title_overlap": 0,
+          "facet_coverage": 0.0,
+          "multi_source_ratio": 0.0,
+          "strong_support_count": 0,
+          "shallow_support_count": 0,
+          "lexical_only_count": 0,
+          "weak_support_count": 0,
+          "evidence_sources": [],
+          "decision_basis": "no_retrieved_candidates",
+          "retrieval_strategy": "oracle",
+          "reranker_strategy": "overlap"
+        },
+        "explanation": "The current corpus did not return sufficiently similar papers, so the idea is assessed as low prior-art risk relative to this baseline."
+      }
+    ],
+    "observations": [
+      "oracle: accuracy=0.62, macro-F1=0.47, predicted labels={'low prior-art risk': 4, 'medium prior-art risk': 1, 'high prior-art risk': 3}"
+    ]
+  },
+  "end_to_end_verdict_evaluation": {
+    "modes": {
+      "sparse": {
+        "summary": {
+          "accuracy": 0.625,
+          "macro_f1": 0.4333,
+          "per_label": {
+            "low prior-art risk": {
+              "precision": 0.6667,
+              "recall": 1.0,
+              "f1": 0.8,
+              "support": 4
+            },
+            "medium prior-art risk": {
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "support": 2
+            },
+            "high prior-art risk": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1": 0.0,
+              "support": 2
+            }
+          },
+          "confusion": {
+            "low prior-art risk": {
+              "low prior-art risk": 4,
+              "medium prior-art risk": 0,
+              "high prior-art risk": 0
+            },
+            "medium prior-art risk": {
+              "low prior-art risk": 1,
+              "medium prior-art risk": 1,
+              "high prior-art risk": 0
+            },
+            "high prior-art risk": {
+              "low prior-art risk": 1,
+              "medium prior-art risk": 1,
+              "high prior-art risk": 0
+            }
+          },
+          "predicted_label_distribution": {
+            "low prior-art risk": 6,
+            "medium prior-art risk": 2,
+            "high prior-art risk": 0
+          },
+          "expected_label_distribution": {
+            "low prior-art risk": 4,
+            "medium prior-art risk": 2,
+            "high prior-art risk": 2
+          },
+          "average_risk_score": 0.2633,
+          "mismatch_cases": [
+            "MANUAL-001",
+            "MANUAL-002",
+            "MANUAL-005"
+          ],
+          "case_type_breakdown": {
+            "near_duplicate": {
+              "case_count": 1,
+              "match_count": 0,
+              "match_rate": 0.0
+            },
+            "borderline": {
+              "case_count": 2,
+              "match_count": 1,
+              "match_rate": 0.5
+            },
+            "clear_negative": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            },
+            "lexical_stress": {
+              "case_count": 2,
+              "match_count": 2,
+              "match_rate": 1.0
+            },
+            "clear_positive": {
+              "case_count": 1,
+              "match_count": 0,
+              "match_rate": 0.0
+            },
+            "adjacent_distinct": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            }
+          }
+        },
+        "cases": [
+          {
+            "case_id": "MANUAL-001",
+            "case_type": "near_duplicate",
+            "mode": "sparse",
+            "expected_risk": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
+            "risk_score": 0.574,
+            "top_papers": [
+              "C007",
+              "C003",
+              "C005"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": false,
+            "debug": {
+              "max_similarity": 0.2744,
+              "avg_top_similarity": 0.2015,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 7,
+              "aggregate_title_overlap": 4,
+              "facet_coverage": 0.5556,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 2,
+              "shallow_support_count": 0,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "sparse"
+              ],
+              "decision_basis": "moderate_overlap_signals",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-002",
+            "case_type": "borderline",
+            "mode": "sparse",
+            "expected_risk": "medium prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.437,
+            "top_papers": [
+              "C007",
+              "C005",
+              "C006"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": false,
+            "debug": {
+              "max_similarity": 0.1691,
+              "avg_top_similarity": 0.1457,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 1,
+              "aggregate_claim_overlap": 5,
+              "aggregate_title_overlap": 2,
+              "facet_coverage": 0.6667,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 2,
+              "shallow_support_count": 1,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "sparse"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-003",
+            "case_type": "clear_negative",
+            "mode": "sparse",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.0,
+            "top_papers": [],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.0,
+              "avg_top_similarity": 0.0,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 0,
+              "aggregate_title_overlap": 0,
+              "facet_coverage": 0.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 0,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [],
+              "decision_basis": "no_retrieved_candidates",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-004",
+            "case_type": "lexical_stress",
+            "mode": "sparse",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.0,
+            "top_papers": [],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.0,
+              "avg_top_similarity": 0.0,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 0,
+              "aggregate_title_overlap": 0,
+              "facet_coverage": 0.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 0,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [],
+              "decision_basis": "no_retrieved_candidates",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-005",
+            "case_type": "clear_positive",
+            "mode": "sparse",
+            "expected_risk": "high prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.4413,
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": false,
+            "debug": {
+              "max_similarity": 0.1963,
+              "avg_top_similarity": 0.1763,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 4,
+              "aggregate_claim_overlap": 3,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.5556,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 2,
+              "shallow_support_count": 0,
+              "lexical_only_count": 1,
+              "weak_support_count": 1,
+              "evidence_sources": [
+                "sparse"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-006",
+            "case_type": "adjacent_distinct",
+            "mode": "sparse",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.0,
+            "top_papers": [
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.1506,
+              "avg_top_similarity": 0.1506,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 1,
+              "aggregate_claim_overlap": 0,
+              "aggregate_title_overlap": 0,
+              "facet_coverage": 0.3333,
+              "evidence_count_ratio": 0.3333,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 1,
+              "lexical_only_count": 1,
+              "weak_support_count": 1,
+              "evidence_sources": [
+                "sparse"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-007",
+            "case_type": "borderline",
+            "mode": "sparse",
+            "expected_risk": "medium prior-art risk",
+            "risk_label": "medium prior-art risk",
+            "risk_score": 0.4668,
+            "top_papers": [
+              "C007",
+              "C005"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.2535,
+              "avg_top_similarity": 0.2163,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 1,
+              "aggregate_claim_overlap": 5,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.6667,
+              "evidence_count_ratio": 0.6667,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 1,
+              "shallow_support_count": 0,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "sparse"
+              ],
+              "decision_basis": "moderate_overlap_signals",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-008",
+            "case_type": "lexical_stress",
+            "mode": "sparse",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.1871,
+            "top_papers": [
+              "C001",
+              "C007",
+              "C003"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.2218,
+              "avg_top_similarity": 0.182,
+              "count_above_threshold": 0,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 2,
+              "aggregate_title_overlap": 2,
+              "facet_coverage": 0.4444,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 2,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "sparse"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "sparse",
+              "reranker_strategy": "overlap"
+            }
+          }
+        ]
+      },
+      "dense": {
+        "summary": {
+          "accuracy": 0.75,
+          "macro_f1": 0.719,
+          "per_label": {
+            "low prior-art risk": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571,
+              "support": 4
+            },
+            "medium prior-art risk": {
+              "precision": 0.5,
+              "recall": 0.5,
+              "f1": 0.5,
+              "support": 2
+            },
+            "high prior-art risk": {
+              "precision": 0.6667,
+              "recall": 1.0,
+              "f1": 0.8,
+              "support": 2
+            }
+          },
+          "confusion": {
+            "low prior-art risk": {
+              "low prior-art risk": 3,
+              "medium prior-art risk": 1,
+              "high prior-art risk": 0
+            },
+            "medium prior-art risk": {
+              "low prior-art risk": 0,
+              "medium prior-art risk": 1,
+              "high prior-art risk": 1
+            },
+            "high prior-art risk": {
+              "low prior-art risk": 0,
+              "medium prior-art risk": 0,
+              "high prior-art risk": 2
+            }
+          },
+          "predicted_label_distribution": {
+            "low prior-art risk": 3,
+            "medium prior-art risk": 2,
+            "high prior-art risk": 3
+          },
+          "expected_label_distribution": {
+            "low prior-art risk": 4,
+            "medium prior-art risk": 2,
+            "high prior-art risk": 2
+          },
+          "average_risk_score": 0.6124,
+          "mismatch_cases": [
+            "MANUAL-002",
+            "CURATED-008"
+          ],
+          "case_type_breakdown": {
+            "near_duplicate": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            },
+            "borderline": {
+              "case_count": 2,
+              "match_count": 1,
+              "match_rate": 0.5
+            },
+            "clear_negative": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            },
+            "lexical_stress": {
+              "case_count": 2,
+              "match_count": 1,
+              "match_rate": 0.5
+            },
+            "clear_positive": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            },
+            "adjacent_distinct": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            }
+          }
+        },
+        "cases": [
+          {
+            "case_id": "MANUAL-001",
+            "case_type": "near_duplicate",
+            "mode": "dense",
+            "expected_risk": "high prior-art risk",
+            "risk_label": "high prior-art risk",
+            "risk_score": 0.8889,
+            "top_papers": [
+              "C007",
+              "C003",
+              "C002"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.8612,
+              "avg_top_similarity": 0.6698,
+              "count_above_threshold": 5,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 4,
+              "aggregate_title_overlap": 5,
+              "facet_coverage": 0.4444,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 1,
+              "shallow_support_count": 0,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "high_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-002",
+            "case_type": "borderline",
+            "mode": "dense",
+            "expected_risk": "medium prior-art risk",
+            "risk_label": "high prior-art risk",
+            "risk_score": 0.8093,
+            "top_papers": [
+              "C007",
+              "C005",
+              "C006"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": false,
+            "debug": {
+              "max_similarity": 0.7579,
+              "avg_top_similarity": 0.657,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 1,
+              "aggregate_claim_overlap": 5,
+              "aggregate_title_overlap": 2,
+              "facet_coverage": 0.6667,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 2,
+              "shallow_support_count": 1,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "high_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-003",
+            "case_type": "clear_negative",
+            "mode": "dense",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.3148,
+            "top_papers": [
+              "C004",
+              "C003",
+              "C001"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.8859,
+              "avg_top_similarity": 0.7608,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 3,
+              "aggregate_claim_overlap": 0,
+              "aggregate_title_overlap": 0,
+              "facet_coverage": 0.3333,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 3,
+              "lexical_only_count": 3,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-004",
+            "case_type": "lexical_stress",
+            "mode": "dense",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.3996,
+            "top_papers": [
+              "C005",
+              "C006",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.6927,
+              "avg_top_similarity": 0.6246,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 2,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.3333,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 3,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-005",
+            "case_type": "clear_positive",
+            "mode": "dense",
+            "expected_risk": "high prior-art risk",
+            "risk_label": "high prior-art risk",
+            "risk_score": 0.8582,
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.7975,
+              "avg_top_similarity": 0.7275,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 4,
+              "aggregate_claim_overlap": 3,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.5556,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 2,
+              "shallow_support_count": 0,
+              "lexical_only_count": 1,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "high_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-006",
+            "case_type": "adjacent_distinct",
+            "mode": "dense",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.262,
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.8934,
+              "avg_top_similarity": 0.6628,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 1,
+              "aggregate_claim_overlap": 0,
+              "aggregate_title_overlap": 0,
+              "facet_coverage": 0.1111,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 3,
+              "lexical_only_count": 1,
+              "weak_support_count": 2,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-007",
+            "case_type": "borderline",
+            "mode": "dense",
+            "expected_risk": "medium prior-art risk",
+            "risk_label": "medium prior-art risk",
+            "risk_score": 0.7484,
+            "top_papers": [
+              "C007",
+              "C005",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.9627,
+              "avg_top_similarity": 0.6202,
+              "count_above_threshold": 2,
+              "aggregate_keyword_overlap": 2,
+              "aggregate_claim_overlap": 5,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.5556,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 1,
+              "shallow_support_count": 1,
+              "lexical_only_count": 1,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "moderate_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-008",
+            "case_type": "lexical_stress",
+            "mode": "dense",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "medium prior-art risk",
+            "risk_score": 0.6182,
+            "top_papers": [
+              "C003",
+              "C001",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": false,
+            "debug": {
+              "max_similarity": 0.9354,
+              "avg_top_similarity": 0.7847,
+              "count_above_threshold": 4,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 2,
+              "aggregate_title_overlap": 2,
+              "facet_coverage": 0.4444,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 2,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense"
+              ],
+              "decision_basis": "moderate_overlap_signals",
+              "retrieval_strategy": "dense",
+              "reranker_strategy": "overlap"
+            }
+          }
+        ]
+      },
+      "hybrid": {
+        "summary": {
+          "accuracy": 0.875,
+          "macro_f1": 0.8857,
+          "per_label": {
+            "low prior-art risk": {
+              "precision": 1.0,
+              "recall": 0.75,
+              "f1": 0.8571,
+              "support": 4
+            },
+            "medium prior-art risk": {
+              "precision": 0.6667,
+              "recall": 1.0,
+              "f1": 0.8,
+              "support": 2
+            },
+            "high prior-art risk": {
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 2
+            }
+          },
+          "confusion": {
+            "low prior-art risk": {
+              "low prior-art risk": 3,
+              "medium prior-art risk": 1,
+              "high prior-art risk": 0
+            },
+            "medium prior-art risk": {
+              "low prior-art risk": 0,
+              "medium prior-art risk": 2,
+              "high prior-art risk": 0
+            },
+            "high prior-art risk": {
+              "low prior-art risk": 0,
+              "medium prior-art risk": 0,
+              "high prior-art risk": 2
+            }
+          },
+          "predicted_label_distribution": {
+            "low prior-art risk": 3,
+            "medium prior-art risk": 3,
+            "high prior-art risk": 2
+          },
+          "expected_label_distribution": {
+            "low prior-art risk": 4,
+            "medium prior-art risk": 2,
+            "high prior-art risk": 2
+          },
+          "average_risk_score": 0.5828,
+          "mismatch_cases": [
+            "CURATED-008"
+          ],
+          "case_type_breakdown": {
+            "near_duplicate": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            },
+            "borderline": {
+              "case_count": 2,
+              "match_count": 2,
+              "match_rate": 1.0
+            },
+            "clear_negative": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            },
+            "lexical_stress": {
+              "case_count": 2,
+              "match_count": 1,
+              "match_rate": 0.5
+            },
+            "clear_positive": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            },
+            "adjacent_distinct": {
+              "case_count": 1,
+              "match_count": 1,
+              "match_rate": 1.0
+            }
+          }
+        },
+        "cases": [
+          {
+            "case_id": "MANUAL-001",
+            "case_type": "near_duplicate",
+            "mode": "hybrid",
+            "expected_risk": "high prior-art risk",
+            "risk_label": "high prior-art risk",
+            "risk_score": 0.864,
+            "top_papers": [
+              "C007",
+              "C003",
+              "C002"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.6702,
+              "avg_top_similarity": 0.559,
+              "count_above_threshold": 4,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 4,
+              "aggregate_title_overlap": 5,
+              "facet_coverage": 0.4444,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 1.0,
+              "strong_support_count": 1,
+              "shallow_support_count": 0,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense",
+                "hybrid",
+                "sparse"
+              ],
+              "decision_basis": "high_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-002",
+            "case_type": "borderline",
+            "mode": "hybrid",
+            "expected_risk": "medium prior-art risk",
+            "risk_label": "medium prior-art risk",
+            "risk_score": 0.7885,
+            "top_papers": [
+              "C007",
+              "C005",
+              "C006"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.5868,
+              "avg_top_similarity": 0.5312,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 1,
+              "aggregate_claim_overlap": 5,
+              "aggregate_title_overlap": 2,
+              "facet_coverage": 0.6667,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 1.0,
+              "strong_support_count": 2,
+              "shallow_support_count": 1,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense",
+                "hybrid",
+                "sparse"
+              ],
+              "decision_basis": "moderate_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-003",
+            "case_type": "clear_negative",
+            "mode": "hybrid",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.3333,
+            "top_papers": [
+              "C004",
+              "C003",
+              "C001"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.9137,
+              "avg_top_similarity": 0.8108,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 3,
+              "aggregate_claim_overlap": 0,
+              "aggregate_title_overlap": 0,
+              "facet_coverage": 0.3333,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 3,
+              "lexical_only_count": 3,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense",
+                "hybrid"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-004",
+            "case_type": "lexical_stress",
+            "mode": "hybrid",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.4378,
+            "top_papers": [
+              "C005",
+              "C006",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.7622,
+              "avg_top_similarity": 0.7052,
+              "count_above_threshold": 5,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 2,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.3333,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 3,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense",
+                "hybrid"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "MANUAL-005",
+            "case_type": "clear_positive",
+            "mode": "hybrid",
+            "expected_risk": "high prior-art risk",
+            "risk_label": "high prior-art risk",
+            "risk_score": 0.8279,
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.6135,
+              "avg_top_similarity": 0.5733,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 4,
+              "aggregate_claim_overlap": 3,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.5556,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 1.0,
+              "strong_support_count": 2,
+              "shallow_support_count": 0,
+              "lexical_only_count": 1,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense",
+                "hybrid",
+                "sparse"
+              ],
+              "decision_basis": "high_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-006",
+            "case_type": "adjacent_distinct",
+            "mode": "hybrid",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "low prior-art risk",
+            "risk_score": 0.1758,
+            "top_papers": [
+              "C007",
+              "C001",
+              "C003"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.6296,
+              "avg_top_similarity": 0.5713,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 1,
+              "aggregate_claim_overlap": 0,
+              "aggregate_title_overlap": 0,
+              "facet_coverage": 0.1111,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.3333,
+              "strong_support_count": 0,
+              "shallow_support_count": 3,
+              "lexical_only_count": 1,
+              "weak_support_count": 2,
+              "evidence_sources": [
+                "dense",
+                "hybrid",
+                "sparse"
+              ],
+              "decision_basis": "limited_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-007",
+            "case_type": "borderline",
+            "mode": "hybrid",
+            "expected_risk": "medium prior-art risk",
+            "risk_label": "medium prior-art risk",
+            "risk_score": 0.6838,
+            "top_papers": [
+              "C007",
+              "C005",
+              "C003"
+            ],
+            "retrieval_hit_top3": true,
+            "verdict_matches_expectation": true,
+            "debug": {
+              "max_similarity": 0.7025,
+              "avg_top_similarity": 0.5306,
+              "count_above_threshold": 2,
+              "aggregate_keyword_overlap": 2,
+              "aggregate_claim_overlap": 5,
+              "aggregate_title_overlap": 1,
+              "facet_coverage": 0.5556,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 0.6667,
+              "strong_support_count": 1,
+              "shallow_support_count": 1,
+              "lexical_only_count": 1,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense",
+                "hybrid",
+                "sparse"
+              ],
+              "decision_basis": "moderate_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          },
+          {
+            "case_id": "CURATED-008",
+            "case_type": "lexical_stress",
+            "mode": "hybrid",
+            "expected_risk": "low prior-art risk",
+            "risk_label": "medium prior-art risk",
+            "risk_score": 0.5513,
+            "top_papers": [
+              "C001",
+              "C003",
+              "C007"
+            ],
+            "retrieval_hit_top3": false,
+            "verdict_matches_expectation": false,
+            "debug": {
+              "max_similarity": 0.6604,
+              "avg_top_similarity": 0.5991,
+              "count_above_threshold": 3,
+              "aggregate_keyword_overlap": 0,
+              "aggregate_claim_overlap": 2,
+              "aggregate_title_overlap": 2,
+              "facet_coverage": 0.4444,
+              "evidence_count_ratio": 1.0,
+              "multi_source_ratio": 1.0,
+              "strong_support_count": 0,
+              "shallow_support_count": 2,
+              "lexical_only_count": 0,
+              "weak_support_count": 0,
+              "evidence_sources": [
+                "dense",
+                "hybrid",
+                "sparse"
+              ],
+              "decision_basis": "moderate_overlap_signals",
+              "retrieval_strategy": "hybrid",
+              "reranker_strategy": "overlap"
+            }
+          }
+        ]
+      }
     },
-    "hybrid": {
-      "case_count": 8,
-      "verdict_match_count": 7,
-      "verdict_match_rate": 0.875,
-      "average_risk_score": 0.5828,
-      "label_counts": {
-        "high prior-art risk": 2,
-        "medium prior-art risk": 3,
-        "low prior-art risk": 3
+    "observations": [
+      "sparse: accuracy=0.62, macro-F1=0.43.",
+      "dense: accuracy=0.75, macro-F1=0.72.",
+      "hybrid: accuracy=0.88, macro-F1=0.89."
+    ]
+  },
+  "ablation_block": {
+    "modes": {
+      "sparse": {
+        "retrieval_hit_top3_rate": 1.0,
+        "end_to_end_accuracy": 0.625,
+        "end_to_end_macro_f1": 0.4333
       },
-      "mismatch_cases": [
-        "CURATED-008"
-      ]
+      "dense": {
+        "retrieval_hit_top3_rate": 1.0,
+        "end_to_end_accuracy": 0.75,
+        "end_to_end_macro_f1": 0.719
+      },
+      "hybrid": {
+        "retrieval_hit_top3_rate": 1.0,
+        "end_to_end_accuracy": 0.875,
+        "end_to_end_macro_f1": 0.8857
+      }
     }
   },
-  "retrieval_observations": [
-    "sparse: positive hit@3=4/4, negative clear=2/4.",
-    "dense: positive hit@3=4/4, negative clear=0/4.",
-    "hybrid: positive hit@3=4/4, negative clear=0/4."
-  ],
-  "verdict_observations": [
-    "sparse: verdict-match rate=0.62, average risk score=0.26.",
-    "dense: verdict-match rate=0.75, average risk score=0.61.",
-    "hybrid: verdict-match rate=0.88, average risk score=0.58."
+  "error_observations": [
+    "Oracle verdict mismatches remain on 3 curated cases, indicating verdict calibration limits beyond retrieval.",
+    "End-to-end mismatches remain on 6 case-mode pairs."
   ],
   "limitation_notes": [
     "The curated corpus is real but still small and intentionally domain-focused.",
-    "Expected risk labels are protocol annotations, not ground-truth statements about absolute novelty.",
+    "Expected risk labels are protocol annotations assigned relative to the frozen curated corpus snapshot.",
     "Dense and hybrid retrieval can still overfire on semantically adjacent cases in a small corpus.",
-    "At least one low-risk case is still elevated by some retrieval modes, indicating residual false-positive pressure."
+    "Temporal admissibility filtering was not implemented in this pass."
   ],
   "before_after_comparison": {
     "shared_case_ids": [
+      "CURATED-006",
+      "CURATED-007",
+      "CURATED-008",
       "MANUAL-001",
       "MANUAL-002",
       "MANUAL-003",
       "MANUAL-004",
       "MANUAL-005"
     ],
-    "new_case_ids": [
-      "CURATED-006",
-      "CURATED-007",
-      "CURATED-008"
-    ],
+    "new_case_ids": [],
     "mode_deltas": {
       "sparse": {
-        "shared_case_count": 5,
-        "verdict_match_rate_before": 0.4,
-        "verdict_match_rate_after": 0.4,
-        "low_label_count_before": 5,
-        "low_label_count_after": 4,
+        "shared_case_count": 8,
+        "verdict_match_rate_before": 0.625,
+        "verdict_match_rate_after": 0.625,
+        "low_label_count_before": 6,
+        "low_label_count_after": 6,
         "high_label_count_before": 0,
         "high_label_count_after": 0
       },
       "dense": {
-        "shared_case_count": 5,
-        "verdict_match_rate_before": 0.4,
-        "verdict_match_rate_after": 0.8,
-        "low_label_count_before": 0,
-        "low_label_count_after": 2,
-        "high_label_count_before": 5,
+        "shared_case_count": 8,
+        "verdict_match_rate_before": 0.75,
+        "verdict_match_rate_after": 0.75,
+        "low_label_count_before": 3,
+        "low_label_count_after": 3,
+        "high_label_count_before": 3,
         "high_label_count_after": 3
       },
       "hybrid": {
-        "shared_case_count": 5,
-        "verdict_match_rate_before": 0.4,
-        "verdict_match_rate_after": 1.0,
-        "low_label_count_before": 0,
-        "low_label_count_after": 2,
-        "high_label_count_before": 5,
+        "shared_case_count": 8,
+        "verdict_match_rate_before": 0.875,
+        "verdict_match_rate_after": 0.875,
+        "low_label_count_before": 3,
+        "low_label_count_after": 3,
+        "high_label_count_before": 2,
         "high_label_count_after": 2
       }
     },
-    "case_level_changes": [
-      {
-        "case_id": "MANUAL-001",
-        "mode": "sparse",
-        "risk_label_before": "low prior-art risk",
-        "risk_label_after": "medium prior-art risk",
-        "risk_score_before": 0.3294,
-        "risk_score_after": 0.574
-      },
-      {
-        "case_id": "MANUAL-002",
-        "mode": "hybrid",
-        "risk_label_before": "high prior-art risk",
-        "risk_label_after": "medium prior-art risk",
-        "risk_score_before": 0.9169,
-        "risk_score_after": 0.7885
-      },
-      {
-        "case_id": "MANUAL-003",
-        "mode": "dense",
-        "risk_label_before": "high prior-art risk",
-        "risk_label_after": "low prior-art risk",
-        "risk_score_before": 0.9022,
-        "risk_score_after": 0.3148
-      },
-      {
-        "case_id": "MANUAL-003",
-        "mode": "hybrid",
-        "risk_label_before": "high prior-art risk",
-        "risk_label_after": "low prior-art risk",
-        "risk_score_before": 0.9272,
-        "risk_score_after": 0.3333
-      },
-      {
-        "case_id": "MANUAL-004",
-        "mode": "dense",
-        "risk_label_before": "high prior-art risk",
-        "risk_label_after": "low prior-art risk",
-        "risk_score_before": 0.7612,
-        "risk_score_after": 0.3996
-      },
-      {
-        "case_id": "MANUAL-004",
-        "mode": "hybrid",
-        "risk_label_before": "high prior-art risk",
-        "risk_label_after": "low prior-art risk",
-        "risk_score_before": 0.8126,
-        "risk_score_after": 0.4378
-      }
-    ]
+    "case_level_changes": [],
+    "structure_changes": {
+      "retrieval_layer_separated": true,
+      "oracle_verdict_layer_added": true,
+      "end_to_end_layer_separated": true
+    }
   }
 }

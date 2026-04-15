@@ -3,7 +3,10 @@
     "case_id": "MANUAL-001",
     "expected_risk": "high prior-art risk",
     "expected_relevant_paper_ids": ["C005", "C007"],
+    "oracle_evidence_ids": ["C005", "C007"],
+    "case_type": "near_duplicate",
     "control_type": "legacy-positive",
+    "annotation_rationale": "Direct overlap with the module topic and evidence-grounded literature risk framing.",
     "control_note": "Retained as a high-overlap positive anchor for the curated experiment.",
     "failure_mode": "positive case underestimation by conservative verdict logic"
   },
@@ -11,7 +14,10 @@
     "case_id": "MANUAL-002",
     "expected_risk": "medium prior-art risk",
     "expected_relevant_paper_ids": ["C005", "C007"],
+    "oracle_evidence_ids": ["C005", "C007"],
+    "case_type": "borderline",
     "control_type": "legacy-borderline",
+    "annotation_rationale": "Substantively related to literature screening but not a near-duplicate of existing prior-art risk systems.",
     "control_note": "Retained as a moderate-overlap case to monitor over-escalation into high risk.",
     "failure_mode": "borderline cases collapsing into high-risk labels"
   },
@@ -19,7 +25,10 @@
     "case_id": "MANUAL-003",
     "expected_risk": "low prior-art risk",
     "expected_relevant_paper_ids": [],
+    "oracle_evidence_ids": [],
+    "case_type": "clear_negative",
     "control_type": "legacy-negative",
+    "annotation_rationale": "Out-of-domain computer vision task with no admissible prior-art evidence in the curated corpus.",
     "control_note": "Retained as an out-of-domain negative control.",
     "failure_mode": "semantic adjacency causing false-positive dense or hybrid verdicts"
   },
@@ -27,7 +36,10 @@
     "case_id": "MANUAL-004",
     "expected_risk": "low prior-art risk",
     "expected_relevant_paper_ids": [],
+    "oracle_evidence_ids": [],
+    "case_type": "lexical_stress",
     "control_type": "legacy-lexical-stress",
+    "annotation_rationale": "Shares academic workflow wording with the corpus but does not perform prior-art assessment.",
     "control_note": "Retained to test lexical coincidence against workflow-management semantics.",
     "failure_mode": "generic academic wording triggering false overlap signals"
   },
@@ -35,7 +47,10 @@
     "case_id": "MANUAL-005",
     "expected_risk": "high prior-art risk",
     "expected_relevant_paper_ids": ["C001", "C002", "C003", "C004"],
+    "oracle_evidence_ids": ["C001", "C003", "C004"],
+    "case_type": "clear_positive",
     "control_type": "legacy-positive",
+    "annotation_rationale": "Strong claim-aware and prior-art-search overlap with multiple curated scholarly records.",
     "control_note": "Retained as a claim-aware positive case on the curated scholarly setup.",
     "failure_mode": "underestimating strong claim-aware overlap"
   },
@@ -43,7 +58,10 @@
     "case_id": "CURATED-006",
     "expected_risk": "low prior-art risk",
     "expected_relevant_paper_ids": [],
+    "oracle_evidence_ids": [],
+    "case_type": "adjacent_distinct",
     "control_type": "new-negative-control",
+    "annotation_rationale": "Scholarly process tooling adjacent to peer review, but distinct from prior-art overlap assessment.",
     "control_note": "Added to test domain-adjacent scholarly process language that should remain low risk because it is about peer-review operations rather than prior-art assessment.",
     "failure_mode": "mode overprediction on semantically adjacent but non-overlap reviewer workflow cases"
   },
@@ -51,7 +69,10 @@
     "case_id": "CURATED-007",
     "expected_risk": "medium prior-art risk",
     "expected_relevant_paper_ids": ["C005", "C007"],
+    "oracle_evidence_ids": ["C005", "C007"],
+    "case_type": "borderline",
     "control_type": "new-borderline-control",
+    "annotation_rationale": "Proposal-screening overlap is real, but the idea stops short of stronger claim-level novelty analysis.",
     "control_note": "Added as a borderline research-proposal screening case that should surface real literature overlap without collapsing into a high-risk verdict by default.",
     "failure_mode": "borderline proposal-screening cases receiving inflated high-risk labels"
   },
@@ -59,7 +80,10 @@
     "case_id": "CURATED-008",
     "expected_risk": "low prior-art risk",
     "expected_relevant_paper_ids": [],
+    "oracle_evidence_ids": [],
+    "case_type": "lexical_stress",
     "control_type": "new-lexical-stress-control",
+    "annotation_rationale": "Patent and claim operations wording overlaps lexically with the corpus but remains operational rather than prior-art analytic.",
     "control_note": "Added to separate patent-and-claim operational workflow language from substantive prior-art search and novelty-risk assessment behavior.",
     "failure_mode": "lexical coincidence around patent claims and evidence causing false positives"
   }

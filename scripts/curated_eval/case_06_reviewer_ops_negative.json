@@ -1,5 +1,6 @@
 {
   "idea_id": "CURATED-006",
+  "case_type": "adjacent_distinct",
   "title": "Reviewer workload forecasting for conference program committees",
   "abstract": "We propose a planning system that forecasts reviewer demand, balances assignment load, estimates deadline pressure, and summarizes discussion volume for conference program committees. The system supports peer-review operations but does not search prior art or assess novelty overlap.",
   "keywords": [

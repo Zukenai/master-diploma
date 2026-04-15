@@ -1,5 +1,6 @@
 {
   "idea_id": "CURATED-007",
+  "case_type": "borderline",
   "title": "Evidence-backed literature overlap screening for early-stage research proposals",
   "abstract": "The module retrieves related scholarly papers for an early-stage proposal, surfaces overlap indicators and supporting citations, and helps authors estimate whether the proposal is already close to existing work. It intentionally stops short of claim-level patent search or absolute novelty judgement.",
   "keywords": [

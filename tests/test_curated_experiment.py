@@ -55,6 +55,9 @@ def test_curated_experiment_generates_separate_observation_sections(tmp_path) ->
                     "case_id": "CASE-1",
                     "expected_risk": "high prior-art risk",
                     "expected_relevant_paper_ids": ["C001"],
+                    "oracle_evidence_ids": ["C001"],
+                    "case_type": "clear_positive",
+                    "annotation_rationale": "Direct curated overlap.",
                 }
             ]
         ),
@@ -81,8 +84,10 @@ def test_curated_experiment_generates_separate_observation_sections(tmp_path) ->
     report = run_curated_experiment(config, output_path=report_path, notes_path=notes_path)
 
     assert report["corpus_summary"]["document_count"] == 2
-    assert report["retrieval_observations"]
-    assert report["verdict_observations"]
+    assert report["retrieval_evaluation"]["observations"]
+    assert report["oracle_verdict_evaluation"]["summary"]["accuracy"] >= 0.0
+    assert report["end_to_end_verdict_evaluation"]["observations"]
+    assert report["dataset_summary"]["case_type_distribution"]["clear_positive"] == 1
     assert report["limitation_notes"]
     assert report_path.exists()
     assert notes_path.exists()
@@ -129,6 +134,9 @@ def test_curated_experiment_reports_before_after_comparison(tmp_path) -> None:
                     "case_id": "CASE-1",
                     "expected_risk": "high prior-art risk",
                     "expected_relevant_paper_ids": ["C001"],
+                    "oracle_evidence_ids": ["C001"],
+                    "case_type": "near_duplicate",
+                    "annotation_rationale": "Direct curated overlap.",
                 }
             ]
         ),
