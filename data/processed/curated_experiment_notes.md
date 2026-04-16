@@ -1,51 +1,104 @@
 # Curated Experiment Notes
 
 ## Dataset Summary
-- document count: 7
-- case count: 8
-- oracle annotation coverage: 8/8
+- curated document count: 10
+- curated case count: 12
+- oracle annotation coverage: 12/12
 - protocol doc: docs/evaluation_annotation_protocol.md
 - case type distribution:
-  - near_duplicate: 1
-  - borderline: 2
+  - near_duplicate: 2
+  - borderline: 4
   - clear_negative: 1
   - lexical_stress: 2
   - clear_positive: 1
-  - adjacent_distinct: 1
+  - adjacent_distinct: 2
+
+## Review / Adjudication Summary
+- labels changed on review: 3
+- case types changed on review: 1
+- oracle evidence sufficiency judgments changed on review: 3
 
 ## Retrieval Evaluation
-- sparse: hit@3=4/4, negative clear=2/4.
-- dense: hit@3=4/4, negative clear=0/4.
-- hybrid: hit@3=4/4, negative clear=0/4.
+- sparse: hit@3=9/9, negative clear=1/3, retrieval success=0.83.
+- dense: hit@3=9/9, negative clear=0/3, retrieval success=0.75.
+- hybrid: hit@3=9/9, negative clear=0/3, retrieval success=0.75.
 
 ## Oracle Verdict Evaluation
-- accuracy=0.62, macro-F1=0.47
+- accuracy=0.58, macro-F1=0.56
+- medium-risk match rate=0.25
+- borderline-case match rate=0.25
+- temporal admissibility: admissible=17, inadmissible=4
 
-## End-to-End Verdict Evaluation
-- sparse: accuracy=0.62, macro-F1=0.43.
-- dense: accuracy=0.75, macro-F1=0.72.
-- hybrid: accuracy=0.88, macro-F1=0.89.
+## End-to-End Evaluation
+- sparse: accuracy=0.83, macro-F1=0.83, borderline match=0.75.
+- dense: accuracy=0.58, macro-F1=0.57, borderline match=0.25.
+- hybrid: accuracy=0.58, macro-F1=0.57, borderline match=0.25.
+
+## Diagnostics
+- failure type breakdown:
+  - ok: 24
+  - oracle_wrong: 4
+  - lexical_overfire: 2
+  - insufficient_evidence_high_verdict: 6
+- per-case diagnostics:
+- MANUAL-001 [sparse] near_duplicate: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (0.94), failure=ok, top=['C008', 'C010', 'C009'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-001 [dense] near_duplicate: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=ok, top=['C008', 'C010', 'C003'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-001 [hybrid] near_duplicate: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=ok, top=['C008', 'C010', 'C003'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-002 [sparse] borderline: expected=medium prior-art risk, oracle=medium prior-art risk (1.00), end-to-end=medium prior-art risk (0.77), failure=ok, top=['C008', 'C010', 'C005'], oracle_top=['C008', 'C005'], decision={'oracle': 'moderate_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': True}
+- MANUAL-002 [dense] borderline: expected=medium prior-art risk, oracle=medium prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=insufficient_evidence_high_verdict, top=['C008', 'C010', 'C005'], oracle_top=['C008', 'C005'], decision={'oracle': 'moderate_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': True}
+- MANUAL-002 [hybrid] borderline: expected=medium prior-art risk, oracle=medium prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=insufficient_evidence_high_verdict, top=['C008', 'C010', 'C005'], oracle_top=['C008', 'C005'], decision={'oracle': 'moderate_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': True}
+- MANUAL-003 [sparse] clear_negative: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=low prior-art risk (0.00), failure=ok, top=[], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'no_retrieved_candidates', 'limited_evidence_high_guard_applied': False}
+- MANUAL-003 [dense] clear_negative: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=low prior-art risk (0.33), failure=ok, top=['C009', 'C003', 'C004'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-003 [hybrid] clear_negative: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=low prior-art risk (0.36), failure=ok, top=['C009', 'C003', 'C004'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-004 [sparse] lexical_stress: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=low prior-art risk (0.07), failure=ok, top=['C008'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-004 [dense] lexical_stress: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=low prior-art risk (0.42), failure=ok, top=['C008', 'C003', 'C005'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-004 [hybrid] lexical_stress: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=low prior-art risk (0.36), failure=ok, top=['C008', 'C003', 'C005'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-005 [sparse] clear_positive: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (0.83), failure=ok, top=['C010', 'C008', 'C009'], oracle_top=['C010', 'C001', 'C003'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-005 [dense] clear_positive: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=ok, top=['C010', 'C008', 'C001'], oracle_top=['C010', 'C001', 'C003'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- MANUAL-005 [hybrid] clear_positive: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=ok, top=['C010', 'C008', 'C009'], oracle_top=['C010', 'C001', 'C003'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-006 [sparse] adjacent_distinct: expected=low prior-art risk, oracle=medium prior-art risk (0.67), end-to-end=low prior-art risk (0.32), failure=ok, top=['C009'], oracle_top=['C009'], decision={'oracle': 'moderate_overlap_signals', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-006 [dense] adjacent_distinct: expected=low prior-art risk, oracle=medium prior-art risk (0.67), end-to-end=low prior-art risk (0.45), failure=ok, top=['C009', 'C003', 'C001'], oracle_top=['C009'], decision={'oracle': 'moderate_overlap_signals', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-006 [hybrid] adjacent_distinct: expected=low prior-art risk, oracle=medium prior-art risk (0.67), end-to-end=low prior-art risk (0.37), failure=ok, top=['C009', 'C003', 'C001'], oracle_top=['C009'], decision={'oracle': 'moderate_overlap_signals', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-007 [sparse] borderline: expected=medium prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (0.93), failure=insufficient_evidence_high_verdict, top=['C008', 'C010', 'C009'], oracle_top=['C005', 'C008'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-007 [dense] borderline: expected=medium prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (0.95), failure=lexical_overfire, top=['C008', 'C010', 'C003'], oracle_top=['C005', 'C008'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-007 [hybrid] borderline: expected=medium prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=insufficient_evidence_high_verdict, top=['C008', 'C010', 'C009'], oracle_top=['C005', 'C008'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-008 [sparse] lexical_stress: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=low prior-art risk (0.40), failure=ok, top=['C010', 'C001', 'C008'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'limited_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-008 [dense] lexical_stress: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=medium prior-art risk (0.66), failure=oracle_wrong, top=['C001', 'C010', 'C003'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-008 [hybrid] lexical_stress: expected=low prior-art risk, oracle=low prior-art risk (0.00), end-to-end=medium prior-art risk (0.63), failure=oracle_wrong, top=['C001', 'C010', 'C003'], oracle_top=[], decision={'oracle': 'no_retrieved_candidates', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-009 [sparse] borderline: expected=medium prior-art risk, oracle=high prior-art risk (1.00), end-to-end=medium prior-art risk (0.71), failure=ok, top=['C008', 'C010', 'C009'], oracle_top=['C005', 'C008'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-009 [dense] borderline: expected=medium prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=insufficient_evidence_high_verdict, top=['C008', 'C010', 'C003'], oracle_top=['C005', 'C008'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-009 [hybrid] borderline: expected=medium prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=insufficient_evidence_high_verdict, top=['C008', 'C010', 'C009'], oracle_top=['C005', 'C008'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-010 [sparse] borderline: expected=medium prior-art risk, oracle=high prior-art risk (0.92), end-to-end=medium prior-art risk (0.49), failure=ok, top=['C008', 'C010'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-010 [dense] borderline: expected=medium prior-art risk, oracle=high prior-art risk (0.92), end-to-end=medium prior-art risk (0.73), failure=ok, top=['C008', 'C010', 'C001'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-010 [hybrid] borderline: expected=medium prior-art risk, oracle=high prior-art risk (0.92), end-to-end=medium prior-art risk (0.69), failure=ok, top=['C008', 'C010', 'C001'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-011 [sparse] near_duplicate: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (0.95), failure=ok, top=['C010', 'C008', 'C003'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-011 [dense] near_duplicate: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=ok, top=['C010', 'C008', 'C003'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-011 [hybrid] near_duplicate: expected=high prior-art risk, oracle=high prior-art risk (1.00), end-to-end=high prior-art risk (1.00), failure=ok, top=['C010', 'C008', 'C003'], oracle_top=['C008', 'C010'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'high_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-012 [sparse] adjacent_distinct: expected=low prior-art risk, oracle=high prior-art risk (0.97), end-to-end=medium prior-art risk (0.58), failure=lexical_overfire, top=['C009', 'C002'], oracle_top=['C009'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': False}
+- CURATED-012 [dense] adjacent_distinct: expected=low prior-art risk, oracle=high prior-art risk (0.97), end-to-end=medium prior-art risk (0.94), failure=oracle_wrong, top=['C009', 'C003'], oracle_top=['C009'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': True}
+- CURATED-012 [hybrid] adjacent_distinct: expected=low prior-art risk, oracle=high prior-art risk (0.97), end-to-end=medium prior-art risk (0.95), failure=oracle_wrong, top=['C009', 'C003'], oracle_top=['C009'], decision={'oracle': 'high_overlap_signals', 'end_to_end': 'moderate_overlap_signals', 'limited_evidence_high_guard_applied': True}
+
+## Calibration
+- Expanded curated evaluation to 10 curated documents and 12 curated cases with explicit review/adjudication metadata.
+- Applied year-based temporal admissibility filtering before oracle and end-to-end verdict scoring inside the evaluation runner.
+- Added a compact high-risk guardrail: when fewer than three admissible evidence items support the verdict, high risk now requires near-saturated average similarity.
+- oracle accuracy 0.62 -> 0.75; macro-F1 0.47 -> 0.72
+- medium-risk match 0.00 -> 0.50; borderline match 0.00 -> 0.50
 
 ## Error Observations
-- Oracle verdict mismatches remain on 3 curated cases, indicating verdict calibration limits beyond retrieval.
-- End-to-end mismatches remain on 6 case-mode pairs.
+- Retrieval misses remain on 8 positive case-mode pairs after admissibility filtering.
+- Oracle verdict mismatches remain on 5 curated cases, showing residual calibration limits beyond retrieval.
+- Lexical-overfire behaviour remains on 2 end-to-end case-mode pairs.
+- 6 case-mode pairs still produce high verdicts on only partial or insufficient admissible evidence.
 
 ## Limitation Notes
-- The curated corpus is real but still small and intentionally domain-focused.
-- Expected risk labels are protocol annotations assigned relative to the frozen curated corpus snapshot.
-- Dense and hybrid retrieval can still overfire on semantically adjacent cases in a small corpus.
-- Temporal admissibility filtering was not implemented in this pass.
-
-## Evaluation Hardening Notes
-- temporal admissibility support: not implemented in this pass
-- explanation audit block: not implemented in this pass
+- The curated corpus is real-article-shaped but still compact and intentionally domain-focused.
+- Expected risk labels remain protocol annotations assigned relative to the frozen curated corpus snapshot.
+- Dense and hybrid retrieval still overfire on some semantically adjacent cases in a small corpus.
+- Temporal admissibility is evaluation-only and does not yet constrain the normal runtime retrieval path itself.
 
 ## Before vs After
-- shared legacy cases: 8; new curated controls: 0
-- structural evaluation changes:
-  - retrieval evaluation is now reported as its own layer.
-  - oracle-evidence verdict evaluation was added in this pass.
-  - end-to-end verdict evaluation is now reported separately from retrieval.
-- sparse: verdict match 0.62 -> 0.62; low labels 6 -> 6; high labels 0 -> 0.
-- dense: verdict match 0.75 -> 0.75; low labels 3 -> 3; high labels 3 -> 3.
-- hybrid: verdict match 0.88 -> 0.88; low labels 3 -> 3; high labels 2 -> 2.
+- shared legacy cases: 8; new curated controls: 4
+- sparse: verdict match 0.62 -> 0.88; low labels 6 -> 4; high labels 0 -> 3.
+- dense: verdict match 0.75 -> 0.62; low labels 3 -> 3; high labels 3 -> 4.
+- hybrid: verdict match 0.88 -> 0.62; low labels 3 -> 3; high labels 2 -> 4.

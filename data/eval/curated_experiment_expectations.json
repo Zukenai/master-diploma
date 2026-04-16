@@ -2,24 +2,58 @@
   {
     "case_id": "MANUAL-001",
     "expected_risk": "high prior-art risk",
-    "expected_relevant_paper_ids": ["C005", "C007"],
-    "oracle_evidence_ids": ["C005", "C007"],
+    "expected_relevant_paper_ids": [
+      "C008",
+      "C010",
+      "C007"
+    ],
+    "oracle_evidence_ids": [
+      "C008",
+      "C010",
+      "C007"
+    ],
     "case_type": "near_duplicate",
+    "initial_case_type": "near_duplicate",
+    "review_case_type": "near_duplicate",
+    "initial_label": "high prior-art risk",
+    "review_label": "high prior-art risk",
+    "adjudicated_label": "high prior-art risk",
     "control_type": "legacy-positive",
-    "annotation_rationale": "Direct overlap with the module topic and evidence-grounded literature risk framing.",
-    "control_note": "Retained as a high-overlap positive anchor for the curated experiment.",
-    "failure_mode": "positive case underestimation by conservative verdict logic"
+    "annotation_rationale": "Near-duplicate of the module framing with direct overlap on retrieved literature evidence and prior-art risk language.",
+    "control_note": "Retained as a near-duplicate positive anchor for the curated experiment.",
+    "failure_mode": "near-duplicate positives collapsing below high risk",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "sufficient",
+    "review_oracle_evidence_sufficiency": "sufficient",
+    "oracle_evidence_sufficiency": "sufficient"
   },
   {
     "case_id": "MANUAL-002",
     "expected_risk": "medium prior-art risk",
-    "expected_relevant_paper_ids": ["C005", "C007"],
-    "oracle_evidence_ids": ["C005", "C007"],
+    "expected_relevant_paper_ids": [
+      "C005",
+      "C008",
+      "C007"
+    ],
+    "oracle_evidence_ids": [
+      "C005",
+      "C008",
+      "C007"
+    ],
     "case_type": "borderline",
+    "initial_case_type": "borderline",
+    "review_case_type": "borderline",
+    "initial_label": "high prior-art risk",
+    "review_label": "medium prior-art risk",
+    "adjudicated_label": "medium prior-art risk",
     "control_type": "legacy-borderline",
-    "annotation_rationale": "Substantively related to literature screening but not a near-duplicate of existing prior-art risk systems.",
-    "control_note": "Retained as a moderate-overlap case to monitor over-escalation into high risk.",
-    "failure_mode": "borderline cases collapsing into high-risk labels"
+    "annotation_rationale": "Substantively related to literature overlap screening, but scoped as a support tool rather than a full novelty-risk assessor.",
+    "control_note": "Retained as a borderline literature-screening case and reviewed down from high to medium.",
+    "failure_mode": "borderline cases collapsing into high-risk labels",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "sufficient",
+    "review_oracle_evidence_sufficiency": "partial",
+    "oracle_evidence_sufficiency": "partial"
   },
   {
     "case_id": "MANUAL-003",
@@ -27,10 +61,19 @@
     "expected_relevant_paper_ids": [],
     "oracle_evidence_ids": [],
     "case_type": "clear_negative",
+    "initial_case_type": "clear_negative",
+    "review_case_type": "clear_negative",
+    "initial_label": "low prior-art risk",
+    "review_label": "low prior-art risk",
+    "adjudicated_label": "low prior-art risk",
     "control_type": "legacy-negative",
     "annotation_rationale": "Out-of-domain computer vision task with no admissible prior-art evidence in the curated corpus.",
     "control_note": "Retained as an out-of-domain negative control.",
-    "failure_mode": "semantic adjacency causing false-positive dense or hybrid verdicts"
+    "failure_mode": "semantic adjacency causing false-positive dense or hybrid verdicts",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "insufficient",
+    "review_oracle_evidence_sufficiency": "insufficient",
+    "oracle_evidence_sufficiency": "insufficient"
   },
   {
     "case_id": "MANUAL-004",
@@ -38,43 +81,100 @@
     "expected_relevant_paper_ids": [],
     "oracle_evidence_ids": [],
     "case_type": "lexical_stress",
+    "initial_case_type": "lexical_stress",
+    "review_case_type": "lexical_stress",
+    "initial_label": "low prior-art risk",
+    "review_label": "low prior-art risk",
+    "adjudicated_label": "low prior-art risk",
     "control_type": "legacy-lexical-stress",
     "annotation_rationale": "Shares academic workflow wording with the corpus but does not perform prior-art assessment.",
     "control_note": "Retained to test lexical coincidence against workflow-management semantics.",
-    "failure_mode": "generic academic wording triggering false overlap signals"
+    "failure_mode": "generic academic wording triggering false overlap signals",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "insufficient",
+    "review_oracle_evidence_sufficiency": "insufficient",
+    "oracle_evidence_sufficiency": "insufficient"
   },
   {
     "case_id": "MANUAL-005",
     "expected_risk": "high prior-art risk",
-    "expected_relevant_paper_ids": ["C001", "C002", "C003", "C004"],
-    "oracle_evidence_ids": ["C001", "C003", "C004"],
+    "expected_relevant_paper_ids": [
+      "C001",
+      "C003",
+      "C004",
+      "C010"
+    ],
+    "oracle_evidence_ids": [
+      "C001",
+      "C003",
+      "C010"
+    ],
     "case_type": "clear_positive",
+    "initial_case_type": "clear_positive",
+    "review_case_type": "clear_positive",
+    "initial_label": "high prior-art risk",
+    "review_label": "high prior-art risk",
+    "adjudicated_label": "high prior-art risk",
     "control_type": "legacy-positive",
-    "annotation_rationale": "Strong claim-aware and prior-art-search overlap with multiple curated scholarly records.",
-    "control_note": "Retained as a claim-aware positive case on the curated scholarly setup.",
-    "failure_mode": "underestimating strong claim-aware overlap"
+    "annotation_rationale": "Strong claim-aware and prior-art-search overlap with multiple admissible scholarly records.",
+    "control_note": "Retained as a clear positive on the curated scholarly setup.",
+    "failure_mode": "underestimating strong claim-aware overlap",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "sufficient",
+    "review_oracle_evidence_sufficiency": "sufficient",
+    "oracle_evidence_sufficiency": "sufficient"
   },
   {
     "case_id": "CURATED-006",
     "expected_risk": "low prior-art risk",
-    "expected_relevant_paper_ids": [],
-    "oracle_evidence_ids": [],
+    "expected_relevant_paper_ids": [
+      "C009"
+    ],
+    "oracle_evidence_ids": [
+      "C009"
+    ],
     "case_type": "adjacent_distinct",
+    "initial_case_type": "clear_negative",
+    "review_case_type": "adjacent_distinct",
+    "initial_label": "low prior-art risk",
+    "review_label": "low prior-art risk",
+    "adjudicated_label": "low prior-art risk",
     "control_type": "new-negative-control",
-    "annotation_rationale": "Scholarly process tooling adjacent to peer review, but distinct from prior-art overlap assessment.",
-    "control_note": "Added to test domain-adjacent scholarly process language that should remain low risk because it is about peer-review operations rather than prior-art assessment.",
-    "failure_mode": "mode overprediction on semantically adjacent but non-overlap reviewer workflow cases"
+    "annotation_rationale": "Peer-review process tooling remains adjacent to the target task even when a related-work recommendation paper is available.",
+    "control_note": "Reviewed from a generic negative into an adjacent-distinct case.",
+    "failure_mode": "mode overprediction on semantically adjacent but non-overlap reviewer workflow cases",
+    "cutoff_year": 2024,
+    "initial_oracle_evidence_sufficiency": "insufficient",
+    "review_oracle_evidence_sufficiency": "insufficient",
+    "oracle_evidence_sufficiency": "insufficient"
   },
   {
     "case_id": "CURATED-007",
     "expected_risk": "medium prior-art risk",
-    "expected_relevant_paper_ids": ["C005", "C007"],
-    "oracle_evidence_ids": ["C005", "C007"],
+    "expected_relevant_paper_ids": [
+      "C005",
+      "C008",
+      "C007"
+    ],
+    "oracle_evidence_ids": [
+      "C005",
+      "C008",
+      "C007"
+    ],
     "case_type": "borderline",
+    "initial_case_type": "borderline",
+    "review_case_type": "borderline",
+    "initial_label": "high prior-art risk",
+    "review_label": "medium prior-art risk",
+    "adjudicated_label": "medium prior-art risk",
     "control_type": "new-borderline-control",
     "annotation_rationale": "Proposal-screening overlap is real, but the idea stops short of stronger claim-level novelty analysis.",
-    "control_note": "Added as a borderline research-proposal screening case that should surface real literature overlap without collapsing into a high-risk verdict by default.",
-    "failure_mode": "borderline proposal-screening cases receiving inflated high-risk labels"
+    "control_note": "Reviewed down to medium to keep the curated borderline band realistic.",
+    "failure_mode": "borderline proposal-screening cases receiving inflated high-risk labels",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "sufficient",
+    "review_oracle_evidence_sufficiency": "partial",
+    "oracle_evidence_sufficiency": "partial"
   },
   {
     "case_id": "CURATED-008",
@@ -82,9 +182,122 @@
     "expected_relevant_paper_ids": [],
     "oracle_evidence_ids": [],
     "case_type": "lexical_stress",
+    "initial_case_type": "lexical_stress",
+    "review_case_type": "lexical_stress",
+    "initial_label": "low prior-art risk",
+    "review_label": "low prior-art risk",
+    "adjudicated_label": "low prior-art risk",
     "control_type": "new-lexical-stress-control",
     "annotation_rationale": "Patent and claim operations wording overlaps lexically with the corpus but remains operational rather than prior-art analytic.",
-    "control_note": "Added to separate patent-and-claim operational workflow language from substantive prior-art search and novelty-risk assessment behavior.",
-    "failure_mode": "lexical coincidence around patent claims and evidence causing false positives"
+    "control_note": "Retained as a lexical-stress control.",
+    "failure_mode": "lexical coincidence around patent claims and evidence causing false positives",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "insufficient",
+    "review_oracle_evidence_sufficiency": "insufficient",
+    "oracle_evidence_sufficiency": "insufficient"
+  },
+  {
+    "case_id": "CURATED-009",
+    "expected_risk": "medium prior-art risk",
+    "expected_relevant_paper_ids": [
+      "C005",
+      "C008"
+    ],
+    "oracle_evidence_ids": [
+      "C005",
+      "C008"
+    ],
+    "case_type": "borderline",
+    "initial_case_type": "borderline",
+    "review_case_type": "borderline",
+    "initial_label": "medium prior-art risk",
+    "review_label": "medium prior-art risk",
+    "adjudicated_label": "medium prior-art risk",
+    "control_type": "evaluation-borderline-expansion",
+    "annotation_rationale": "Grant-style overlap screening is related to the target task but narrower than a full prior-art risk assessor.",
+    "control_note": "Added to strengthen the medium-risk band with a second proposal-screening variant.",
+    "failure_mode": "borderline cases defaulting to high because of strong shared vocabulary",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "partial",
+    "review_oracle_evidence_sufficiency": "partial",
+    "oracle_evidence_sufficiency": "partial"
+  },
+  {
+    "case_id": "CURATED-010",
+    "expected_risk": "medium prior-art risk",
+    "expected_relevant_paper_ids": [
+      "C008",
+      "C010"
+    ],
+    "oracle_evidence_ids": [
+      "C008",
+      "C010"
+    ],
+    "case_type": "borderline",
+    "initial_case_type": "borderline",
+    "review_case_type": "borderline",
+    "initial_label": "high prior-art risk",
+    "review_label": "medium prior-art risk",
+    "adjudicated_label": "medium prior-art risk",
+    "control_type": "evaluation-borderline-expansion",
+    "annotation_rationale": "Abstract-only overlap screening for draft submissions shares core mechanics with the target task but has weaker evidence scope.",
+    "control_note": "Added to strengthen medium-risk evaluation with another borderline configuration.",
+    "failure_mode": "borderline screening cases escalating to high without enough admissible evidence breadth",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "sufficient",
+    "review_oracle_evidence_sufficiency": "partial",
+    "oracle_evidence_sufficiency": "partial"
+  },
+  {
+    "case_id": "CURATED-011",
+    "expected_risk": "high prior-art risk",
+    "expected_relevant_paper_ids": [
+      "C008",
+      "C010",
+      "C007"
+    ],
+    "oracle_evidence_ids": [
+      "C008",
+      "C010",
+      "C007"
+    ],
+    "case_type": "near_duplicate",
+    "initial_case_type": "near_duplicate",
+    "review_case_type": "near_duplicate",
+    "initial_label": "high prior-art risk",
+    "review_label": "high prior-art risk",
+    "adjudicated_label": "high prior-art risk",
+    "control_type": "evaluation-near-duplicate-expansion",
+    "annotation_rationale": "Another near-duplicate of the target module with claim-aware overlap and explicit risk-report framing.",
+    "control_note": "Added to strengthen near-duplicate coverage.",
+    "failure_mode": "near-duplicate positives being downgraded after temporal filtering",
+    "cutoff_year": 2025,
+    "initial_oracle_evidence_sufficiency": "sufficient",
+    "review_oracle_evidence_sufficiency": "sufficient",
+    "oracle_evidence_sufficiency": "sufficient"
+  },
+  {
+    "case_id": "CURATED-012",
+    "expected_risk": "low prior-art risk",
+    "expected_relevant_paper_ids": [
+      "C009"
+    ],
+    "oracle_evidence_ids": [
+      "C009"
+    ],
+    "case_type": "adjacent_distinct",
+    "initial_case_type": "adjacent_distinct",
+    "review_case_type": "adjacent_distinct",
+    "initial_label": "low prior-art risk",
+    "review_label": "low prior-art risk",
+    "adjudicated_label": "low prior-art risk",
+    "control_type": "evaluation-adjacent-expansion",
+    "annotation_rationale": "Reviewer citation recommendation is close enough to retrieve adjacent literature but remains outside prior-art risk assessment.",
+    "control_note": "Added to strengthen adjacent-distinct coverage.",
+    "failure_mode": "adjacent reviewer-support cases being misread as direct novelty assessment",
+    "cutoff_year": 2024,
+    "initial_oracle_evidence_sufficiency": "insufficient",
+    "review_oracle_evidence_sufficiency": "insufficient",
+    "oracle_evidence_sufficiency": "insufficient"
   }
 ]

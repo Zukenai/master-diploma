@@ -1,0 +1,17 @@
+{
+  "idea_id": "CURATED-011",
+  "title": "Transparent prior-art overlap assessor for research ideas using retrieved evidence and claim-aware signals",
+  "abstract": "We build a local system that accepts a research idea, retrieves relevant literature, analyses claim-aware overlap, distinguishes direct overlap from adjacent similarity, and returns a transparent prior-art risk report grounded in admissible evidence.",
+  "keywords": [
+    "prior-art overlap assessor",
+    "research ideas",
+    "claim-aware signals",
+    "transparent evidence"
+  ],
+  "claims": [
+    "accept a research idea and retrieve relevant literature",
+    "distinguish direct overlap from adjacent similarity",
+    "return a transparent prior-art risk report"
+  ],
+  "case_type": "near_duplicate"
+}

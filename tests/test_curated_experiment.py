@@ -25,6 +25,15 @@ def test_curated_experiment_generates_separate_observation_sections(tmp_path) ->
             "year": 2024,
             "venue": "Test Venue",
         },
+        {
+            "paper_id": "C003",
+            "title": "Transparent proposal screening",
+            "abstract": "This work studies transparent overlap screening for research proposals.",
+            "keywords": ["proposal screening"],
+            "claims": ["transparent overlap screening"],
+            "year": 2025,
+            "venue": "Test Venue",
+        },
     ]
     curated_raw = tmp_path / "curated.json"
     curated_processed = tmp_path / "curated_processed.json"
@@ -54,10 +63,19 @@ def test_curated_experiment_generates_separate_observation_sections(tmp_path) ->
                 {
                     "case_id": "CASE-1",
                     "expected_risk": "high prior-art risk",
-                    "expected_relevant_paper_ids": ["C001"],
-                    "oracle_evidence_ids": ["C001"],
+                    "expected_relevant_paper_ids": ["C001", "C002"],
+                    "oracle_evidence_ids": ["C001", "C002"],
                     "case_type": "clear_positive",
                     "annotation_rationale": "Direct curated overlap.",
+                    "cutoff_year": 2022,
+                    "initial_label": "high prior-art risk",
+                    "review_label": "high prior-art risk",
+                    "adjudicated_label": "high prior-art risk",
+                    "initial_case_type": "clear_positive",
+                    "review_case_type": "clear_positive",
+                    "initial_oracle_evidence_sufficiency": "sufficient",
+                    "review_oracle_evidence_sufficiency": "sufficient",
+                    "oracle_evidence_sufficiency": "sufficient",
                 }
             ]
         ),
@@ -83,11 +101,22 @@ def test_curated_experiment_generates_separate_observation_sections(tmp_path) ->
 
     report = run_curated_experiment(config, output_path=report_path, notes_path=notes_path)
 
-    assert report["corpus_summary"]["document_count"] == 2
+    assert report["corpus_summary"]["document_count"] == 3
     assert report["retrieval_evaluation"]["observations"]
     assert report["oracle_verdict_evaluation"]["summary"]["accuracy"] >= 0.0
     assert report["end_to_end_verdict_evaluation"]["observations"]
     assert report["dataset_summary"]["case_type_distribution"]["clear_positive"] == 1
+    assert report["dataset_summary"]["review_adjudication_summary"]["label_changes_on_review"] == 0
+    assert report["dataset_summary"]["temporal_admissibility_summary"]["oracle_inadmissible_evidence_count"] == 1
+    assert report["diagnostics"]["per_case_mode"][0]["failure_type"] in {
+        "ok",
+        "retrieval_miss",
+        "oracle_wrong",
+        "lexical_overfire",
+        "borderline_underfire",
+        "near_duplicate_miss",
+        "insufficient_evidence_high_verdict",
+    }
     assert report["limitation_notes"]
     assert report_path.exists()
     assert notes_path.exists()
@@ -137,6 +166,15 @@ def test_curated_experiment_reports_before_after_comparison(tmp_path) -> None:
                     "oracle_evidence_ids": ["C001"],
                     "case_type": "near_duplicate",
                     "annotation_rationale": "Direct curated overlap.",
+                    "cutoff_year": 2022,
+                    "initial_label": "high prior-art risk",
+                    "review_label": "high prior-art risk",
+                    "adjudicated_label": "high prior-art risk",
+                    "initial_case_type": "near_duplicate",
+                    "review_case_type": "near_duplicate",
+                    "initial_oracle_evidence_sufficiency": "sufficient",
+                    "review_oracle_evidence_sufficiency": "sufficient",
+                    "oracle_evidence_sufficiency": "sufficient",
                 }
             ]
         ),
@@ -146,6 +184,15 @@ def test_curated_experiment_reports_before_after_comparison(tmp_path) -> None:
         json.dumps(
             {
                 "run_configuration": {"modes": ["sparse"]},
+                "oracle_verdict_evaluation": {
+                    "cases": [
+                        {
+                            "case_id": "CASE-1",
+                            "expected_risk": "high prior-art risk",
+                            "risk_label": "low prior-art risk",
+                        }
+                    ]
+                },
                 "cases": [
                     {
                         "case_id": "CASE-1",
@@ -185,3 +232,4 @@ def test_curated_experiment_reports_before_after_comparison(tmp_path) -> None:
 
     assert report["before_after_comparison"] is not None
     assert report["before_after_comparison"]["mode_deltas"]["sparse"]["shared_case_count"] == 1
+    assert report["calibration_block"]["oracle_before_after"] is not None

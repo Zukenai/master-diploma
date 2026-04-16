@@ -1,0 +1,17 @@
+{
+  "idea_id": "CURATED-010",
+  "title": "Abstract-level overlap checks for draft workshop submissions",
+  "abstract": "The system compares a draft workshop submission against retrieved article abstracts and contribution summaries, then produces a transparent overlap warning when the idea is close to existing work without making a final novelty judgement.",
+  "keywords": [
+    "draft submissions",
+    "abstract comparison",
+    "overlap warning",
+    "transparent screening"
+  ],
+  "claims": [
+    "compare draft submissions to retrieved article abstracts",
+    "produce overlap warnings without final novelty judgement",
+    "use contribution summaries as transparent evidence"
+  ],
+  "case_type": "borderline"
+}

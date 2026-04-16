@@ -1,0 +1,17 @@
+{
+  "idea_id": "CURATED-012",
+  "title": "Reviewer citation recommendation during manuscript assessment",
+  "abstract": "This system recommends likely related papers and citation candidates to reviewers while they assess manuscripts. It is intended to improve reviewer awareness of adjacent work, not to estimate prior-art overlap risk or novelty status.",
+  "keywords": [
+    "reviewer recommendation",
+    "citation suggestion",
+    "manuscript assessment",
+    "adjacent work"
+  ],
+  "claims": [
+    "recommend citations to reviewers during manuscript assessment",
+    "surface adjacent work without novelty judgement",
+    "support reviewer awareness rather than prior-art analysis"
+  ],
+  "case_type": "adjacent_distinct"
+}

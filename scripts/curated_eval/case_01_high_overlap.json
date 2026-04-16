@@ -1,6 +1,5 @@
 {
   "idea_id": "MANUAL-001",
-  "case_type": "near_duplicate",
   "title": "Transparent prior-art risk assessment for research proposals using retrieved literature evidence",
   "abstract": "We propose an offline-first system that accepts a research proposal, retrieves relevant scientific papers from a local corpus, estimates overlap risk with prior literature, and returns a transparent verdict grounded in retrieved evidence and thresholded similarity signals.",
   "keywords": [
@@ -13,5 +12,6 @@
     "estimate overlap risk rather than absolute novelty",
     "use transparent thresholds and explanation templates",
     "ground the verdict in retrieved literature evidence"
-  ]
+  ],
+  "case_type": "near_duplicate"
 }

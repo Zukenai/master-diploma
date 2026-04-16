@@ -1,6 +1,5 @@
 {
   "idea_id": "MANUAL-003",
-  "case_type": "clear_negative",
   "title": "Computer vision system for greenhouse leaf disease detection from multispectral images",
   "abstract": "We want to build a computer vision pipeline that classifies greenhouse crop diseases from multispectral imagery, estimates infection severity, and provides agronomic recommendations for treatment planning in protected agriculture.",
   "keywords": [
@@ -13,5 +12,6 @@
     "detect plant diseases from images",
     "estimate infection severity",
     "support treatment recommendations"
-  ]
+  ],
+  "case_type": "clear_negative"
 }

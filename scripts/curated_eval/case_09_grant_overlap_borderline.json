@@ -1,0 +1,17 @@
+{
+  "idea_id": "CURATED-009",
+  "title": "Literature-backed overlap screening for early-stage grant abstracts",
+  "abstract": "We retrieve scholarly papers for a draft grant abstract, summarize overlap indicators, and present a bounded prior-art risk estimate to help authors understand whether the proposal is already crowded in the existing literature.",
+  "keywords": [
+    "grant abstracts",
+    "overlap screening",
+    "scholarly retrieval",
+    "risk estimate"
+  ],
+  "claims": [
+    "retrieve related literature for draft grant abstracts",
+    "summarize overlap indicators rather than absolute novelty",
+    "help authors understand crowding in prior work"
+  ],
+  "case_type": "borderline"
+}

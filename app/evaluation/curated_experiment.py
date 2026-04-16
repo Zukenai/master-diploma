@@ -14,6 +14,15 @@ from app.schemas.paper import PaperRecord, RetrievedCandidate
 from app.scoring.rules import score_candidates
 
 LABELS = ["low prior-art risk", "medium prior-art risk", "high prior-art risk"]
+FAILURE_TYPES = [
+    "ok",
+    "retrieval_miss",
+    "oracle_wrong",
+    "lexical_overfire",
+    "borderline_underfire",
+    "near_duplicate_miss",
+    "insufficient_evidence_high_verdict",
+]
 
 
 def _load_expectations(path: Path) -> dict[str, dict[str, object]]:
@@ -34,6 +43,19 @@ def _load_curated_cases(path: Path) -> list[IdeaInput]:
         IdeaInput.model_validate_json(case_path.read_text(encoding="utf-8"))
         for case_path in sorted(path.glob("*.json"))
     ]
+
+
+def _truth_label(expectation: dict[str, object]) -> str:
+    return str(
+        expectation.get(
+            "adjudicated_label",
+            expectation.get("expected_risk", "low prior-art risk"),
+        )
+    )
+
+
+def _case_type(expectation: dict[str, object]) -> str:
+    return str(expectation.get("case_type", expectation.get("review_case_type", "unspecified")))
 
 
 def _label_distribution(items: list[str]) -> dict[str, int]:
@@ -120,9 +142,42 @@ def _case_type_breakdown(
 def _case_type_distribution(expectations: dict[str, dict[str, object]]) -> dict[str, int]:
     distribution: dict[str, int] = {}
     for item in expectations.values():
-        case_type = str(item.get("case_type", "unspecified"))
+        case_type = _case_type(item)
         distribution[case_type] = distribution.get(case_type, 0) + 1
     return distribution
+
+
+def _review_adjudication_summary(expectations: dict[str, dict[str, object]]) -> dict[str, object]:
+    label_changes = [
+        case_id
+        for case_id, item in expectations.items()
+        if item.get("initial_label") != item.get("review_label")
+    ]
+    case_type_changes = [
+        case_id
+        for case_id, item in expectations.items()
+        if item.get("initial_case_type", item.get("case_type")) != item.get("review_case_type", item.get("case_type"))
+    ]
+    sufficiency_changes = [
+        case_id
+        for case_id, item in expectations.items()
+        if item.get("initial_oracle_evidence_sufficiency") != item.get("review_oracle_evidence_sufficiency")
+    ]
+    adjudication_label_changes = [
+        case_id
+        for case_id, item in expectations.items()
+        if item.get("review_label", item.get("expected_risk")) != _truth_label(item)
+    ]
+    return {
+        "label_changes_on_review": len(label_changes),
+        "label_change_case_ids": label_changes,
+        "case_type_changes_on_review": len(case_type_changes),
+        "case_type_change_case_ids": case_type_changes,
+        "oracle_evidence_sufficiency_changes_on_review": len(sufficiency_changes),
+        "oracle_evidence_sufficiency_change_case_ids": sufficiency_changes,
+        "adjudicated_label_changes_from_review": len(adjudication_label_changes),
+        "adjudicated_label_change_case_ids": adjudication_label_changes,
+    }
 
 
 def _support_score(overlap_metadata: dict[str, list[str] | int]) -> float:
@@ -157,6 +212,40 @@ def _evidence_strength(overlap_metadata: dict[str, list[str] | int]) -> str:
     if keyword_overlap_count > 0:
         return "lexical-only similarity"
     return "adjacent-but-distinct similarity"
+
+
+def _filter_admissible_ids(
+    paper_ids: list[str],
+    cutoff_year: int,
+    corpus_map: dict[str, PaperRecord],
+) -> tuple[list[str], list[str], list[str]]:
+    admissible: list[str] = []
+    inadmissible: list[str] = []
+    missing: list[str] = []
+    for paper_id in paper_ids:
+        paper = corpus_map.get(paper_id)
+        if paper is None:
+            missing.append(paper_id)
+            continue
+        if paper.year <= cutoff_year:
+            admissible.append(paper_id)
+        else:
+            inadmissible.append(paper_id)
+    return admissible, inadmissible, missing
+
+
+def _filter_admissible_candidates(
+    candidates: list[RetrievedCandidate],
+    cutoff_year: int,
+) -> tuple[list[RetrievedCandidate], list[str]]:
+    admissible: list[RetrievedCandidate] = []
+    inadmissible_ids: list[str] = []
+    for candidate in candidates:
+        if candidate.paper.year <= cutoff_year:
+            admissible.append(candidate)
+        else:
+            inadmissible_ids.append(candidate.paper.paper_id)
+    return admissible, inadmissible_ids
 
 
 def _oracle_candidates(
@@ -198,7 +287,27 @@ def _oracle_candidates(
     return candidates, missing_ids
 
 
-def _case_lookup_from_report(report: dict[str, object]) -> dict[tuple[str, str], dict[str, object]]:
+def _shared_case_outcomes(cases: list[dict[str, object]], match_field: str, case_type: str | None = None, expected_label: str | None = None) -> dict[str, float | int]:
+    filtered = [
+        case
+        for case in cases
+        if (case_type is None or case.get("case_type") == case_type)
+        and (expected_label is None or case.get("expected_risk") == expected_label)
+    ]
+    match_count = sum(1 for case in filtered if case.get(match_field))
+    return {
+        "case_count": len(filtered),
+        "match_count": match_count,
+        "match_rate": round(match_count / len(filtered), 4) if filtered else 0.0,
+    }
+
+
+def _oracle_lookup_from_report(report: dict[str, object]) -> dict[str, dict[str, object]]:
+    oracle_section = report.get("oracle_verdict_evaluation", {})
+    return {case["case_id"]: case for case in oracle_section.get("cases", [])}
+
+
+def _end_to_end_lookup_from_report(report: dict[str, object]) -> dict[tuple[str, str], dict[str, object]]:
     lookup: dict[tuple[str, str], dict[str, object]] = {}
     if "end_to_end_verdict_evaluation" in report:
         for mode, payload in report["end_to_end_verdict_evaluation"]["modes"].items():
@@ -211,6 +320,44 @@ def _case_lookup_from_report(report: dict[str, object]) -> dict[tuple[str, str],
     return lookup
 
 
+def _oracle_before_after_summary(
+    previous_report: dict[str, object] | None,
+    current_report: dict[str, object],
+) -> dict[str, object] | None:
+    if previous_report is None:
+        return None
+    previous_lookup = _oracle_lookup_from_report(previous_report)
+    current_lookup = _oracle_lookup_from_report(current_report)
+    shared_case_ids = sorted(previous_lookup.keys() & current_lookup.keys())
+    if not shared_case_ids:
+        return None
+    previous_cases = [previous_lookup[case_id] for case_id in shared_case_ids]
+    current_cases = [current_lookup[case_id] for case_id in shared_case_ids]
+    previous_summary = _precision_recall_f1(
+        [case["expected_risk"] for case in previous_cases],
+        [case["risk_label"] for case in previous_cases],
+    )
+    current_summary = _precision_recall_f1(
+        [case["expected_risk"] for case in current_cases],
+        [case["risk_label"] for case in current_cases],
+    )
+    previous_medium = _shared_case_outcomes(previous_cases, "verdict_matches_expectation", expected_label="medium prior-art risk")
+    current_medium = _shared_case_outcomes(current_cases, "verdict_matches_expectation", expected_label="medium prior-art risk")
+    previous_borderline = _shared_case_outcomes(previous_cases, "verdict_matches_expectation", case_type="borderline")
+    current_borderline = _shared_case_outcomes(current_cases, "verdict_matches_expectation", case_type="borderline")
+    return {
+        "shared_case_ids": shared_case_ids,
+        "accuracy_before": previous_summary["accuracy"],
+        "accuracy_after": current_summary["accuracy"],
+        "macro_f1_before": previous_summary["macro_f1"],
+        "macro_f1_after": current_summary["macro_f1"],
+        "medium_match_rate_before": previous_medium["match_rate"],
+        "medium_match_rate_after": current_medium["match_rate"],
+        "borderline_match_rate_before": previous_borderline["match_rate"],
+        "borderline_match_rate_after": current_borderline["match_rate"],
+    }
+
+
 def _before_after_summary(
     previous_report: dict[str, object] | None,
     current_report: dict[str, object],
@@ -218,8 +365,8 @@ def _before_after_summary(
     if previous_report is None:
         return None
 
-    previous_lookup = _case_lookup_from_report(previous_report)
-    current_lookup = _case_lookup_from_report(current_report)
+    previous_lookup = _end_to_end_lookup_from_report(previous_report)
+    current_lookup = _end_to_end_lookup_from_report(current_report)
     shared_case_ids = sorted(
         {case_id for case_id, _ in previous_lookup.keys()}
         & {case_id for case_id, _ in current_lookup.keys()}
@@ -236,6 +383,7 @@ def _before_after_summary(
             "oracle_verdict_layer_added": "oracle_verdict_evaluation" not in previous_report,
             "end_to_end_layer_separated": "end_to_end_verdict_evaluation" not in previous_report,
         },
+        "oracle_before_after": _oracle_before_after_summary(previous_report, current_report),
     }
 
     for mode in current_report["run_configuration"]["modes"]:
@@ -287,29 +435,90 @@ def _before_after_summary(
     return summary
 
 
+def _classify_oracle_failure(case: dict[str, object]) -> str:
+    if case["verdict_matches_expectation"]:
+        return "ok"
+    if case["case_type"] == "near_duplicate":
+        return "near_duplicate_miss"
+    if (
+        case["case_type"] == "borderline"
+        and case["expected_risk"] == "medium prior-art risk"
+        and case["risk_label"] == "low prior-art risk"
+    ):
+        return "borderline_underfire"
+    if (
+        case["risk_label"] == "high prior-art risk"
+        and case.get("oracle_evidence_sufficiency") != "sufficient"
+    ):
+        return "insufficient_evidence_high_verdict"
+    if case["debug"].get("lexical_only_count", 0) > 0 and case["risk_label"] != "low prior-art risk":
+        return "lexical_overfire"
+    return "oracle_wrong"
+
+
+def _classify_end_to_end_failure(
+    case: dict[str, object],
+    oracle_case: dict[str, object],
+) -> str:
+    if case["verdict_matches_expectation"]:
+        return "ok"
+    if case["case_type"] == "near_duplicate" and case["expected_risk"] == "high prior-art risk":
+        return "near_duplicate_miss"
+    if case["debug"].get("lexical_only_count", 0) > 0 and case["risk_label"] != "low prior-art risk":
+        return "lexical_overfire"
+    if (
+        case["case_type"] == "borderline"
+        and case["expected_risk"] == "medium prior-art risk"
+        and case["risk_label"] == "low prior-art risk"
+    ):
+        return "borderline_underfire"
+    if (
+        case["risk_label"] == "high prior-art risk"
+        and case.get("oracle_evidence_sufficiency") != "sufficient"
+    ):
+        return "insufficient_evidence_high_verdict"
+    if not case["retrieval_success"] and case["admissible_expected_evidence_ids"]:
+        return "retrieval_miss"
+    if not oracle_case["verdict_matches_expectation"]:
+        return "oracle_wrong"
+    return "oracle_wrong"
+
+
+def _failure_breakdown(items: list[dict[str, object]], key: str) -> dict[str, int]:
+    breakdown = {name: 0 for name in FAILURE_TYPES}
+    for item in items:
+        breakdown[str(item[key])] = breakdown.get(str(item[key]), 0) + 1
+    return breakdown
+
+
 def _error_observations(
     retrieval_cases: list[dict[str, object]],
     oracle_cases: list[dict[str, object]],
     end_to_end_cases: list[dict[str, object]],
 ) -> list[str]:
     observations: list[str] = []
-    retrieval_misses = [
-        case for case in retrieval_cases
-        if case["expected_relevant_paper_ids"] and not case["retrieval_hit_top3"]
+    retrieval_misses = [case for case in retrieval_cases if case["failure_type"] == "retrieval_miss"]
+    lexical_overfire = [case for case in end_to_end_cases if case["failure_type"] == "lexical_overfire"]
+    oracle_errors = [case for case in oracle_cases if case["failure_type"] != "ok"]
+    insufficient_high = [
+        case for case in end_to_end_cases
+        if case["failure_type"] == "insufficient_evidence_high_verdict"
     ]
     if retrieval_misses:
         observations.append(
-            f"Retrieval misses remain on {len(retrieval_misses)} positive case-mode pairs."
+            f"Retrieval misses remain on {len(retrieval_misses)} positive case-mode pairs after admissibility filtering."
         )
-    oracle_errors = [case for case in oracle_cases if not case["verdict_matches_expectation"]]
     if oracle_errors:
         observations.append(
-            f"Oracle verdict mismatches remain on {len(oracle_errors)} curated cases, indicating verdict calibration limits beyond retrieval."
+            f"Oracle verdict mismatches remain on {len(oracle_errors)} curated cases, showing residual calibration limits beyond retrieval."
         )
-    e2e_errors = [case for case in end_to_end_cases if not case["verdict_matches_expectation"]]
-    if e2e_errors:
+    if lexical_overfire:
         observations.append(
-            f"End-to-end mismatches remain on {len(e2e_errors)} case-mode pairs."
+            f"Lexical-overfire behaviour remains on {len(lexical_overfire)} end-to-end case-mode pairs."
+        )
+    if insufficient_high:
+        observations.append(
+            f"{len(insufficient_high)} case-mode pairs still produce high verdicts on only partial or insufficient admissible evidence."
         )
     return observations
 
@@ -320,7 +529,8 @@ def _retrieval_observations(report: dict[str, object], modes: list[str]) -> list
         summary = report["modes"][mode]["summary"]
         observations.append(
             f"{mode}: hit@3={summary['positive_hit_top3_count']}/{summary['positive_case_count']}, "
-            f"negative clear={summary['negative_clear_count']}/{summary['negative_case_count']}."
+            f"negative clear={summary['negative_clear_count']}/{summary['negative_case_count']}, "
+            f"retrieval success={summary['retrieval_success_rate']:.2f}."
         )
     return observations
 
@@ -330,18 +540,32 @@ def _end_to_end_observations(report: dict[str, object], modes: list[str]) -> lis
     for mode in modes:
         summary = report["modes"][mode]["summary"]
         observations.append(
-            f"{mode}: accuracy={summary['accuracy']:.2f}, macro-F1={summary['macro_f1']:.2f}."
+            f"{mode}: accuracy={summary['accuracy']:.2f}, macro-F1={summary['macro_f1']:.2f}, "
+            f"borderline match={summary['borderline_match_rate']:.2f}."
         )
     return observations
 
 
+def _markdown_diagnostic_line(item: dict[str, object]) -> str:
+    return (
+        f"- {item['case_id']} [{item['mode']}] {item['case_type']}: expected={item['expected_risk']}, "
+        f"oracle={item['oracle_verdict']} ({item['oracle_risk_score']:.2f}), "
+        f"end-to-end={item['end_to_end_verdict']} ({item['end_to_end_risk_score']:.2f}), "
+        f"failure={item['failure_type']}, top={item['top_evidence_ids']}, "
+        f"oracle_top={item['top_oracle_evidence_ids']}, decision={item['triggered_decision_summary']}"
+    )
+
+
 def _markdown_summary(report: dict[str, object]) -> str:
+    review_summary = report["dataset_summary"]["review_adjudication_summary"]
+    oracle_summary = report["oracle_verdict_evaluation"]["summary"]
+    temporal = report["dataset_summary"]["temporal_admissibility_summary"]
     lines = [
         "# Curated Experiment Notes",
         "",
         "## Dataset Summary",
-        f"- document count: {report['corpus_summary']['document_count']}",
-        f"- case count: {report['dataset_summary']['case_count']}",
+        f"- curated document count: {report['corpus_summary']['document_count']}",
+        f"- curated case count: {report['dataset_summary']['case_count']}",
         f"- oracle annotation coverage: {report['dataset_summary']['oracle_annotation_coverage']}",
         f"- protocol doc: {report['annotation_protocol']['path']}",
         "- case type distribution:",
@@ -350,22 +574,58 @@ def _markdown_summary(report: dict[str, object]) -> str:
         f"  - {case_type}: {count}"
         for case_type, count in report["dataset_summary"]["case_type_distribution"].items()
     )
-    lines.extend(["", "## Retrieval Evaluation"])
+    lines.extend([
+        "",
+        "## Review / Adjudication Summary",
+        f"- labels changed on review: {review_summary['label_changes_on_review']}",
+        f"- case types changed on review: {review_summary['case_type_changes_on_review']}",
+        f"- oracle evidence sufficiency judgments changed on review: {review_summary['oracle_evidence_sufficiency_changes_on_review']}",
+        "",
+        "## Retrieval Evaluation",
+    ])
     lines.extend(f"- {item}" for item in report["retrieval_evaluation"]["observations"])
-    lines.extend(["", "## Oracle Verdict Evaluation"])
-    lines.append(
-        f"- accuracy={report['oracle_verdict_evaluation']['summary']['accuracy']:.2f}, "
-        f"macro-F1={report['oracle_verdict_evaluation']['summary']['macro_f1']:.2f}"
-    )
-    lines.extend(["", "## End-to-End Verdict Evaluation"])
+    lines.extend([
+        "",
+        "## Oracle Verdict Evaluation",
+        f"- accuracy={oracle_summary['accuracy']:.2f}, macro-F1={oracle_summary['macro_f1']:.2f}",
+        f"- medium-risk match rate={oracle_summary['medium_label_match_rate']:.2f}",
+        f"- borderline-case match rate={oracle_summary['borderline_match_rate']:.2f}",
+        f"- temporal admissibility: admissible={temporal['oracle_admissible_evidence_count']}, inadmissible={temporal['oracle_inadmissible_evidence_count']}",
+        "",
+        "## End-to-End Evaluation",
+    ])
     lines.extend(f"- {item}" for item in report["end_to_end_verdict_evaluation"]["observations"])
+    lines.extend([
+        "",
+        "## Diagnostics",
+        "- failure type breakdown:",
+    ])
+    lines.extend(
+        f"  - {name}: {count}"
+        for name, count in report["diagnostics"]["failure_type_breakdown"].items()
+        if count
+    )
+    lines.append("- per-case diagnostics:")
+    lines.extend(_markdown_diagnostic_line(item) for item in report["diagnostics"]["per_case_mode"])
+    lines.extend([
+        "",
+        "## Calibration",
+    ])
+    lines.extend(f"- {item}" for item in report["calibration_block"]["applied_changes"])
+    oracle_before_after = report["calibration_block"].get("oracle_before_after")
+    if oracle_before_after:
+        lines.append(
+            f"- oracle accuracy {oracle_before_after['accuracy_before']:.2f} -> {oracle_before_after['accuracy_after']:.2f}; "
+            f"macro-F1 {oracle_before_after['macro_f1_before']:.2f} -> {oracle_before_after['macro_f1_after']:.2f}"
+        )
+        lines.append(
+            f"- medium-risk match {oracle_before_after['medium_match_rate_before']:.2f} -> {oracle_before_after['medium_match_rate_after']:.2f}; "
+            f"borderline match {oracle_before_after['borderline_match_rate_before']:.2f} -> {oracle_before_after['borderline_match_rate_after']:.2f}"
+        )
     lines.extend(["", "## Error Observations"])
     lines.extend(f"- {item}" for item in report["error_observations"])
     lines.extend(["", "## Limitation Notes"])
     lines.extend(f"- {item}" for item in report["limitation_notes"])
-    lines.extend(["", "## Evaluation Hardening Notes"])
-    lines.append("- temporal admissibility support: not implemented in this pass")
-    lines.append("- explanation audit block: not implemented in this pass")
     before_after = report.get("before_after_comparison")
     if before_after:
         lines.extend(["", "## Before vs After"])
@@ -387,12 +647,6 @@ def _markdown_summary(report: dict[str, object]) -> str:
                 f"low labels {delta['low_label_count_before']} -> {delta['low_label_count_after']}; "
                 f"high labels {delta['high_label_count_before']} -> {delta['high_label_count_after']}."
             )
-        if before_after["case_level_changes"]:
-            lines.append("- case-level label changes:")
-            lines.extend(
-                f"  - {item['case_id']} ({item['mode']}): {item['risk_label_before']} -> {item['risk_label_after']}"
-                for item in before_after["case_level_changes"]
-            )
     return "\n".join(lines) + "\n"
 
 
@@ -413,6 +667,7 @@ def run_curated_experiment(
     retrieval_case_results: list[dict[str, object]] = []
     end_to_end_case_results: list[dict[str, object]] = []
     oracle_case_results: list[dict[str, object]] = []
+    per_case_mode_diagnostics: list[dict[str, object]] = []
     grouped_cases: list[dict[str, object]] = []
     oracle_reranker = (
         OverlapReranker(config.reranker)
@@ -420,24 +675,59 @@ def run_curated_experiment(
         else NoOpReranker()
     )
 
+    temporal_summary = {
+        "oracle_admissible_evidence_count": 0,
+        "oracle_inadmissible_evidence_count": 0,
+        "retrieval_inadmissible_prefilter_count": 0,
+        "case_modes_with_inadmissible_prefilter": 0,
+    }
+
     for idea in cases:
         expected = expectations.get(idea.idea_id, {})
-        case_type = str(expected.get("case_type", "unspecified"))
-        expected_papers = list(expected.get("oracle_evidence_ids", expected.get("expected_relevant_paper_ids", [])))
+        case_type = _case_type(expected)
+        expected_risk = _truth_label(expected)
+        cutoff_year = int(expected.get("cutoff_year", 9999))
+        oracle_sufficiency = str(expected.get("oracle_evidence_sufficiency", "unspecified"))
+        expected_relevant_ids = list(expected.get("expected_relevant_paper_ids", []))
+        oracle_evidence_ids = list(expected.get("oracle_evidence_ids", []))
+        admissible_expected_ids, inadmissible_expected_ids, missing_expected_ids = _filter_admissible_ids(
+            expected_relevant_ids,
+            cutoff_year,
+            corpus_map,
+        )
+        admissible_oracle_ids, inadmissible_oracle_ids, missing_oracle_ids = _filter_admissible_ids(
+            oracle_evidence_ids,
+            cutoff_year,
+            corpus_map,
+        )
+        temporal_summary["oracle_admissible_evidence_count"] += len(admissible_oracle_ids)
+        temporal_summary["oracle_inadmissible_evidence_count"] += len(inadmissible_oracle_ids)
+
         case_entry = {
             "case_id": idea.idea_id,
             "title": idea.title,
-            "expected_risk": expected.get("expected_risk", "unspecified"),
-            "expected_relevant_paper_ids": list(expected.get("expected_relevant_paper_ids", [])),
-            "oracle_evidence_ids": expected_papers,
+            "expected_risk": expected_risk,
             "case_type": case_type,
+            "cutoff_year": cutoff_year,
+            "expected_relevant_paper_ids": expected_relevant_ids,
+            "admissible_expected_relevant_paper_ids": admissible_expected_ids,
+            "inadmissible_expected_relevant_paper_ids": inadmissible_expected_ids,
+            "oracle_evidence_ids": oracle_evidence_ids,
+            "admissible_oracle_evidence_ids": admissible_oracle_ids,
+            "inadmissible_oracle_evidence_ids": inadmissible_oracle_ids,
             "annotation_rationale": expected.get("annotation_rationale", ""),
             "control_note": expected.get("control_note", ""),
             "failure_mode": expected.get("failure_mode", ""),
+            "initial_label": expected.get("initial_label", expected_risk),
+            "review_label": expected.get("review_label", expected_risk),
+            "adjudicated_label": expected_risk,
+            "initial_case_type": expected.get("initial_case_type", case_type),
+            "review_case_type": expected.get("review_case_type", case_type),
+            "oracle_evidence_sufficiency": oracle_sufficiency,
             "comparisons": [],
         }
 
-        oracle_candidates, missing_ids = _oracle_candidates(idea, expected_papers, corpus_map)
+        oracle_candidates, oracle_missing_ids = _oracle_candidates(idea, admissible_oracle_ids, corpus_map)
         oracle_reranked = oracle_reranker.rerank(idea, oracle_candidates)
         oracle_risk_score, oracle_risk_label, oracle_evidence, oracle_debug = score_candidates(
             oracle_reranked,
@@ -446,69 +736,163 @@ def run_curated_experiment(
         oracle_explanation = build_explanation(oracle_risk_label, oracle_risk_score, oracle_evidence)
         oracle_debug["retrieval_strategy"] = "oracle"
         oracle_debug["reranker_strategy"] = config.reranker.strategy
-        oracle_case_results.append(
-            {
-                "case_id": idea.idea_id,
-                "case_type": case_type,
-                "expected_risk": expected.get("expected_risk", "unspecified"),
-                "oracle_evidence_ids": expected_papers,
-                "missing_oracle_ids": missing_ids,
-                "risk_label": oracle_risk_label,
-                "risk_score": oracle_risk_score,
-                "verdict_matches_expectation": oracle_risk_label == expected.get("expected_risk"),
-                "evidence_strengths": [
-                    item.overlap_signals["debug_signals"].get("evidence_strength", "unknown")
-                    for item in oracle_evidence
-                ],
-                "top_papers": [item.paper_id for item in oracle_evidence[:3]],
-                "debug": oracle_debug,
-                "explanation": oracle_explanation,
-            }
-        )
+        oracle_case = {
+            "case_id": idea.idea_id,
+            "case_type": case_type,
+            "expected_risk": expected_risk,
+            "cutoff_year": cutoff_year,
+            "oracle_evidence_ids": oracle_evidence_ids,
+            "admissible_oracle_evidence_ids": admissible_oracle_ids,
+            "inadmissible_oracle_evidence_ids": inadmissible_oracle_ids,
+            "missing_oracle_ids": sorted(set(missing_oracle_ids + oracle_missing_ids)),
+            "oracle_evidence_sufficiency": oracle_sufficiency,
+            "review_label": expected.get("review_label", expected_risk),
+            "adjudicated_label": expected_risk,
+            "risk_label": oracle_risk_label,
+            "risk_score": oracle_risk_score,
+            "verdict_matches_expectation": oracle_risk_label == expected_risk,
+            "evidence_strengths": [
+                item.overlap_signals["debug_signals"].get("evidence_strength", "unknown")
+                for item in oracle_evidence
+            ],
+            "top_papers": [item.paper_id for item in oracle_evidence[:3]],
+            "admissible_evidence_count": len(admissible_oracle_ids),
+            "inadmissible_evidence_count": len(inadmissible_oracle_ids),
+            "debug": oracle_debug,
+            "explanation": oracle_explanation,
+        }
+        oracle_case["failure_type"] = _classify_oracle_failure(oracle_case)
+        oracle_case_results.append(oracle_case)
 
         for mode in selected_modes:
             corpus_config = with_corpus_paths(config, "curated")
             pipeline = PriorArtAssessmentPipeline(corpus_config, retrieval_strategy=mode)
-            result = pipeline.assess(idea)
-            top_papers = [item.paper_id for item in result.evidence[:3]]
-            expected_relevant_ids = list(expected.get("expected_relevant_paper_ids", []))
-            retrieval_hit = (
-                any(paper_id in top_papers for paper_id in expected_relevant_ids)
-                if expected_relevant_ids
-                else not top_papers
+            retrieved = pipeline.retriever.retrieve(idea)
+            reranked = pipeline.reranker.rerank(idea, retrieved)
+            admissible_reranked, inadmissible_retrieved_ids = _filter_admissible_candidates(reranked, cutoff_year)
+            temporal_summary["retrieval_inadmissible_prefilter_count"] += len(inadmissible_retrieved_ids)
+            if inadmissible_retrieved_ids:
+                temporal_summary["case_modes_with_inadmissible_prefilter"] += 1
+
+            end_risk_score, end_risk_label, end_evidence, end_debug = score_candidates(
+                admissible_reranked,
+                config.scoring,
+            )
+            end_explanation = build_explanation(end_risk_label, end_risk_score, end_evidence)
+            end_debug["retrieval_strategy"] = mode
+            end_debug["reranker_strategy"] = config.reranker.strategy
+            top_evidence_ids = [item.paper_id for item in end_evidence[:3]]
+            retrieval_success = (
+                any(paper_id in top_evidence_ids for paper_id in admissible_expected_ids)
+                if admissible_expected_ids
+                else not top_evidence_ids
             )
             retrieval_entry = {
                 "case_id": idea.idea_id,
                 "case_type": case_type,
                 "mode": mode,
+                "cutoff_year": cutoff_year,
                 "expected_relevant_paper_ids": expected_relevant_ids,
-                "top_papers": top_papers,
-                "retrieval_hit_top3": retrieval_hit,
-                "top_paper_count": len(top_papers),
+                "admissible_expected_evidence_ids": admissible_expected_ids,
+                "inadmissible_expected_evidence_ids": inadmissible_expected_ids,
+                "top_evidence_ids": top_evidence_ids,
+                "inadmissible_top_candidate_ids": inadmissible_retrieved_ids[:3],
+                "retrieval_hit_top3": any(paper_id in top_evidence_ids for paper_id in admissible_expected_ids) if admissible_expected_ids else False,
+                "retrieval_success": retrieval_success,
+                "top_paper_count": len(top_evidence_ids),
+                "inadmissible_prefilter_count": len(inadmissible_retrieved_ids),
             }
             end_to_end_entry = {
                 "case_id": idea.idea_id,
                 "case_type": case_type,
                 "mode": mode,
-                "expected_risk": expected.get("expected_risk", "unspecified"),
-                "risk_label": result.risk_label,
-                "risk_score": result.risk_score,
-                "top_papers": top_papers,
-                "retrieval_hit_top3": retrieval_hit,
-                "verdict_matches_expectation": result.risk_label == expected.get("expected_risk"),
-                "debug": result.debug,
+                "expected_risk": expected_risk,
+                "cutoff_year": cutoff_year,
+                "review_label": expected.get("review_label", expected_risk),
+                "adjudicated_label": expected_risk,
+                "oracle_evidence_sufficiency": oracle_sufficiency,
+                "top_papers": top_evidence_ids,
+                "admissible_expected_evidence_ids": admissible_expected_ids,
+                "inadmissible_expected_evidence_ids": inadmissible_expected_ids,
+                "inadmissible_top_candidate_ids": inadmissible_retrieved_ids[:3],
+                "retrieval_hit_top3": retrieval_entry["retrieval_hit_top3"],
+                "retrieval_success": retrieval_success,
+                "risk_label": end_risk_label,
+                "risk_score": end_risk_score,
+                "verdict_matches_expectation": end_risk_label == expected_risk,
+                "debug": end_debug,
+                "explanation": end_explanation,
             }
+            end_to_end_entry["failure_type"] = _classify_end_to_end_failure(end_to_end_entry, oracle_case)
+            retrieval_entry["failure_type"] = (
+                "ok"
+                if retrieval_success
+                else "near_duplicate_miss"
+                if case_type == "near_duplicate"
+                else "retrieval_miss"
+            )
             retrieval_case_results.append(retrieval_entry)
             end_to_end_case_results.append(end_to_end_entry)
+            diagnostic_record = {
+                "case_id": idea.idea_id,
+                "case_type": case_type,
+                "mode": mode,
+                "cutoff_year": cutoff_year,
+                "expected_risk": expected_risk,
+                "oracle_verdict": oracle_risk_label,
+                "end_to_end_verdict": end_risk_label,
+                "oracle_risk_score": oracle_risk_score,
+                "end_to_end_risk_score": end_risk_score,
+                "top_evidence_ids": top_evidence_ids,
+                "top_oracle_evidence_ids": oracle_case["top_papers"],
+                "admissible_expected_evidence_ids": admissible_expected_ids,
+                "inadmissible_expected_evidence_ids": inadmissible_expected_ids,
+                "admissible_oracle_evidence_ids": admissible_oracle_ids,
+                "inadmissible_oracle_evidence_ids": inadmissible_oracle_ids,
+                "inadmissible_top_candidate_ids": inadmissible_retrieved_ids[:3],
+                "oracle_evidence_sufficiency": oracle_sufficiency,
+                "oracle_failure_type": oracle_case["failure_type"],
+                "failure_type": end_to_end_entry["failure_type"],
+                "feature_values": {
+                    "max_similarity": end_debug.get("max_similarity", 0.0),
+                    "avg_top_similarity": end_debug.get("avg_top_similarity", 0.0),
+                    "count_above_threshold": end_debug.get("count_above_threshold", 0),
+                    "facet_coverage": end_debug.get("facet_coverage", 0.0),
+                    "strong_support_count": end_debug.get("strong_support_count", 0),
+                    "shallow_support_count": end_debug.get("shallow_support_count", 0),
+                    "lexical_only_count": end_debug.get("lexical_only_count", 0),
+                    "weak_support_count": end_debug.get("weak_support_count", 0),
+                },
+                "oracle_feature_values": {
+                    "max_similarity": oracle_debug.get("max_similarity", 0.0),
+                    "avg_top_similarity": oracle_debug.get("avg_top_similarity", 0.0),
+                    "count_above_threshold": oracle_debug.get("count_above_threshold", 0),
+                    "facet_coverage": oracle_debug.get("facet_coverage", 0.0),
+                    "strong_support_count": oracle_debug.get("strong_support_count", 0),
+                    "shallow_support_count": oracle_debug.get("shallow_support_count", 0),
+                    "lexical_only_count": oracle_debug.get("lexical_only_count", 0),
+                    "weak_support_count": oracle_debug.get("weak_support_count", 0),
+                },
+                "triggered_decision_summary": {
+                    "oracle": oracle_debug.get("decision_basis", "unknown"),
+                    "end_to_end": end_debug.get("decision_basis", "unknown"),
+                    "limited_evidence_high_guard_applied": bool(
+                        oracle_debug.get("limited_evidence_high_guard_applied")
+                        or end_debug.get("limited_evidence_high_guard_applied")
+                    ),
+                },
+            }
+            per_case_mode_diagnostics.append(diagnostic_record)
             case_entry["comparisons"].append(
                 {
                     "mode": mode,
-                    "risk_label": result.risk_label,
-                    "risk_score": result.risk_score,
-                    "top_papers": top_papers,
-                    "retrieval_hit_top3": retrieval_hit,
-                    "verdict_matches_expectation": result.risk_label == expected.get("expected_risk"),
-                    "debug": result.debug,
+                    "risk_label": end_risk_label,
+                    "risk_score": end_risk_score,
+                    "top_papers": top_evidence_ids,
+                    "retrieval_hit_top3": retrieval_entry["retrieval_hit_top3"],
+                    "verdict_matches_expectation": end_to_end_entry["verdict_matches_expectation"],
+                    "failure_type": end_to_end_entry["failure_type"],
+                    "debug": end_debug,
                 }
             )
 
@@ -517,10 +901,11 @@ def run_curated_experiment(
     retrieval_modes: dict[str, dict[str, object]] = {}
     for mode in selected_modes:
         mode_cases = [item for item in retrieval_case_results if item["mode"] == mode]
-        positive_cases = [item for item in mode_cases if item["expected_relevant_paper_ids"]]
-        negative_cases = [item for item in mode_cases if not item["expected_relevant_paper_ids"]]
+        positive_cases = [item for item in mode_cases if item["admissible_expected_evidence_ids"]]
+        negative_cases = [item for item in mode_cases if not item["admissible_expected_evidence_ids"]]
         hit_count = sum(1 for item in positive_cases if item["retrieval_hit_top3"])
-        negative_clear_count = sum(1 for item in negative_cases if not item["top_papers"])
+        negative_clear_count = sum(1 for item in negative_cases if not item["top_evidence_ids"])
+        retrieval_success_count = sum(1 for item in mode_cases if item["retrieval_success"])
         retrieval_modes[mode] = {
             "summary": {
                 "case_count": len(mode_cases),
@@ -530,9 +915,12 @@ def run_curated_experiment(
                 "negative_case_count": len(negative_cases),
                 "negative_clear_count": negative_clear_count,
                 "negative_clear_rate": round(negative_clear_count / len(negative_cases), 4) if negative_cases else 0.0,
-                "no_evidence_cases": [item["case_id"] for item in mode_cases if not item["top_papers"]],
+                "retrieval_success_count": retrieval_success_count,
+                "retrieval_success_rate": round(retrieval_success_count / len(mode_cases), 4) if mode_cases else 0.0,
+                "inadmissible_prefilter_count": sum(item["inadmissible_prefilter_count"] for item in mode_cases),
+                "no_evidence_cases": [item["case_id"] for item in mode_cases if not item["top_evidence_ids"]],
             },
-            "case_type_breakdown": _case_type_breakdown(mode_cases, "retrieval_hit_top3"),
+            "case_type_breakdown": _case_type_breakdown(mode_cases, "retrieval_success"),
             "cases": mode_cases,
         }
 
@@ -543,6 +931,16 @@ def run_curated_experiment(
         oracle_case_results,
         "verdict_matches_expectation",
     )
+    oracle_summary["medium_label_match_rate"] = _shared_case_outcomes(
+        oracle_case_results,
+        "verdict_matches_expectation",
+        expected_label="medium prior-art risk",
+    )["match_rate"]
+    oracle_summary["borderline_match_rate"] = _shared_case_outcomes(
+        oracle_case_results,
+        "verdict_matches_expectation",
+        case_type="borderline",
+    )["match_rate"]
 
     end_to_end_modes: dict[str, dict[str, object]] = {}
     for mode in selected_modes:
@@ -553,6 +951,16 @@ def run_curated_experiment(
         summary["average_risk_score"] = round(mean(item["risk_score"] for item in mode_cases), 4) if mode_cases else 0.0
         summary["mismatch_cases"] = [item["case_id"] for item in mode_cases if not item["verdict_matches_expectation"]]
         summary["case_type_breakdown"] = _case_type_breakdown(mode_cases, "verdict_matches_expectation")
+        summary["medium_label_match_rate"] = _shared_case_outcomes(
+            mode_cases,
+            "verdict_matches_expectation",
+            expected_label="medium prior-art risk",
+        )["match_rate"]
+        summary["borderline_match_rate"] = _shared_case_outcomes(
+            mode_cases,
+            "verdict_matches_expectation",
+            case_type="borderline",
+        )["match_rate"]
         end_to_end_modes[mode] = {
             "summary": summary,
             "cases": mode_cases,
@@ -571,20 +979,23 @@ def run_curated_experiment(
             "modes": selected_modes,
             "top_k": config.retrieval.top_k,
             "reranker_strategy": config.reranker.strategy,
-            "temporal_admissibility": "not_implemented",
+            "temporal_admissibility": "year cutoff applied to oracle evidence and evaluation scoring",
         },
         "dataset_summary": {
             "case_count": len(grouped_cases),
             "case_type_distribution": _case_type_distribution(expectations),
             "expected_label_distribution": _label_distribution(
-                [str(item.get("expected_risk", "unspecified")) for item in expectations.values()]
+                [_truth_label(item) for item in expectations.values()]
             ),
             "oracle_annotation_coverage": f"{sum(1 for item in expectations.values() if 'oracle_evidence_ids' in item)}/{len(expectations)}",
+            "review_adjudication_summary": _review_adjudication_summary(expectations),
+            "temporal_admissibility_summary": temporal_summary,
             "case_catalog": [
                 {
                     "case_id": case["case_id"],
                     "case_type": case["case_type"],
                     "expected_risk": case["expected_risk"],
+                    "cutoff_year": case["cutoff_year"],
                     "oracle_evidence_ids": case["oracle_evidence_ids"],
                     "annotation_rationale": case["annotation_rationale"],
                 }
@@ -601,22 +1012,37 @@ def run_curated_experiment(
             "cases": oracle_case_results,
             "observations": [
                 f"oracle: accuracy={oracle_summary['accuracy']:.2f}, macro-F1={oracle_summary['macro_f1']:.2f}, "
-                f"predicted labels={oracle_summary['predicted_label_distribution']}"
+                f"medium-risk match={oracle_summary['medium_label_match_rate']:.2f}, "
+                f"borderline match={oracle_summary['borderline_match_rate']:.2f}"
             ],
         },
         "end_to_end_verdict_evaluation": {
             "modes": end_to_end_modes,
             "observations": _end_to_end_observations({"modes": end_to_end_modes}, selected_modes),
         },
+        "diagnostics": {
+            "per_case_mode": per_case_mode_diagnostics,
+            "failure_type_breakdown": _failure_breakdown(end_to_end_case_results, "failure_type"),
+            "oracle_failure_type_breakdown": _failure_breakdown(oracle_case_results, "failure_type"),
+        },
         "ablation_block": {
             "modes": {
                 mode: {
                     "retrieval_hit_top3_rate": retrieval_modes[mode]["summary"]["positive_hit_top3_rate"],
+                    "retrieval_success_rate": retrieval_modes[mode]["summary"]["retrieval_success_rate"],
                     "end_to_end_accuracy": end_to_end_modes[mode]["summary"]["accuracy"],
                     "end_to_end_macro_f1": end_to_end_modes[mode]["summary"]["macro_f1"],
                 }
                 for mode in selected_modes
             }
+        },
+        "calibration_block": {
+            "applied_changes": [
+                "Expanded curated evaluation to 10 curated documents and 12 curated cases with explicit review/adjudication metadata.",
+                "Applied year-based temporal admissibility filtering before oracle and end-to-end verdict scoring inside the evaluation runner.",
+                "Added a compact high-risk guardrail: when fewer than three admissible evidence items support the verdict, high risk now requires near-saturated average similarity.",
+            ],
+            "oracle_before_after": _oracle_before_after_summary(previous_report, {"oracle_verdict_evaluation": {"cases": oracle_case_results}}),
         },
         "error_observations": _error_observations(
             retrieval_case_results,
@@ -624,10 +1050,10 @@ def run_curated_experiment(
             end_to_end_case_results,
         ),
         "limitation_notes": [
-            "The curated corpus is real but still small and intentionally domain-focused.",
-            "Expected risk labels are protocol annotations assigned relative to the frozen curated corpus snapshot.",
-            "Dense and hybrid retrieval can still overfire on semantically adjacent cases in a small corpus.",
-            "Temporal admissibility filtering was not implemented in this pass.",
+            "The curated corpus is real-article-shaped but still compact and intentionally domain-focused.",
+            "Expected risk labels remain protocol annotations assigned relative to the frozen curated corpus snapshot.",
+            "Dense and hybrid retrieval still overfire on some semantically adjacent cases in a small corpus.",
+            "Temporal admissibility is evaluation-only and does not yet constrain the normal runtime retrieval path itself.",
         ],
     }
     report["before_after_comparison"] = _before_after_summary(previous_report, report)

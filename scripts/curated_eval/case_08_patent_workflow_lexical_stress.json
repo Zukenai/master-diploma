@@ -1,6 +1,5 @@
 {
   "idea_id": "CURATED-008",
-  "case_type": "lexical_stress",
   "title": "Patent claim workflow tracking for internal legal operations",
   "abstract": "This system helps legal teams track patent claim drafts, review milestones, docket states, and supporting evidence attachments during internal coordination. It does not perform prior-art search, semantic retrieval, or novelty-risk assessment.",
   "keywords": [
@@ -13,5 +12,6 @@
     "coordinate internal claim drafting workflow",
     "track revision states across legal teams",
     "archive supporting materials for operational review"
-  ]
+  ],
+  "case_type": "lexical_stress"
 }

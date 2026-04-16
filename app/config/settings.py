@@ -29,6 +29,7 @@ class RerankerConfig(BaseModel):
 class ScoringConfig(BaseModel):
     high_risk_score: float = 0.8
     medium_risk_score: float = 0.46
+    high_risk_limited_evidence_min_avg_similarity: float = 0.95
     strong_similarity_threshold: float = 0.70
     moderate_similarity_threshold: float = 0.45
     keyword_overlap_weight: float = 0.14

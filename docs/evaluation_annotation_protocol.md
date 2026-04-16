@@ -30,7 +30,44 @@ Each curated case must define:
 - `case_type`
 - `expected_risk`
 - `oracle_evidence_ids`
+- `cutoff_year`
+- `initial_label`
+- `review_label`
+- `adjudicated_label`
+- `initial_case_type`
+- `review_case_type`
+- `initial_oracle_evidence_sufficiency`
+- `review_oracle_evidence_sufficiency`
+- `oracle_evidence_sufficiency`
 - `annotation_rationale`
+
+`expected_risk` is retained for readability, but experiment scoring uses `adjudicated_label` as the evaluation target when it is present.
+
+## Oracle Evidence Sufficiency
+
+- `sufficient`: admissible oracle evidence is strong enough to support the adjudicated label.
+- `partial`: admissible oracle evidence supports related overlap, but the final label still depends on cautious interpretation.
+- `insufficient`: admissible oracle evidence is absent or too weak to justify anything above low risk.
+
+## Review / Adjudication Layer
+
+- `initial_*` fields capture the first-pass annotation.
+- `review_*` fields capture the compact second-pass review.
+- final `case_type`, `adjudicated_label`, and `oracle_evidence_sufficiency` are the values used in evaluation.
+
+## Deterministic Failure-Type Mapping
+
+The experiment runner assigns compact failure types with deterministic rules:
+
+- `ok`
+- `retrieval_miss`
+- `oracle_wrong`
+- `lexical_overfire`
+- `borderline_underfire`
+- `near_duplicate_miss`
+- `insufficient_evidence_high_verdict`
+
+These labels are derived from retrieval success, oracle correctness, case type, lexical-only signals, and reviewed evidence sufficiency. They are evaluation-only diagnostics and are not used in the normal runtime path.
 
 ## Required Case Types
 

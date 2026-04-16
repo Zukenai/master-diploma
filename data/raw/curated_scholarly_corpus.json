@@ -120,5 +120,59 @@
     ],
     "year": 2026,
     "venue": "arXiv (Cornell University)"
+  },
+  {
+    "paper_id": "C008",
+    "title": "Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence",
+    "abstract": "We present a transparent system for early-stage research proposal screening that retrieves relevant scholarly literature, aggregates overlap signals across claims, titles, and abstracts, and produces evidence-grounded prior-art risk reports rather than absolute novelty judgments. The system is evaluated on proposal-screening cases and emphasizes reproducibility, local corpus indexing, and structured explanations.",
+    "keywords": [
+      "prior-art risk assessment",
+      "research proposals",
+      "retrieved scholarly evidence",
+      "structured explanation"
+    ],
+    "claims": [
+      "retrieve relevant scholarly papers for early-stage proposal screening",
+      "aggregate claim, title, and abstract overlap signals into a prior-art risk judgement",
+      "produce evidence-grounded reports rather than absolute novelty decisions"
+    ],
+    "year": 2025,
+    "venue": "Scientometrics"
+  },
+  {
+    "paper_id": "C009",
+    "title": "Related-Work Recommendation for Peer Review with Citation and Semantic Signals",
+    "abstract": "We study a reviewer-support system that recommends related work and citation candidates during peer review using citation graphs and semantic matching. The goal is to help reviewers discover adjacent literature, not to render novelty or prior-art risk judgments.",
+    "keywords": [
+      "peer review",
+      "related-work recommendation",
+      "citation signals",
+      "semantic matching"
+    ],
+    "claims": [
+      "recommend related work to reviewers during manuscript assessment",
+      "combine citation and semantic signals for literature suggestion",
+      "support peer review without issuing novelty or prior-art verdicts"
+    ],
+    "year": 2024,
+    "venue": "Journal of Informetrics"
+  },
+  {
+    "paper_id": "C010",
+    "title": "Claim-Grounded Novelty Screening of Technical and Scholarly Ideas",
+    "abstract": "This paper studies claim-grounded novelty screening across technical disclosures and research ideas. The method extracts contribution claims, retrieves supporting literature, distinguishes direct overlap from adjacent similarity, and synthesizes a transparent evidence taxonomy for novelty-risk assessment.",
+    "keywords": [
+      "claim-grounded screening",
+      "novelty-risk assessment",
+      "evidence taxonomy",
+      "research ideas"
+    ],
+    "claims": [
+      "extract contribution claims before retrieval",
+      "distinguish direct overlap from adjacent similarity",
+      "synthesize evidence taxonomy for novelty-risk assessment"
+    ],
+    "year": 2025,
+    "venue": "Information Processing & Management"
   }
 ]

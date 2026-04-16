@@ -132,6 +132,16 @@ def score_candidates(
     )
     risk_score = round(min(max(risk_score, 0.0), 1.0), 4)
     label = _risk_label(risk_score, config)
+    limited_evidence_high_guard_applied = False
+    if (
+        label == "high prior-art risk"
+        and evidence_count_ratio < 1.0
+        and avg_top_similarity < config.high_risk_limited_evidence_min_avg_similarity
+    ):
+        # Guardrail for compact borderline cases: two admissible pieces of evidence alone
+        # should not escalate to high risk unless their aggregate similarity is near-saturated.
+        label = "medium prior-art risk"
+        limited_evidence_high_guard_applied = True
 
     evidence = [
         EvidenceItem(
@@ -176,6 +186,7 @@ def score_candidates(
         "shallow_support_count": shallow_support_count,
         "lexical_only_count": lexical_only_count,
         "weak_support_count": weak_support_count,
+        "limited_evidence_high_guard_applied": limited_evidence_high_guard_applied,
         "evidence_sources": sorted(
             {
                 source
