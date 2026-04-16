@@ -14,6 +14,7 @@ from app.schemas.paper import PaperRecord, RetrievedCandidate
 from app.scoring.rules import score_candidates
 
 LABELS = ["low prior-art risk", "medium prior-art risk", "high prior-art risk"]
+LABEL_TO_ORDINAL = {label: index for index, label in enumerate(LABELS)}
 FAILURE_TYPES = [
     "ok",
     "retrieval_miss",
@@ -110,11 +111,22 @@ def _precision_recall_f1(
         f1_values.append(f1)
 
     accuracy = sum(1 for expected, actual in zip(truth, predicted, strict=True) if expected == actual) / max(len(truth), 1)
+    mean_ordinal_error = (
+        sum(abs(LABEL_TO_ORDINAL[expected] - LABEL_TO_ORDINAL[actual]) for expected, actual in zip(truth, predicted, strict=True))
+        / max(len(truth), 1)
+    )
     return {
         "accuracy": round(accuracy, 4),
         "macro_f1": round(sum(f1_values) / len(LABELS), 4),
+        "mean_ordinal_error": round(mean_ordinal_error, 4),
         "per_label": per_label,
         "confusion": confusion,
+        "adjacent_confusion_summary": {
+            "low_to_medium": confusion["low prior-art risk"]["medium prior-art risk"],
+            "medium_to_low": confusion["medium prior-art risk"]["low prior-art risk"],
+            "medium_to_high": confusion["medium prior-art risk"]["high prior-art risk"],
+            "high_to_medium": confusion["high prior-art risk"]["medium prior-art risk"],
+        },
         "predicted_label_distribution": _label_distribution(predicted),
         "expected_label_distribution": _label_distribution(truth),
     }
@@ -351,6 +363,8 @@ def _oracle_before_after_summary(
         "accuracy_after": current_summary["accuracy"],
         "macro_f1_before": previous_summary["macro_f1"],
         "macro_f1_after": current_summary["macro_f1"],
+        "mean_ordinal_error_before": previous_summary["mean_ordinal_error"],
+        "mean_ordinal_error_after": current_summary["mean_ordinal_error"],
         "medium_match_rate_before": previous_medium["match_rate"],
         "medium_match_rate_after": current_medium["match_rate"],
         "borderline_match_rate_before": previous_borderline["match_rate"],
@@ -541,7 +555,8 @@ def _end_to_end_observations(report: dict[str, object], modes: list[str]) -> lis
         summary = report["modes"][mode]["summary"]
         observations.append(
             f"{mode}: accuracy={summary['accuracy']:.2f}, macro-F1={summary['macro_f1']:.2f}, "
-            f"borderline match={summary['borderline_match_rate']:.2f}."
+            f"borderline match={summary['borderline_match_rate']:.2f}, "
+            f"mean ordinal error={summary['mean_ordinal_error']:.2f}."
         )
     return observations
 
@@ -552,7 +567,9 @@ def _markdown_diagnostic_line(item: dict[str, object]) -> str:
         f"oracle={item['oracle_verdict']} ({item['oracle_risk_score']:.2f}), "
         f"end-to-end={item['end_to_end_verdict']} ({item['end_to_end_risk_score']:.2f}), "
         f"failure={item['failure_type']}, top={item['top_evidence_ids']}, "
-        f"oracle_top={item['top_oracle_evidence_ids']}, decision={item['triggered_decision_summary']}"
+        f"oracle_top={item['top_oracle_evidence_ids']}, "
+        f"oracle_state={item['oracle_evidence_sufficiency_state']}, end_state={item['end_to_end_evidence_sufficiency_state']}, "
+        f"decision={item['triggered_decision_summary']}"
     )
 
 
@@ -587,9 +604,11 @@ def _markdown_summary(report: dict[str, object]) -> str:
     lines.extend([
         "",
         "## Oracle Verdict Evaluation",
-        f"- accuracy={oracle_summary['accuracy']:.2f}, macro-F1={oracle_summary['macro_f1']:.2f}",
+        f"- accuracy={oracle_summary['accuracy']:.2f}, macro-F1={oracle_summary['macro_f1']:.2f}, mean ordinal error={oracle_summary['mean_ordinal_error']:.2f}",
         f"- medium-risk match rate={oracle_summary['medium_label_match_rate']:.2f}",
         f"- borderline-case match rate={oracle_summary['borderline_match_rate']:.2f}",
+        f"- low↔medium confusion={oracle_summary['adjacent_confusion_summary']['low_to_medium'] + oracle_summary['adjacent_confusion_summary']['medium_to_low']}, "
+        f"medium↔high confusion={oracle_summary['adjacent_confusion_summary']['medium_to_high'] + oracle_summary['adjacent_confusion_summary']['high_to_medium']}",
         f"- temporal admissibility: admissible={temporal['oracle_admissible_evidence_count']}, inadmissible={temporal['oracle_inadmissible_evidence_count']}",
         "",
         "## End-to-End Evaluation",
@@ -616,7 +635,8 @@ def _markdown_summary(report: dict[str, object]) -> str:
     if oracle_before_after:
         lines.append(
             f"- oracle accuracy {oracle_before_after['accuracy_before']:.2f} -> {oracle_before_after['accuracy_after']:.2f}; "
-            f"macro-F1 {oracle_before_after['macro_f1_before']:.2f} -> {oracle_before_after['macro_f1_after']:.2f}"
+            f"macro-F1 {oracle_before_after['macro_f1_before']:.2f} -> {oracle_before_after['macro_f1_after']:.2f}; "
+            f"mean ordinal error {oracle_before_after['mean_ordinal_error_before']:.2f} -> {oracle_before_after['mean_ordinal_error_after']:.2f}"
         )
         lines.append(
             f"- medium-risk match {oracle_before_after['medium_match_rate_before']:.2f} -> {oracle_before_after['medium_match_rate_after']:.2f}; "
@@ -843,6 +863,8 @@ def run_curated_experiment(
                 "end_to_end_verdict": end_risk_label,
                 "oracle_risk_score": oracle_risk_score,
                 "end_to_end_risk_score": end_risk_score,
+                "oracle_evidence_sufficiency_state": oracle_debug.get("evidence_sufficiency", "unknown"),
+                "end_to_end_evidence_sufficiency_state": end_debug.get("evidence_sufficiency", "unknown"),
                 "top_evidence_ids": top_evidence_ids,
                 "top_oracle_evidence_ids": oracle_case["top_papers"],
                 "admissible_expected_evidence_ids": admissible_expected_ids,
@@ -876,6 +898,10 @@ def run_curated_experiment(
                 "triggered_decision_summary": {
                     "oracle": oracle_debug.get("decision_basis", "unknown"),
                     "end_to_end": end_debug.get("decision_basis", "unknown"),
+                    "oracle_scope_narrowing_required": bool(oracle_debug.get("scope_narrowing_required")),
+                    "end_to_end_scope_narrowing_required": bool(end_debug.get("scope_narrowing_required")),
+                    "oracle_high_blocked_by_insufficiency": bool(oracle_debug.get("high_blocked_by_insufficiency")),
+                    "end_to_end_high_blocked_by_insufficiency": bool(end_debug.get("high_blocked_by_insufficiency")),
                     "limited_evidence_high_guard_applied": bool(
                         oracle_debug.get("limited_evidence_high_guard_applied")
                         or end_debug.get("limited_evidence_high_guard_applied")
@@ -1013,7 +1039,8 @@ def run_curated_experiment(
             "observations": [
                 f"oracle: accuracy={oracle_summary['accuracy']:.2f}, macro-F1={oracle_summary['macro_f1']:.2f}, "
                 f"medium-risk match={oracle_summary['medium_label_match_rate']:.2f}, "
-                f"borderline match={oracle_summary['borderline_match_rate']:.2f}"
+                f"borderline match={oracle_summary['borderline_match_rate']:.2f}, "
+                f"mean ordinal error={oracle_summary['mean_ordinal_error']:.2f}"
             ],
         },
         "end_to_end_verdict_evaluation": {
@@ -1040,7 +1067,9 @@ def run_curated_experiment(
             "applied_changes": [
                 "Expanded curated evaluation to 10 curated documents and 12 curated cases with explicit review/adjudication metadata.",
                 "Applied year-based temporal admissibility filtering before oracle and end-to-end verdict scoring inside the evaluation runner.",
-                "Added a compact high-risk guardrail: when fewer than three admissible evidence items support the verdict, high risk now requires near-saturated average similarity.",
+                "Introduced a compact evidence-state rubric: self_sufficient, combination_sufficient, partial, and adjacent_only now shape verdict assignment before final label mapping.",
+                "High verdicts are now allowed only for self_sufficient or combination_sufficient evidence states; raw high scores alone no longer escalate borderline or adjacent cases.",
+                "Single-source adjacent support and narrower-scope support now surface through adjacent_only / partial states, with explicit insufficiency blocking in diagnostics.",
             ],
             "oracle_before_after": _oracle_before_after_summary(previous_report, {"oracle_verdict_evaluation": {"cases": oracle_case_results}}),
         },

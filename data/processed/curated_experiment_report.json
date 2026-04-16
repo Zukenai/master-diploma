@@ -270,6 +270,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -305,6 +310,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -340,6 +350,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -419,6 +434,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -430,7 +450,7 @@
         },
         {
           "mode": "dense",
-          "risk_label": "high prior-art risk",
+          "risk_label": "medium prior-art risk",
           "risk_score": 1.0,
           "top_papers": [
             "C008",
@@ -438,8 +458,8 @@
             "C005"
           ],
           "retrieval_hit_top3": true,
-          "verdict_matches_expectation": false,
-          "failure_type": "insufficient_evidence_high_verdict",
+          "verdict_matches_expectation": true,
+          "failure_type": "ok",
           "debug": {
             "max_similarity": 0.9163,
             "avg_top_similarity": 0.6565,
@@ -454,18 +474,23 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
-            "limited_evidence_high_guard_applied": false,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
+            "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense"
             ],
-            "decision_basis": "high_overlap_signals",
+            "decision_basis": "moderate_overlap_signals",
             "retrieval_strategy": "dense",
             "reranker_strategy": "overlap"
           }
         },
         {
           "mode": "hybrid",
-          "risk_label": "high prior-art risk",
+          "risk_label": "medium prior-art risk",
           "risk_score": 1.0,
           "top_papers": [
             "C008",
@@ -473,8 +498,8 @@
             "C005"
           ],
           "retrieval_hit_top3": true,
-          "verdict_matches_expectation": false,
-          "failure_type": "insufficient_evidence_high_verdict",
+          "verdict_matches_expectation": true,
+          "failure_type": "ok",
           "debug": {
             "max_similarity": 0.7286,
             "avg_top_similarity": 0.589,
@@ -489,13 +514,18 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
-            "limited_evidence_high_guard_applied": false,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
+            "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense",
               "hybrid",
               "sparse"
             ],
-            "decision_basis": "high_overlap_signals",
+            "decision_basis": "moderate_overlap_signals",
             "retrieval_strategy": "hybrid",
             "reranker_strategy": "overlap"
           }
@@ -545,6 +575,10 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "evidence_sufficiency": "adjacent_only",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "no_retrieved_candidates",
             "evidence_sources": [],
             "decision_basis": "no_retrieved_candidates",
             "retrieval_strategy": "sparse",
@@ -577,6 +611,11 @@
             "shallow_support_count": 3,
             "lexical_only_count": 2,
             "weak_support_count": 0,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "adjacent_only",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "weak_or_lexical_support_only",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -612,6 +651,11 @@
             "shallow_support_count": 3,
             "lexical_only_count": 2,
             "weak_support_count": 0,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "adjacent_only",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "weak_or_lexical_support_only",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -670,6 +714,11 @@
             "shallow_support_count": 1,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "adjacent_only",
+            "scope_narrowing_required": true,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "single_source_adjacent_overlap_only",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -705,6 +754,11 @@
             "shallow_support_count": 3,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -740,6 +794,11 @@
             "shallow_support_count": 3,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -819,6 +878,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -854,6 +918,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -889,6 +958,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -956,6 +1030,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "adjacent_only",
+            "scope_narrowing_required": true,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "single_source_adjacent_overlap_only",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -991,6 +1070,11 @@
             "shallow_support_count": 2,
             "lexical_only_count": 0,
             "weak_support_count": 2,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -1026,6 +1110,11 @@
             "shallow_support_count": 2,
             "lexical_only_count": 0,
             "weak_support_count": 2,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -1081,7 +1170,7 @@
       "comparisons": [
         {
           "mode": "sparse",
-          "risk_label": "high prior-art risk",
+          "risk_label": "medium prior-art risk",
           "risk_score": 0.9334,
           "top_papers": [
             "C008",
@@ -1089,8 +1178,8 @@
             "C009"
           ],
           "retrieval_hit_top3": true,
-          "verdict_matches_expectation": false,
-          "failure_type": "insufficient_evidence_high_verdict",
+          "verdict_matches_expectation": true,
+          "failure_type": "ok",
           "debug": {
             "max_similarity": 0.5542,
             "avg_top_similarity": 0.3731,
@@ -1105,18 +1194,23 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
-            "limited_evidence_high_guard_applied": false,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
+            "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "sparse"
             ],
-            "decision_basis": "high_overlap_signals",
+            "decision_basis": "moderate_overlap_signals",
             "retrieval_strategy": "sparse",
             "reranker_strategy": "overlap"
           }
         },
         {
           "mode": "dense",
-          "risk_label": "high prior-art risk",
+          "risk_label": "medium prior-art risk",
           "risk_score": 0.9525,
           "top_papers": [
             "C008",
@@ -1124,8 +1218,8 @@
             "C003"
           ],
           "retrieval_hit_top3": true,
-          "verdict_matches_expectation": false,
-          "failure_type": "lexical_overfire",
+          "verdict_matches_expectation": true,
+          "failure_type": "ok",
           "debug": {
             "max_similarity": 1.0,
             "avg_top_similarity": 0.6127,
@@ -1140,18 +1234,23 @@
             "shallow_support_count": 1,
             "lexical_only_count": 1,
             "weak_support_count": 1,
-            "limited_evidence_high_guard_applied": false,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
+            "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense"
             ],
-            "decision_basis": "high_overlap_signals",
+            "decision_basis": "moderate_overlap_signals",
             "retrieval_strategy": "dense",
             "reranker_strategy": "overlap"
           }
         },
         {
           "mode": "hybrid",
-          "risk_label": "high prior-art risk",
+          "risk_label": "medium prior-art risk",
           "risk_score": 1.0,
           "top_papers": [
             "C008",
@@ -1159,8 +1258,8 @@
             "C009"
           ],
           "retrieval_hit_top3": true,
-          "verdict_matches_expectation": false,
-          "failure_type": "insufficient_evidence_high_verdict",
+          "verdict_matches_expectation": true,
+          "failure_type": "ok",
           "debug": {
             "max_similarity": 0.8457,
             "avg_top_similarity": 0.6043,
@@ -1175,13 +1274,18 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
-            "limited_evidence_high_guard_applied": false,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
+            "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense",
               "hybrid",
               "sparse"
             ],
-            "decision_basis": "high_overlap_signals",
+            "decision_basis": "moderate_overlap_signals",
             "retrieval_strategy": "hybrid",
             "reranker_strategy": "overlap"
           }
@@ -1236,6 +1340,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "low prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -1271,6 +1380,11 @@
             "shallow_support_count": 1,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -1306,6 +1420,11 @@
             "shallow_support_count": 1,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -1379,6 +1498,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -1390,7 +1514,7 @@
         },
         {
           "mode": "dense",
-          "risk_label": "high prior-art risk",
+          "risk_label": "medium prior-art risk",
           "risk_score": 1.0,
           "top_papers": [
             "C008",
@@ -1398,8 +1522,8 @@
             "C003"
           ],
           "retrieval_hit_top3": true,
-          "verdict_matches_expectation": false,
-          "failure_type": "insufficient_evidence_high_verdict",
+          "verdict_matches_expectation": true,
+          "failure_type": "ok",
           "debug": {
             "max_similarity": 1.0,
             "avg_top_similarity": 0.6272,
@@ -1414,18 +1538,23 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
-            "limited_evidence_high_guard_applied": false,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
+            "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense"
             ],
-            "decision_basis": "high_overlap_signals",
+            "decision_basis": "moderate_overlap_signals",
             "retrieval_strategy": "dense",
             "reranker_strategy": "overlap"
           }
         },
         {
           "mode": "hybrid",
-          "risk_label": "high prior-art risk",
+          "risk_label": "medium prior-art risk",
           "risk_score": 1.0,
           "top_papers": [
             "C008",
@@ -1433,8 +1562,8 @@
             "C009"
           ],
           "retrieval_hit_top3": true,
-          "verdict_matches_expectation": false,
-          "failure_type": "insufficient_evidence_high_verdict",
+          "verdict_matches_expectation": true,
+          "failure_type": "ok",
           "debug": {
             "max_similarity": 0.8028,
             "avg_top_similarity": 0.578,
@@ -1449,13 +1578,18 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
-            "limited_evidence_high_guard_applied": false,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
+            "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense",
               "hybrid",
               "sparse"
             ],
-            "decision_basis": "high_overlap_signals",
+            "decision_basis": "moderate_overlap_signals",
             "retrieval_strategy": "hybrid",
             "reranker_strategy": "overlap"
           }
@@ -1521,6 +1655,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": true,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -1556,6 +1695,11 @@
             "shallow_support_count": 1,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -1591,6 +1735,11 @@
             "shallow_support_count": 1,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -1670,6 +1819,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -1705,6 +1859,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense"
@@ -1740,6 +1899,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "self_sufficient",
+            "scope_narrowing_required": false,
+            "high_blocked_by_insufficiency": false,
+            "evidence_state_basis": "self_sufficient_direct_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "dense",
@@ -1808,6 +1972,11 @@
             "shallow_support_count": 1,
             "lexical_only_count": 1,
             "weak_support_count": 1,
+            "raw_risk_label": "medium prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": true,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": false,
             "evidence_sources": [
               "sparse"
@@ -1842,6 +2011,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": true,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense"
@@ -1876,6 +2050,11 @@
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "raw_risk_label": "high prior-art risk",
+            "evidence_sufficiency": "partial",
+            "scope_narrowing_required": true,
+            "high_blocked_by_insufficiency": true,
+            "evidence_state_basis": "meaningful_but_incomplete_overlap",
             "limited_evidence_high_guard_applied": true,
             "evidence_sources": [
               "dense",
@@ -3018,38 +3197,39 @@
   },
   "oracle_verdict_evaluation": {
     "summary": {
-      "accuracy": 0.5833,
-      "macro_f1": 0.5611,
+      "accuracy": 1.0,
+      "macro_f1": 1.0,
+      "mean_ordinal_error": 0.0,
       "per_label": {
         "low prior-art risk": {
           "precision": 1.0,
-          "recall": 0.6,
-          "f1": 0.75,
+          "recall": 1.0,
+          "f1": 1.0,
           "support": 5
         },
         "medium prior-art risk": {
-          "precision": 0.5,
-          "recall": 0.25,
-          "f1": 0.3333,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
           "support": 4
         },
         "high prior-art risk": {
-          "precision": 0.4286,
+          "precision": 1.0,
           "recall": 1.0,
-          "f1": 0.6,
+          "f1": 1.0,
           "support": 3
         }
       },
       "confusion": {
         "low prior-art risk": {
-          "low prior-art risk": 3,
-          "medium prior-art risk": 1,
-          "high prior-art risk": 1
+          "low prior-art risk": 5,
+          "medium prior-art risk": 0,
+          "high prior-art risk": 0
         },
         "medium prior-art risk": {
           "low prior-art risk": 0,
-          "medium prior-art risk": 1,
-          "high prior-art risk": 3
+          "medium prior-art risk": 4,
+          "high prior-art risk": 0
         },
         "high prior-art risk": {
           "low prior-art risk": 0,
@@ -3057,10 +3237,16 @@
           "high prior-art risk": 3
         }
       },
+      "adjacent_confusion_summary": {
+        "low_to_medium": 0,
+        "medium_to_low": 0,
+        "medium_to_high": 0,
+        "high_to_medium": 0
+      },
       "predicted_label_distribution": {
-        "low prior-art risk": 3,
-        "medium prior-art risk": 2,
-        "high prior-art risk": 7
+        "low prior-art risk": 5,
+        "medium prior-art risk": 4,
+        "high prior-art risk": 3
       },
       "expected_label_distribution": {
         "low prior-art risk": 5,
@@ -3075,8 +3261,8 @@
         },
         "borderline": {
           "case_count": 4,
-          "match_count": 1,
-          "match_rate": 0.25
+          "match_count": 4,
+          "match_rate": 1.0
         },
         "clear_negative": {
           "case_count": 1,
@@ -3095,12 +3281,12 @@
         },
         "adjacent_distinct": {
           "case_count": 2,
-          "match_count": 0,
-          "match_rate": 0.0
+          "match_count": 2,
+          "match_rate": 1.0
         }
       },
-      "medium_label_match_rate": 0.25,
-      "borderline_match_rate": 0.25
+      "medium_label_match_rate": 1.0,
+      "borderline_match_rate": 1.0
     },
     "cases": [
       {
@@ -3151,6 +3337,11 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "self_sufficient",
+          "scope_narrowing_required": false,
+          "high_blocked_by_insufficiency": false,
+          "evidence_state_basis": "self_sufficient_direct_overlap",
           "limited_evidence_high_guard_applied": false,
           "evidence_sources": [
             "oracle"
@@ -3210,6 +3401,11 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "partial",
+          "scope_narrowing_required": true,
+          "high_blocked_by_insufficiency": true,
+          "evidence_state_basis": "meaningful_but_incomplete_overlap",
           "limited_evidence_high_guard_applied": true,
           "evidence_sources": [
             "oracle"
@@ -3253,6 +3449,10 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
+          "evidence_sufficiency": "adjacent_only",
+          "scope_narrowing_required": false,
+          "high_blocked_by_insufficiency": false,
+          "evidence_state_basis": "no_retrieved_candidates",
           "evidence_sources": [],
           "decision_basis": "no_retrieved_candidates",
           "retrieval_strategy": "oracle",
@@ -3293,6 +3493,10 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
+          "evidence_sufficiency": "adjacent_only",
+          "scope_narrowing_required": false,
+          "high_blocked_by_insufficiency": false,
+          "evidence_state_basis": "no_retrieved_candidates",
           "evidence_sources": [],
           "decision_basis": "no_retrieved_candidates",
           "retrieval_strategy": "oracle",
@@ -3350,6 +3554,11 @@
           "shallow_support_count": 0,
           "lexical_only_count": 1,
           "weak_support_count": 0,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "combination_sufficient",
+          "scope_narrowing_required": false,
+          "high_blocked_by_insufficiency": false,
+          "evidence_state_basis": "combination_sufficient_corroborated_overlap",
           "limited_evidence_high_guard_applied": false,
           "evidence_sources": [
             "oracle"
@@ -3377,9 +3586,9 @@
         "oracle_evidence_sufficiency": "insufficient",
         "review_label": "low prior-art risk",
         "adjudicated_label": "low prior-art risk",
-        "risk_label": "medium prior-art risk",
+        "risk_label": "low prior-art risk",
         "risk_score": 0.6687,
-        "verdict_matches_expectation": false,
+        "verdict_matches_expectation": true,
         "evidence_strengths": [
           "multi-facet overlap"
         ],
@@ -3402,16 +3611,21 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
+          "raw_risk_label": "medium prior-art risk",
+          "evidence_sufficiency": "adjacent_only",
+          "scope_narrowing_required": true,
+          "high_blocked_by_insufficiency": true,
+          "evidence_state_basis": "single_source_adjacent_overlap_only",
           "limited_evidence_high_guard_applied": false,
           "evidence_sources": [
             "oracle"
           ],
-          "decision_basis": "moderate_overlap_signals",
+          "decision_basis": "limited_overlap_signals",
           "retrieval_strategy": "oracle",
           "reranker_strategy": "overlap"
         },
-        "explanation": "The idea is assessed as medium prior-art risk with score 0.67. Top overlapping papers include Related-Work Recommendation for Peer Review with Citation and Semantic Signals. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C009: matched 10 terms, claims 1. This verdict is evidence-grounded and limited to the local indexed corpus.",
-        "failure_type": "oracle_wrong"
+        "explanation": "The idea is assessed as low prior-art risk with score 0.67. Top overlapping papers include Related-Work Recommendation for Peer Review with Citation and Semantic Signals. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C009: matched 10 terms, claims 1. This verdict is evidence-grounded and limited to the local indexed corpus.",
+        "failure_type": "ok"
       },
       {
         "case_id": "CURATED-007",
@@ -3434,9 +3648,9 @@
         "oracle_evidence_sufficiency": "partial",
         "review_label": "medium prior-art risk",
         "adjudicated_label": "medium prior-art risk",
-        "risk_label": "high prior-art risk",
+        "risk_label": "medium prior-art risk",
         "risk_score": 1.0,
-        "verdict_matches_expectation": false,
+        "verdict_matches_expectation": true,
         "evidence_strengths": [
           "direct overlap",
           "direct overlap"
@@ -3461,16 +3675,21 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
-          "limited_evidence_high_guard_applied": false,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "partial",
+          "scope_narrowing_required": true,
+          "high_blocked_by_insufficiency": true,
+          "evidence_state_basis": "meaningful_but_incomplete_overlap",
+          "limited_evidence_high_guard_applied": true,
           "evidence_sources": [
             "oracle"
           ],
-          "decision_basis": "high_overlap_signals",
+          "decision_basis": "moderate_overlap_signals",
           "retrieval_strategy": "oracle",
           "reranker_strategy": "overlap"
         },
-        "explanation": "The idea is assessed as high prior-art risk with score 1.00. Top overlapping papers include LitSearch: A Retrieval Benchmark for Scientific Literature Search, Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C005: matched 9 terms, claims 3; C008: matched 10 terms, claims 8. This verdict is evidence-grounded and limited to the local indexed corpus.",
-        "failure_type": "insufficient_evidence_high_verdict"
+        "explanation": "The idea is assessed as medium prior-art risk with score 1.00. Top overlapping papers include LitSearch: A Retrieval Benchmark for Scientific Literature Search, Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C005: matched 9 terms, claims 3; C008: matched 10 terms, claims 8. This verdict is evidence-grounded and limited to the local indexed corpus.",
+        "failure_type": "ok"
       },
       {
         "case_id": "CURATED-008",
@@ -3504,6 +3723,10 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
+          "evidence_sufficiency": "adjacent_only",
+          "scope_narrowing_required": false,
+          "high_blocked_by_insufficiency": false,
+          "evidence_state_basis": "no_retrieved_candidates",
           "evidence_sources": [],
           "decision_basis": "no_retrieved_candidates",
           "retrieval_strategy": "oracle",
@@ -3530,9 +3753,9 @@
         "oracle_evidence_sufficiency": "partial",
         "review_label": "medium prior-art risk",
         "adjudicated_label": "medium prior-art risk",
-        "risk_label": "high prior-art risk",
+        "risk_label": "medium prior-art risk",
         "risk_score": 1.0,
-        "verdict_matches_expectation": false,
+        "verdict_matches_expectation": true,
         "evidence_strengths": [
           "direct overlap",
           "multi-facet overlap"
@@ -3557,16 +3780,21 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
-          "limited_evidence_high_guard_applied": false,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "partial",
+          "scope_narrowing_required": true,
+          "high_blocked_by_insufficiency": true,
+          "evidence_state_basis": "meaningful_but_incomplete_overlap",
+          "limited_evidence_high_guard_applied": true,
           "evidence_sources": [
             "oracle"
           ],
-          "decision_basis": "high_overlap_signals",
+          "decision_basis": "moderate_overlap_signals",
           "retrieval_strategy": "oracle",
           "reranker_strategy": "overlap"
         },
-        "explanation": "The idea is assessed as high prior-art risk with score 1.00. Top overlapping papers include LitSearch: A Retrieval Benchmark for Scientific Literature Search, Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C005: matched 8 terms, claims 4; C008: matched 10 terms, claims 7. This verdict is evidence-grounded and limited to the local indexed corpus.",
-        "failure_type": "insufficient_evidence_high_verdict"
+        "explanation": "The idea is assessed as medium prior-art risk with score 1.00. Top overlapping papers include LitSearch: A Retrieval Benchmark for Scientific Literature Search, Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C005: matched 8 terms, claims 4; C008: matched 10 terms, claims 7. This verdict is evidence-grounded and limited to the local indexed corpus.",
+        "failure_type": "ok"
       },
       {
         "case_id": "CURATED-010",
@@ -3586,9 +3814,9 @@
         "oracle_evidence_sufficiency": "partial",
         "review_label": "medium prior-art risk",
         "adjudicated_label": "medium prior-art risk",
-        "risk_label": "high prior-art risk",
+        "risk_label": "medium prior-art risk",
         "risk_score": 0.9167,
-        "verdict_matches_expectation": false,
+        "verdict_matches_expectation": true,
         "evidence_strengths": [
           "partial overlap",
           "multi-facet overlap"
@@ -3613,16 +3841,21 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
-          "limited_evidence_high_guard_applied": false,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "partial",
+          "scope_narrowing_required": true,
+          "high_blocked_by_insufficiency": true,
+          "evidence_state_basis": "meaningful_but_incomplete_overlap",
+          "limited_evidence_high_guard_applied": true,
           "evidence_sources": [
             "oracle"
           ],
-          "decision_basis": "high_overlap_signals",
+          "decision_basis": "moderate_overlap_signals",
           "retrieval_strategy": "oracle",
           "reranker_strategy": "overlap"
         },
-        "explanation": "The idea is assessed as high prior-art risk with score 0.92. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 5; C010: matched 6 terms, claims 4. This verdict is evidence-grounded and limited to the local indexed corpus.",
-        "failure_type": "insufficient_evidence_high_verdict"
+        "explanation": "The idea is assessed as medium prior-art risk with score 0.92. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 5; C010: matched 6 terms, claims 4. This verdict is evidence-grounded and limited to the local indexed corpus.",
+        "failure_type": "ok"
       },
       {
         "case_id": "CURATED-011",
@@ -3672,6 +3905,11 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "self_sufficient",
+          "scope_narrowing_required": false,
+          "high_blocked_by_insufficiency": false,
+          "evidence_state_basis": "self_sufficient_direct_overlap",
           "limited_evidence_high_guard_applied": false,
           "evidence_sources": [
             "oracle"
@@ -3699,9 +3937,9 @@
         "oracle_evidence_sufficiency": "insufficient",
         "review_label": "low prior-art risk",
         "adjudicated_label": "low prior-art risk",
-        "risk_label": "high prior-art risk",
+        "risk_label": "low prior-art risk",
         "risk_score": 0.9667,
-        "verdict_matches_expectation": false,
+        "verdict_matches_expectation": true,
         "evidence_strengths": [
           "direct overlap"
         ],
@@ -3724,28 +3962,34 @@
           "shallow_support_count": 0,
           "lexical_only_count": 0,
           "weak_support_count": 0,
-          "limited_evidence_high_guard_applied": false,
+          "raw_risk_label": "high prior-art risk",
+          "evidence_sufficiency": "adjacent_only",
+          "scope_narrowing_required": true,
+          "high_blocked_by_insufficiency": true,
+          "evidence_state_basis": "single_source_adjacent_overlap_only",
+          "limited_evidence_high_guard_applied": true,
           "evidence_sources": [
             "oracle"
           ],
-          "decision_basis": "high_overlap_signals",
+          "decision_basis": "limited_overlap_signals",
           "retrieval_strategy": "oracle",
           "reranker_strategy": "overlap"
         },
-        "explanation": "The idea is assessed as high prior-art risk with score 0.97. Top overlapping papers include Related-Work Recommendation for Peer Review with Citation and Semantic Signals. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C009: matched 10 terms, claims 8. This verdict is evidence-grounded and limited to the local indexed corpus.",
-        "failure_type": "insufficient_evidence_high_verdict"
+        "explanation": "The idea is assessed as low prior-art risk with score 0.97. Top overlapping papers include Related-Work Recommendation for Peer Review with Citation and Semantic Signals. Evidence was gathered via oracle retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C009: matched 10 terms, claims 8. This verdict is evidence-grounded and limited to the local indexed corpus.",
+        "failure_type": "ok"
       }
     ],
     "observations": [
-      "oracle: accuracy=0.58, macro-F1=0.56, medium-risk match=0.25, borderline match=0.25"
+      "oracle: accuracy=1.00, macro-F1=1.00, medium-risk match=1.00, borderline match=1.00, mean ordinal error=0.00"
     ]
   },
   "end_to_end_verdict_evaluation": {
     "modes": {
       "sparse": {
         "summary": {
-          "accuracy": 0.8333,
-          "macro_f1": 0.832,
+          "accuracy": 0.9167,
+          "macro_f1": 0.9259,
+          "mean_ordinal_error": 0.0833,
           "per_label": {
             "low prior-art risk": {
               "precision": 1.0,
@@ -3754,15 +3998,15 @@
               "support": 5
             },
             "medium prior-art risk": {
-              "precision": 0.75,
-              "recall": 0.75,
-              "f1": 0.75,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.8889,
               "support": 4
             },
             "high prior-art risk": {
-              "precision": 0.75,
+              "precision": 1.0,
               "recall": 1.0,
-              "f1": 0.8571,
+              "f1": 1.0,
               "support": 3
             }
           },
@@ -3774,8 +4018,8 @@
             },
             "medium prior-art risk": {
               "low prior-art risk": 0,
-              "medium prior-art risk": 3,
-              "high prior-art risk": 1
+              "medium prior-art risk": 4,
+              "high prior-art risk": 0
             },
             "high prior-art risk": {
               "low prior-art risk": 0,
@@ -3783,10 +4027,16 @@
               "high prior-art risk": 3
             }
           },
+          "adjacent_confusion_summary": {
+            "low_to_medium": 1,
+            "medium_to_low": 0,
+            "medium_to_high": 0,
+            "high_to_medium": 0
+          },
           "predicted_label_distribution": {
             "low prior-art risk": 4,
-            "medium prior-art risk": 4,
-            "high prior-art risk": 4
+            "medium prior-art risk": 5,
+            "high prior-art risk": 3
           },
           "expected_label_distribution": {
             "low prior-art risk": 5,
@@ -3795,7 +4045,6 @@
           },
           "average_risk_score": 0.5814,
           "mismatch_cases": [
-            "CURATED-007",
             "CURATED-012"
           ],
           "case_type_breakdown": {
@@ -3806,8 +4055,8 @@
             },
             "borderline": {
               "case_count": 4,
-              "match_count": 3,
-              "match_rate": 0.75
+              "match_count": 4,
+              "match_rate": 1.0
             },
             "clear_negative": {
               "case_count": 1,
@@ -3830,8 +4079,8 @@
               "match_rate": 0.5
             }
           },
-          "medium_label_match_rate": 0.75,
-          "borderline_match_rate": 0.75
+          "medium_label_match_rate": 1.0,
+          "borderline_match_rate": 1.0
         },
         "cases": [
           {
@@ -3877,6 +4126,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -3931,6 +4185,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -3973,6 +4232,10 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "evidence_sufficiency": "adjacent_only",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "no_retrieved_candidates",
               "evidence_sources": [],
               "decision_basis": "no_retrieved_candidates",
               "retrieval_strategy": "sparse",
@@ -4015,6 +4278,11 @@
               "shallow_support_count": 1,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "adjacent_only",
+              "scope_narrowing_required": true,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "single_source_adjacent_overlap_only",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4069,6 +4337,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4118,6 +4391,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "adjacent_only",
+              "scope_narrowing_required": true,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "single_source_adjacent_overlap_only",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4155,9 +4433,9 @@
             ],
             "retrieval_hit_top3": true,
             "retrieval_success": true,
-            "risk_label": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
             "risk_score": 0.9334,
-            "verdict_matches_expectation": false,
+            "verdict_matches_expectation": true,
             "debug": {
               "max_similarity": 0.5542,
               "avg_top_similarity": 0.3731,
@@ -4172,16 +4450,21 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
-              "limited_evidence_high_guard_applied": false,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
+              "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "sparse"
               ],
-              "decision_basis": "high_overlap_signals",
+              "decision_basis": "moderate_overlap_signals",
               "retrieval_strategy": "sparse",
               "reranker_strategy": "overlap"
             },
-            "explanation": "The idea is assessed as high prior-art risk with score 0.93. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 8; C010: matched 10 terms, claims 2; C009: matched 4 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
-            "failure_type": "insufficient_evidence_high_verdict"
+            "explanation": "The idea is assessed as medium prior-art risk with score 0.93. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 8; C010: matched 10 terms, claims 2; C009: matched 4 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
+            "failure_type": "ok"
           },
           {
             "case_id": "CURATED-008",
@@ -4219,6 +4502,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4271,6 +4559,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4322,6 +4615,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": true,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4376,6 +4674,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4428,6 +4731,11 @@
               "shallow_support_count": 1,
               "lexical_only_count": 1,
               "weak_support_count": 1,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": true,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "sparse"
@@ -4443,8 +4751,9 @@
       },
       "dense": {
         "summary": {
-          "accuracy": 0.5833,
-          "macro_f1": 0.5675,
+          "accuracy": 0.8333,
+          "macro_f1": 0.85,
+          "mean_ordinal_error": 0.1667,
           "per_label": {
             "low prior-art risk": {
               "precision": 1.0,
@@ -4453,15 +4762,15 @@
               "support": 5
             },
             "medium prior-art risk": {
-              "precision": 0.3333,
-              "recall": 0.25,
-              "f1": 0.2857,
+              "precision": 0.6667,
+              "recall": 1.0,
+              "f1": 0.8,
               "support": 4
             },
             "high prior-art risk": {
-              "precision": 0.5,
+              "precision": 1.0,
               "recall": 1.0,
-              "f1": 0.6667,
+              "f1": 1.0,
               "support": 3
             }
           },
@@ -4473,8 +4782,8 @@
             },
             "medium prior-art risk": {
               "low prior-art risk": 0,
-              "medium prior-art risk": 1,
-              "high prior-art risk": 3
+              "medium prior-art risk": 4,
+              "high prior-art risk": 0
             },
             "high prior-art risk": {
               "low prior-art risk": 0,
@@ -4482,10 +4791,16 @@
               "high prior-art risk": 3
             }
           },
+          "adjacent_confusion_summary": {
+            "low_to_medium": 2,
+            "medium_to_low": 0,
+            "medium_to_high": 0,
+            "high_to_medium": 0
+          },
           "predicted_label_distribution": {
             "low prior-art risk": 3,
-            "medium prior-art risk": 3,
-            "high prior-art risk": 6
+            "medium prior-art risk": 6,
+            "high prior-art risk": 3
           },
           "expected_label_distribution": {
             "low prior-art risk": 5,
@@ -4494,10 +4809,7 @@
           },
           "average_risk_score": 0.7905,
           "mismatch_cases": [
-            "MANUAL-002",
-            "CURATED-007",
             "CURATED-008",
-            "CURATED-009",
             "CURATED-012"
           ],
           "case_type_breakdown": {
@@ -4508,8 +4820,8 @@
             },
             "borderline": {
               "case_count": 4,
-              "match_count": 1,
-              "match_rate": 0.25
+              "match_count": 4,
+              "match_rate": 1.0
             },
             "clear_negative": {
               "case_count": 1,
@@ -4532,8 +4844,8 @@
               "match_rate": 0.5
             }
           },
-          "medium_label_match_rate": 0.25,
-          "borderline_match_rate": 0.25
+          "medium_label_match_rate": 1.0,
+          "borderline_match_rate": 1.0
         },
         "cases": [
           {
@@ -4579,6 +4891,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -4616,9 +4933,9 @@
             ],
             "retrieval_hit_top3": true,
             "retrieval_success": true,
-            "risk_label": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
             "risk_score": 1.0,
-            "verdict_matches_expectation": false,
+            "verdict_matches_expectation": true,
             "debug": {
               "max_similarity": 0.9163,
               "avg_top_similarity": 0.6565,
@@ -4633,16 +4950,21 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
-              "limited_evidence_high_guard_applied": false,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
+              "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense"
               ],
-              "decision_basis": "high_overlap_signals",
+              "decision_basis": "moderate_overlap_signals",
               "retrieval_strategy": "dense",
               "reranker_strategy": "overlap"
             },
-            "explanation": "The idea is assessed as high prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 2; C010: matched 8 terms, claims 2; C005: matched 2 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
-            "failure_type": "insufficient_evidence_high_verdict"
+            "explanation": "The idea is assessed as medium prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 2; C010: matched 8 terms, claims 2; C005: matched 2 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
+            "failure_type": "ok"
           },
           {
             "case_id": "MANUAL-003",
@@ -4680,6 +5002,11 @@
               "shallow_support_count": 3,
               "lexical_only_count": 2,
               "weak_support_count": 0,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "adjacent_only",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "weak_or_lexical_support_only",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -4729,6 +5056,11 @@
               "shallow_support_count": 3,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -4783,6 +5115,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -4834,6 +5171,11 @@
               "shallow_support_count": 2,
               "lexical_only_count": 0,
               "weak_support_count": 2,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -4871,9 +5213,9 @@
             ],
             "retrieval_hit_top3": true,
             "retrieval_success": true,
-            "risk_label": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
             "risk_score": 0.9525,
-            "verdict_matches_expectation": false,
+            "verdict_matches_expectation": true,
             "debug": {
               "max_similarity": 1.0,
               "avg_top_similarity": 0.6127,
@@ -4888,16 +5230,21 @@
               "shallow_support_count": 1,
               "lexical_only_count": 1,
               "weak_support_count": 1,
-              "limited_evidence_high_guard_applied": false,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
+              "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense"
               ],
-              "decision_basis": "high_overlap_signals",
+              "decision_basis": "moderate_overlap_signals",
               "retrieval_strategy": "dense",
               "reranker_strategy": "overlap"
             },
-            "explanation": "The idea is assessed as high prior-art risk with score 0.95. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 8; C010: matched 10 terms, claims 2; C003: matched 7 terms, claims 0. This verdict is evidence-grounded and limited to the local indexed corpus.",
-            "failure_type": "lexical_overfire"
+            "explanation": "The idea is assessed as medium prior-art risk with score 0.95. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 8; C010: matched 10 terms, claims 2; C003: matched 7 terms, claims 0. This verdict is evidence-grounded and limited to the local indexed corpus.",
+            "failure_type": "ok"
           },
           {
             "case_id": "CURATED-008",
@@ -4935,6 +5282,11 @@
               "shallow_support_count": 1,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -4970,9 +5322,9 @@
             ],
             "retrieval_hit_top3": true,
             "retrieval_success": true,
-            "risk_label": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
             "risk_score": 1.0,
-            "verdict_matches_expectation": false,
+            "verdict_matches_expectation": true,
             "debug": {
               "max_similarity": 1.0,
               "avg_top_similarity": 0.6272,
@@ -4987,16 +5339,21 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
-              "limited_evidence_high_guard_applied": false,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
+              "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense"
               ],
-              "decision_basis": "high_overlap_signals",
+              "decision_basis": "moderate_overlap_signals",
               "retrieval_strategy": "dense",
               "reranker_strategy": "overlap"
             },
-            "explanation": "The idea is assessed as high prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 7; C010: matched 7 terms, claims 2; C003: matched 7 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
-            "failure_type": "insufficient_evidence_high_verdict"
+            "explanation": "The idea is assessed as medium prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 7; C010: matched 7 terms, claims 2; C003: matched 7 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
+            "failure_type": "ok"
           },
           {
             "case_id": "CURATED-010",
@@ -5039,6 +5396,11 @@
               "shallow_support_count": 1,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -5091,6 +5453,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense"
@@ -5143,6 +5510,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": true,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense"
@@ -5158,8 +5530,9 @@
       },
       "hybrid": {
         "summary": {
-          "accuracy": 0.5833,
-          "macro_f1": 0.5675,
+          "accuracy": 0.8333,
+          "macro_f1": 0.85,
+          "mean_ordinal_error": 0.1667,
           "per_label": {
             "low prior-art risk": {
               "precision": 1.0,
@@ -5168,15 +5541,15 @@
               "support": 5
             },
             "medium prior-art risk": {
-              "precision": 0.3333,
-              "recall": 0.25,
-              "f1": 0.2857,
+              "precision": 0.6667,
+              "recall": 1.0,
+              "f1": 0.8,
               "support": 4
             },
             "high prior-art risk": {
-              "precision": 0.5,
+              "precision": 1.0,
               "recall": 1.0,
-              "f1": 0.6667,
+              "f1": 1.0,
               "support": 3
             }
           },
@@ -5188,8 +5561,8 @@
             },
             "medium prior-art risk": {
               "low prior-art risk": 0,
-              "medium prior-art risk": 1,
-              "high prior-art risk": 3
+              "medium prior-art risk": 4,
+              "high prior-art risk": 0
             },
             "high prior-art risk": {
               "low prior-art risk": 0,
@@ -5197,10 +5570,16 @@
               "high prior-art risk": 3
             }
           },
+          "adjacent_confusion_summary": {
+            "low_to_medium": 2,
+            "medium_to_low": 0,
+            "medium_to_high": 0,
+            "high_to_medium": 0
+          },
           "predicted_label_distribution": {
             "low prior-art risk": 3,
-            "medium prior-art risk": 3,
-            "high prior-art risk": 6
+            "medium prior-art risk": 6,
+            "high prior-art risk": 3
           },
           "expected_label_distribution": {
             "low prior-art risk": 5,
@@ -5209,10 +5588,7 @@
           },
           "average_risk_score": 0.7794,
           "mismatch_cases": [
-            "MANUAL-002",
-            "CURATED-007",
             "CURATED-008",
-            "CURATED-009",
             "CURATED-012"
           ],
           "case_type_breakdown": {
@@ -5223,8 +5599,8 @@
             },
             "borderline": {
               "case_count": 4,
-              "match_count": 1,
-              "match_rate": 0.25
+              "match_count": 4,
+              "match_rate": 1.0
             },
             "clear_negative": {
               "case_count": 1,
@@ -5247,8 +5623,8 @@
               "match_rate": 0.5
             }
           },
-          "medium_label_match_rate": 0.25,
-          "borderline_match_rate": 0.25
+          "medium_label_match_rate": 1.0,
+          "borderline_match_rate": 1.0
         },
         "cases": [
           {
@@ -5294,6 +5670,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5333,9 +5714,9 @@
             ],
             "retrieval_hit_top3": true,
             "retrieval_success": true,
-            "risk_label": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
             "risk_score": 1.0,
-            "verdict_matches_expectation": false,
+            "verdict_matches_expectation": true,
             "debug": {
               "max_similarity": 0.7286,
               "avg_top_similarity": 0.589,
@@ -5350,18 +5731,23 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
-              "limited_evidence_high_guard_applied": false,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
+              "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense",
                 "hybrid",
                 "sparse"
               ],
-              "decision_basis": "high_overlap_signals",
+              "decision_basis": "moderate_overlap_signals",
               "retrieval_strategy": "hybrid",
               "reranker_strategy": "overlap"
             },
-            "explanation": "The idea is assessed as high prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense, hybrid, sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 2; C010: matched 8 terms, claims 2; C005: matched 2 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
-            "failure_type": "insufficient_evidence_high_verdict"
+            "explanation": "The idea is assessed as medium prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense, hybrid, sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 2; C010: matched 8 terms, claims 2; C005: matched 2 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
+            "failure_type": "ok"
           },
           {
             "case_id": "MANUAL-003",
@@ -5399,6 +5785,11 @@
               "shallow_support_count": 3,
               "lexical_only_count": 2,
               "weak_support_count": 0,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "adjacent_only",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "weak_or_lexical_support_only",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5449,6 +5840,11 @@
               "shallow_support_count": 3,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5505,6 +5901,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5558,6 +5959,11 @@
               "shallow_support_count": 2,
               "lexical_only_count": 0,
               "weak_support_count": 2,
+              "raw_risk_label": "low prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5597,9 +6003,9 @@
             ],
             "retrieval_hit_top3": true,
             "retrieval_success": true,
-            "risk_label": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
             "risk_score": 1.0,
-            "verdict_matches_expectation": false,
+            "verdict_matches_expectation": true,
             "debug": {
               "max_similarity": 0.8457,
               "avg_top_similarity": 0.6043,
@@ -5614,18 +6020,23 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
-              "limited_evidence_high_guard_applied": false,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
+              "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense",
                 "hybrid",
                 "sparse"
               ],
-              "decision_basis": "high_overlap_signals",
+              "decision_basis": "moderate_overlap_signals",
               "retrieval_strategy": "hybrid",
               "reranker_strategy": "overlap"
             },
-            "explanation": "The idea is assessed as high prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense, hybrid, sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 8; C010: matched 10 terms, claims 2; C009: matched 4 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
-            "failure_type": "insufficient_evidence_high_verdict"
+            "explanation": "The idea is assessed as medium prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense, hybrid, sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 8; C010: matched 10 terms, claims 2; C009: matched 4 terms, claims 2. This verdict is evidence-grounded and limited to the local indexed corpus.",
+            "failure_type": "ok"
           },
           {
             "case_id": "CURATED-008",
@@ -5663,6 +6074,11 @@
               "shallow_support_count": 1,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5700,9 +6116,9 @@
             ],
             "retrieval_hit_top3": true,
             "retrieval_success": true,
-            "risk_label": "high prior-art risk",
+            "risk_label": "medium prior-art risk",
             "risk_score": 1.0,
-            "verdict_matches_expectation": false,
+            "verdict_matches_expectation": true,
             "debug": {
               "max_similarity": 0.8028,
               "avg_top_similarity": 0.578,
@@ -5717,18 +6133,23 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
-              "limited_evidence_high_guard_applied": false,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
+              "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense",
                 "hybrid",
                 "sparse"
               ],
-              "decision_basis": "high_overlap_signals",
+              "decision_basis": "moderate_overlap_signals",
               "retrieval_strategy": "hybrid",
               "reranker_strategy": "overlap"
             },
-            "explanation": "The idea is assessed as high prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense, hybrid, sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 7; C010: matched 7 terms, claims 2; C009: matched 9 terms, claims 5. This verdict is evidence-grounded and limited to the local indexed corpus.",
-            "failure_type": "insufficient_evidence_high_verdict"
+            "explanation": "The idea is assessed as medium prior-art risk with score 1.00. Top overlapping papers include Transparent Prior-Art Risk Assessment for Research Proposals with Retrieved Scholarly Evidence, Claim-Grounded Novelty Screening of Technical and Scholarly Ideas. Evidence was gathered via dense, hybrid, sparse retrieval. The explanation considers title, keyword, and claim-support facets instead of raw lexical match alone. Observed overlap signals: C008: matched 10 terms, claims 7; C010: matched 7 terms, claims 2; C009: matched 9 terms, claims 5. This verdict is evidence-grounded and limited to the local indexed corpus.",
+            "failure_type": "ok"
           },
           {
             "case_id": "CURATED-010",
@@ -5771,6 +6192,11 @@
               "shallow_support_count": 1,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "medium prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5827,6 +6253,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "self_sufficient",
+              "scope_narrowing_required": false,
+              "high_blocked_by_insufficiency": false,
+              "evidence_state_basis": "self_sufficient_direct_overlap",
               "limited_evidence_high_guard_applied": false,
               "evidence_sources": [
                 "dense",
@@ -5881,6 +6312,11 @@
               "shallow_support_count": 0,
               "lexical_only_count": 0,
               "weak_support_count": 0,
+              "raw_risk_label": "high prior-art risk",
+              "evidence_sufficiency": "partial",
+              "scope_narrowing_required": true,
+              "high_blocked_by_insufficiency": true,
+              "evidence_state_basis": "meaningful_but_incomplete_overlap",
               "limited_evidence_high_guard_applied": true,
               "evidence_sources": [
                 "dense",
@@ -5898,9 +6334,9 @@
       }
     },
     "observations": [
-      "sparse: accuracy=0.83, macro-F1=0.83, borderline match=0.75.",
-      "dense: accuracy=0.58, macro-F1=0.57, borderline match=0.25.",
-      "hybrid: accuracy=0.58, macro-F1=0.57, borderline match=0.25."
+      "sparse: accuracy=0.92, macro-F1=0.93, borderline match=1.00, mean ordinal error=0.08.",
+      "dense: accuracy=0.83, macro-F1=0.85, borderline match=1.00, mean ordinal error=0.17.",
+      "hybrid: accuracy=0.83, macro-F1=0.85, borderline match=1.00, mean ordinal error=0.17."
     ]
   },
   "diagnostics": {
@@ -5915,6 +6351,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 0.9356,
+        "oracle_evidence_sufficiency_state": "self_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -5967,6 +6405,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -5980,6 +6422,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "self_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -6032,6 +6476,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6045,6 +6493,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "self_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -6097,6 +6547,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6110,6 +6564,8 @@
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 0.7654,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -6162,6 +6618,10 @@
         "triggered_decision_summary": {
           "oracle": "moderate_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": true
         }
       },
@@ -6172,9 +6632,11 @@
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
         "oracle_verdict": "medium prior-art risk",
-        "end_to_end_verdict": "high prior-art risk",
+        "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -6203,7 +6665,7 @@
         ],
         "oracle_evidence_sufficiency": "partial",
         "oracle_failure_type": "ok",
-        "failure_type": "insufficient_evidence_high_verdict",
+        "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.9163,
           "avg_top_similarity": 0.6565,
@@ -6226,7 +6688,11 @@
         },
         "triggered_decision_summary": {
           "oracle": "moderate_overlap_signals",
-          "end_to_end": "high_overlap_signals",
+          "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": true
         }
       },
@@ -6237,9 +6703,11 @@
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
         "oracle_verdict": "medium prior-art risk",
-        "end_to_end_verdict": "high prior-art risk",
+        "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -6268,7 +6736,7 @@
         ],
         "oracle_evidence_sufficiency": "partial",
         "oracle_failure_type": "ok",
-        "failure_type": "insufficient_evidence_high_verdict",
+        "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.7286,
           "avg_top_similarity": 0.589,
@@ -6291,7 +6759,11 @@
         },
         "triggered_decision_summary": {
           "oracle": "moderate_overlap_signals",
-          "end_to_end": "high_overlap_signals",
+          "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": true
         }
       },
@@ -6305,6 +6777,8 @@
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.0,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "adjacent_only",
         "top_evidence_ids": [],
         "top_oracle_evidence_ids": [],
         "admissible_expected_evidence_ids": [],
@@ -6338,6 +6812,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "no_retrieved_candidates",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6351,6 +6829,8 @@
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.334,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "adjacent_only",
         "top_evidence_ids": [
           "C009",
           "C003",
@@ -6388,6 +6868,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6401,6 +6885,8 @@
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.3616,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "adjacent_only",
         "top_evidence_ids": [
           "C009",
           "C003",
@@ -6438,6 +6924,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6451,6 +6941,8 @@
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.067,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "adjacent_only",
         "top_evidence_ids": [
           "C008"
         ],
@@ -6486,6 +6978,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": true,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6499,6 +6995,8 @@
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.4199,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C003",
@@ -6538,6 +7036,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6551,6 +7053,8 @@
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.3552,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C003",
@@ -6590,6 +7094,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6603,6 +7111,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 0.8312,
+        "oracle_evidence_sufficiency_state": "combination_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C010",
           "C008",
@@ -6655,6 +7165,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6668,6 +7182,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "combination_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C010",
           "C008",
@@ -6720,6 +7236,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6733,6 +7253,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "combination_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C010",
           "C008",
@@ -6785,6 +7307,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6794,10 +7320,12 @@
         "mode": "sparse",
         "cutoff_year": 2024,
         "expected_risk": "low prior-art risk",
-        "oracle_verdict": "medium prior-art risk",
+        "oracle_verdict": "low prior-art risk",
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.6687,
         "end_to_end_risk_score": 0.3226,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "adjacent_only",
         "top_evidence_ids": [
           "C009"
         ],
@@ -6816,7 +7344,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "insufficient",
-        "oracle_failure_type": "oracle_wrong",
+        "oracle_failure_type": "ok",
         "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.2357,
@@ -6839,8 +7367,12 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "moderate_overlap_signals",
+          "oracle": "limited_overlap_signals",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": true,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6850,10 +7382,12 @@
         "mode": "dense",
         "cutoff_year": 2024,
         "expected_risk": "low prior-art risk",
-        "oracle_verdict": "medium prior-art risk",
+        "oracle_verdict": "low prior-art risk",
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.6687,
         "end_to_end_risk_score": 0.4535,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C009",
           "C003",
@@ -6874,7 +7408,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "insufficient",
-        "oracle_failure_type": "oracle_wrong",
+        "oracle_failure_type": "ok",
         "failure_type": "ok",
         "feature_values": {
           "max_similarity": 1.0,
@@ -6897,8 +7431,12 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "moderate_overlap_signals",
+          "oracle": "limited_overlap_signals",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6908,10 +7446,12 @@
         "mode": "hybrid",
         "cutoff_year": 2024,
         "expected_risk": "low prior-art risk",
-        "oracle_verdict": "medium prior-art risk",
+        "oracle_verdict": "low prior-art risk",
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.6687,
         "end_to_end_risk_score": 0.3662,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C009",
           "C003",
@@ -6932,7 +7472,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "insufficient",
-        "oracle_failure_type": "oracle_wrong",
+        "oracle_failure_type": "ok",
         "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.7192,
@@ -6955,8 +7495,12 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "moderate_overlap_signals",
+          "oracle": "limited_overlap_signals",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -6966,10 +7510,12 @@
         "mode": "sparse",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
-        "end_to_end_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
+        "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 0.9334,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -6997,8 +7543,8 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
-        "failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
+        "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.5542,
           "avg_top_similarity": 0.3731,
@@ -7020,9 +7566,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
-          "end_to_end": "high_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle": "moderate_overlap_signals",
+          "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7031,10 +7581,12 @@
         "mode": "dense",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
-        "end_to_end_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
+        "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 0.9525,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -7062,8 +7614,8 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
-        "failure_type": "lexical_overfire",
+        "oracle_failure_type": "ok",
+        "failure_type": "ok",
         "feature_values": {
           "max_similarity": 1.0,
           "avg_top_similarity": 0.6127,
@@ -7085,9 +7637,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
-          "end_to_end": "high_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle": "moderate_overlap_signals",
+          "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7096,10 +7652,12 @@
         "mode": "hybrid",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
-        "end_to_end_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
+        "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -7127,8 +7685,8 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
-        "failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
+        "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.8457,
           "avg_top_similarity": 0.6043,
@@ -7150,9 +7708,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
-          "end_to_end": "high_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle": "moderate_overlap_signals",
+          "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7165,6 +7727,8 @@
         "end_to_end_verdict": "low prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.4007,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C010",
           "C001",
@@ -7202,6 +7766,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "limited_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -7215,6 +7783,8 @@
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.655,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C001",
           "C010",
@@ -7252,6 +7822,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -7265,6 +7839,8 @@
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.0,
         "end_to_end_risk_score": 0.6274,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C001",
           "C010",
@@ -7302,6 +7878,10 @@
         "triggered_decision_summary": {
           "oracle": "no_retrieved_candidates",
           "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -7311,10 +7891,12 @@
         "mode": "sparse",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 0.7091,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -7338,7 +7920,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
         "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.4291,
@@ -7361,9 +7943,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
+          "oracle": "moderate_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7372,10 +7958,12 @@
         "mode": "dense",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
-        "end_to_end_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
+        "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -7399,8 +7987,8 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
-        "failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
+        "failure_type": "ok",
         "feature_values": {
           "max_similarity": 1.0,
           "avg_top_similarity": 0.6272,
@@ -7422,9 +8010,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
-          "end_to_end": "high_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle": "moderate_overlap_signals",
+          "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7433,10 +8025,12 @@
         "mode": "hybrid",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
-        "end_to_end_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
+        "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -7460,8 +8054,8 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
-        "failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
+        "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.8028,
           "avg_top_similarity": 0.578,
@@ -7483,9 +8077,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
-          "end_to_end": "high_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle": "moderate_overlap_signals",
+          "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7494,10 +8092,12 @@
         "mode": "sparse",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.9167,
         "end_to_end_risk_score": 0.4855,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010"
@@ -7520,7 +8120,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
         "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.2813,
@@ -7543,9 +8143,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
+          "oracle": "moderate_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": true,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7554,10 +8158,12 @@
         "mode": "dense",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.9167,
         "end_to_end_risk_score": 0.7291,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -7581,7 +8187,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
         "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.8487,
@@ -7604,9 +8210,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
+          "oracle": "moderate_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7615,10 +8225,12 @@
         "mode": "hybrid",
         "cutoff_year": 2025,
         "expected_risk": "medium prior-art risk",
-        "oracle_verdict": "high prior-art risk",
+        "oracle_verdict": "medium prior-art risk",
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.9167,
         "end_to_end_risk_score": 0.6948,
+        "oracle_evidence_sufficiency_state": "partial",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C008",
           "C010",
@@ -7642,7 +8254,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "partial",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
         "failure_type": "ok",
         "feature_values": {
           "max_similarity": 0.668,
@@ -7665,9 +8277,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
+          "oracle": "moderate_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7680,6 +8296,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 0.951,
+        "oracle_evidence_sufficiency_state": "self_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C010",
           "C008",
@@ -7732,6 +8350,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -7745,6 +8367,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "self_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C010",
           "C008",
@@ -7795,6 +8419,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -7808,6 +8436,8 @@
         "end_to_end_verdict": "high prior-art risk",
         "oracle_risk_score": 1.0,
         "end_to_end_risk_score": 1.0,
+        "oracle_evidence_sufficiency_state": "self_sufficient",
+        "end_to_end_evidence_sufficiency_state": "self_sufficient",
         "top_evidence_ids": [
           "C010",
           "C008",
@@ -7860,6 +8490,10 @@
         "triggered_decision_summary": {
           "oracle": "high_overlap_signals",
           "end_to_end": "high_overlap_signals",
+          "oracle_scope_narrowing_required": false,
+          "end_to_end_scope_narrowing_required": false,
+          "oracle_high_blocked_by_insufficiency": false,
+          "end_to_end_high_blocked_by_insufficiency": false,
           "limited_evidence_high_guard_applied": false
         }
       },
@@ -7869,10 +8503,12 @@
         "mode": "sparse",
         "cutoff_year": 2024,
         "expected_risk": "low prior-art risk",
-        "oracle_verdict": "high prior-art risk",
+        "oracle_verdict": "low prior-art risk",
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.9667,
         "end_to_end_risk_score": 0.5752,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C009",
           "C002"
@@ -7894,7 +8530,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "insufficient",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
         "failure_type": "lexical_overfire",
         "feature_values": {
           "max_similarity": 0.5887,
@@ -7917,9 +8553,13 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
+          "oracle": "limited_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
-          "limited_evidence_high_guard_applied": false
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": true,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
+          "limited_evidence_high_guard_applied": true
         }
       },
       {
@@ -7928,10 +8568,12 @@
         "mode": "dense",
         "cutoff_year": 2024,
         "expected_risk": "low prior-art risk",
-        "oracle_verdict": "high prior-art risk",
+        "oracle_verdict": "low prior-art risk",
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.9667,
         "end_to_end_risk_score": 0.9416,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C009",
           "C003"
@@ -7953,7 +8595,7 @@
           "C010"
         ],
         "oracle_evidence_sufficiency": "insufficient",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
         "failure_type": "oracle_wrong",
         "feature_values": {
           "max_similarity": 1.0,
@@ -7976,8 +8618,12 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
+          "oracle": "limited_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": true,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": true
         }
       },
@@ -7987,10 +8633,12 @@
         "mode": "hybrid",
         "cutoff_year": 2024,
         "expected_risk": "low prior-art risk",
-        "oracle_verdict": "high prior-art risk",
+        "oracle_verdict": "low prior-art risk",
         "end_to_end_verdict": "medium prior-art risk",
         "oracle_risk_score": 0.9667,
         "end_to_end_risk_score": 0.9482,
+        "oracle_evidence_sufficiency_state": "adjacent_only",
+        "end_to_end_evidence_sufficiency_state": "partial",
         "top_evidence_ids": [
           "C009",
           "C003"
@@ -8012,7 +8660,7 @@
           "C007"
         ],
         "oracle_evidence_sufficiency": "insufficient",
-        "oracle_failure_type": "insufficient_evidence_high_verdict",
+        "oracle_failure_type": "ok",
         "failure_type": "oracle_wrong",
         "feature_values": {
           "max_similarity": 0.8648,
@@ -8035,29 +8683,33 @@
           "weak_support_count": 0
         },
         "triggered_decision_summary": {
-          "oracle": "high_overlap_signals",
+          "oracle": "limited_overlap_signals",
           "end_to_end": "moderate_overlap_signals",
+          "oracle_scope_narrowing_required": true,
+          "end_to_end_scope_narrowing_required": true,
+          "oracle_high_blocked_by_insufficiency": true,
+          "end_to_end_high_blocked_by_insufficiency": true,
           "limited_evidence_high_guard_applied": true
         }
       }
     ],
     "failure_type_breakdown": {
-      "ok": 24,
+      "ok": 31,
       "retrieval_miss": 0,
       "oracle_wrong": 4,
-      "lexical_overfire": 2,
+      "lexical_overfire": 1,
       "borderline_underfire": 0,
       "near_duplicate_miss": 0,
-      "insufficient_evidence_high_verdict": 6
+      "insufficient_evidence_high_verdict": 0
     },
     "oracle_failure_type_breakdown": {
-      "ok": 7,
+      "ok": 12,
       "retrieval_miss": 0,
-      "oracle_wrong": 1,
+      "oracle_wrong": 0,
       "lexical_overfire": 0,
       "borderline_underfire": 0,
       "near_duplicate_miss": 0,
-      "insufficient_evidence_high_verdict": 4
+      "insufficient_evidence_high_verdict": 0
     }
   },
   "ablation_block": {
@@ -8065,20 +8717,20 @@
       "sparse": {
         "retrieval_hit_top3_rate": 1.0,
         "retrieval_success_rate": 0.8333,
-        "end_to_end_accuracy": 0.8333,
-        "end_to_end_macro_f1": 0.832
+        "end_to_end_accuracy": 0.9167,
+        "end_to_end_macro_f1": 0.9259
       },
       "dense": {
         "retrieval_hit_top3_rate": 1.0,
         "retrieval_success_rate": 0.75,
-        "end_to_end_accuracy": 0.5833,
-        "end_to_end_macro_f1": 0.5675
+        "end_to_end_accuracy": 0.8333,
+        "end_to_end_macro_f1": 0.85
       },
       "hybrid": {
         "retrieval_hit_top3_rate": 1.0,
         "retrieval_success_rate": 0.75,
-        "end_to_end_accuracy": 0.5833,
-        "end_to_end_macro_f1": 0.5675
+        "end_to_end_accuracy": 0.8333,
+        "end_to_end_macro_f1": 0.85
       }
     }
   },
@@ -8086,34 +8738,40 @@
     "applied_changes": [
       "Expanded curated evaluation to 10 curated documents and 12 curated cases with explicit review/adjudication metadata.",
       "Applied year-based temporal admissibility filtering before oracle and end-to-end verdict scoring inside the evaluation runner.",
-      "Added a compact high-risk guardrail: when fewer than three admissible evidence items support the verdict, high risk now requires near-saturated average similarity."
+      "Introduced a compact evidence-state rubric: self_sufficient, combination_sufficient, partial, and adjacent_only now shape verdict assignment before final label mapping.",
+      "High verdicts are now allowed only for self_sufficient or combination_sufficient evidence states; raw high scores alone no longer escalate borderline or adjacent cases.",
+      "Single-source adjacent support and narrower-scope support now surface through adjacent_only / partial states, with explicit insufficiency blocking in diagnostics."
     ],
     "oracle_before_after": {
       "shared_case_ids": [
         "CURATED-006",
         "CURATED-007",
         "CURATED-008",
+        "CURATED-009",
+        "CURATED-010",
+        "CURATED-011",
+        "CURATED-012",
         "MANUAL-001",
         "MANUAL-002",
         "MANUAL-003",
         "MANUAL-004",
         "MANUAL-005"
       ],
-      "accuracy_before": 0.625,
-      "accuracy_after": 0.75,
-      "macro_f1_before": 0.4667,
-      "macro_f1_after": 0.719,
-      "medium_match_rate_before": 0.0,
-      "medium_match_rate_after": 0.5,
-      "borderline_match_rate_before": 0.0,
-      "borderline_match_rate_after": 0.5
+      "accuracy_before": 1.0,
+      "accuracy_after": 1.0,
+      "macro_f1_before": 1.0,
+      "macro_f1_after": 1.0,
+      "mean_ordinal_error_before": 0.0,
+      "mean_ordinal_error_after": 0.0,
+      "medium_match_rate_before": 1.0,
+      "medium_match_rate_after": 1.0,
+      "borderline_match_rate_before": 1.0,
+      "borderline_match_rate_after": 1.0
     }
   },
   "error_observations": [
     "Retrieval misses remain on 8 positive case-mode pairs after admissibility filtering.",
-    "Oracle verdict mismatches remain on 5 curated cases, showing residual calibration limits beyond retrieval.",
-    "Lexical-overfire behaviour remains on 2 end-to-end case-mode pairs.",
-    "6 case-mode pairs still produce high verdicts on only partial or insufficient admissible evidence."
+    "Lexical-overfire behaviour remains on 1 end-to-end case-mode pairs."
   ],
   "limitation_notes": [
     "The curated corpus is real-article-shaped but still compact and intentionally domain-focused.",
@@ -8126,105 +8784,47 @@
       "CURATED-006",
       "CURATED-007",
       "CURATED-008",
+      "CURATED-009",
+      "CURATED-010",
+      "CURATED-011",
+      "CURATED-012",
       "MANUAL-001",
       "MANUAL-002",
       "MANUAL-003",
       "MANUAL-004",
       "MANUAL-005"
     ],
-    "new_case_ids": [
-      "CURATED-009",
-      "CURATED-010",
-      "CURATED-011",
-      "CURATED-012"
-    ],
+    "new_case_ids": [],
     "mode_deltas": {
       "sparse": {
-        "shared_case_count": 8,
-        "verdict_match_rate_before": 0.625,
-        "verdict_match_rate_after": 0.875,
-        "low_label_count_before": 6,
+        "shared_case_count": 12,
+        "verdict_match_rate_before": 0.9167,
+        "verdict_match_rate_after": 0.9167,
+        "low_label_count_before": 4,
         "low_label_count_after": 4,
-        "high_label_count_before": 0,
+        "high_label_count_before": 3,
         "high_label_count_after": 3
       },
       "dense": {
-        "shared_case_count": 8,
-        "verdict_match_rate_before": 0.75,
-        "verdict_match_rate_after": 0.625,
+        "shared_case_count": 12,
+        "verdict_match_rate_before": 0.8333,
+        "verdict_match_rate_after": 0.8333,
         "low_label_count_before": 3,
         "low_label_count_after": 3,
         "high_label_count_before": 3,
-        "high_label_count_after": 4
+        "high_label_count_after": 3
       },
       "hybrid": {
-        "shared_case_count": 8,
-        "verdict_match_rate_before": 0.875,
-        "verdict_match_rate_after": 0.625,
+        "shared_case_count": 12,
+        "verdict_match_rate_before": 0.8333,
+        "verdict_match_rate_after": 0.8333,
         "low_label_count_before": 3,
         "low_label_count_after": 3,
-        "high_label_count_before": 2,
-        "high_label_count_after": 4
+        "high_label_count_before": 3,
+        "high_label_count_after": 3
       }
     },
-    "case_level_changes": [
-      {
-        "case_id": "CURATED-007",
-        "mode": "sparse",
-        "risk_label_before": "medium prior-art risk",
-        "risk_label_after": "high prior-art risk",
-        "risk_score_before": 0.4668,
-        "risk_score_after": 0.9334
-      },
-      {
-        "case_id": "CURATED-007",
-        "mode": "dense",
-        "risk_label_before": "medium prior-art risk",
-        "risk_label_after": "high prior-art risk",
-        "risk_score_before": 0.7484,
-        "risk_score_after": 0.9525
-      },
-      {
-        "case_id": "CURATED-007",
-        "mode": "hybrid",
-        "risk_label_before": "medium prior-art risk",
-        "risk_label_after": "high prior-art risk",
-        "risk_score_before": 0.6838,
-        "risk_score_after": 1.0
-      },
-      {
-        "case_id": "MANUAL-001",
-        "mode": "sparse",
-        "risk_label_before": "medium prior-art risk",
-        "risk_label_after": "high prior-art risk",
-        "risk_score_before": 0.574,
-        "risk_score_after": 0.9356
-      },
-      {
-        "case_id": "MANUAL-002",
-        "mode": "sparse",
-        "risk_label_before": "low prior-art risk",
-        "risk_label_after": "medium prior-art risk",
-        "risk_score_before": 0.437,
-        "risk_score_after": 0.7654
-      },
-      {
-        "case_id": "MANUAL-002",
-        "mode": "hybrid",
-        "risk_label_before": "medium prior-art risk",
-        "risk_label_after": "high prior-art risk",
-        "risk_score_before": 0.7885,
-        "risk_score_after": 1.0
-      },
-      {
-        "case_id": "MANUAL-005",
-        "mode": "sparse",
-        "risk_label_before": "low prior-art risk",
-        "risk_label_after": "high prior-art risk",
-        "risk_score_before": 0.4413,
-        "risk_score_after": 0.8312
-      }
-    ],
+    "case_level_changes": [],
     "structure_changes": {
       "retrieval_layer_separated": false,
       "oracle_verdict_layer_added": false,
@@ -8235,20 +8835,26 @@
         "CURATED-006",
         "CURATED-007",
         "CURATED-008",
+        "CURATED-009",
+        "CURATED-010",
+        "CURATED-011",
+        "CURATED-012",
         "MANUAL-001",
         "MANUAL-002",
         "MANUAL-003",
         "MANUAL-004",
         "MANUAL-005"
       ],
-      "accuracy_before": 0.625,
-      "accuracy_after": 0.75,
-      "macro_f1_before": 0.4667,
-      "macro_f1_after": 0.719,
-      "medium_match_rate_before": 0.0,
-      "medium_match_rate_after": 0.5,
-      "borderline_match_rate_before": 0.0,
-      "borderline_match_rate_after": 0.5
+      "accuracy_before": 1.0,
+      "accuracy_after": 1.0,
+      "macro_f1_before": 1.0,
+      "macro_f1_after": 1.0,
+      "mean_ordinal_error_before": 0.0,
+      "mean_ordinal_error_after": 0.0,
+      "medium_match_rate_before": 1.0,
+      "medium_match_rate_after": 1.0,
+      "borderline_match_rate_before": 1.0,
+      "borderline_match_rate_after": 1.0
     }
   }
 }

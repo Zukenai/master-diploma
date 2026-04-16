@@ -63,6 +63,7 @@ Planned focus:
 - repeatable evaluation on the curated setup
 - sparse/dense/hybrid comparison artifacts
 - final constrained calibration and curated-control strengthening pass
+- final evidence-state verdict calibration pass with ordinal diagnostics
 
 Status:
 

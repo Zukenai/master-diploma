@@ -108,3 +108,44 @@ Case-level improvements on the legacy curated cases:
 Core development should now stop.
 
 Remaining work after this pass is thesis-oriented packaging, presentation, reproducibility framing, and chapter-friendly result organization.
+
+## Final Narrow Verdict-Calibration Pass
+
+This final narrow pass kept the same architecture and changed only deterministic verdict behavior and evaluation reporting.
+
+### What Changed
+
+- introduced an explicit evidence-state rubric in scoring with `self_sufficient`, `combination_sufficient`, `partial`, and `adjacent_only`
+- made final verdict assignment depend on evidence state instead of using raw score thresholds alone for the high-risk boundary
+- exposed `scope_narrowing_required`, `high_blocked_by_insufficiency`, and evidence-state diagnostics in experiment outputs
+- added ordinal evaluation summaries and compact low↔medium / medium↔high confusion views
+- added exactly three targeted regression tests for insufficient-high blocking, borderline two-source non-high behavior, and adjacent-distinct single-source capping
+
+### Verification
+
+- `pytest` passed with `18 passed`
+- `sakana run-curated-experiment` regenerated the curated experiment report and notes
+
+### Result Snapshot
+
+- oracle verdict evaluation: accuracy `1.00`, macro-F1 `1.00`, mean ordinal error `0.00`
+- sparse end-to-end: accuracy `0.9167`, macro-F1 `0.9259`, mean ordinal error `0.0833`
+- dense end-to-end: accuracy `0.8333`, macro-F1 `0.85`, mean ordinal error `0.1667`
+- hybrid end-to-end: accuracy `0.8333`, macro-F1 `0.85`, mean ordinal error `0.1667`
+
+### Residual Errors
+
+- sparse still misses one adjacent-distinct low-risk case: `CURATED-012`
+- dense and hybrid still over-escalate two low-risk cases to medium: `CURATED-008` and `CURATED-012`
+- these remaining errors are ordinal over-escalations into `medium`, not collapses into `high`
+
+### Final State
+
+The repository now contains:
+
+- the curated corpus and evaluation assets
+- separated retrieval / oracle / end-to-end evaluation layers
+- deterministic failure typing and temporal admissibility
+- evidence-state-driven verdict calibration
+
+Further work after this point should be thesis-oriented packaging, presentation, and write-up, not more core logic expansion.

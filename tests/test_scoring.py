@@ -53,3 +53,47 @@ def test_scoring_penalizes_lexical_only_high_similarity_matches() -> None:
 
     assert label != "high prior-art risk"
     assert debug["lexical_only_count"] == 3
+
+
+def test_scoring_blocks_high_for_strong_but_insufficient_overlap() -> None:
+    config = get_config()
+    _, label, _, debug = score_candidates(
+        [
+            _candidate(1.0, ["retrieval"], title_terms=["overlap", "risk"], claim_terms=["claim", "evidence", "screening"]),
+            _candidate(1.0, ["retrieval"], title_terms=["overlap", "risk"], claim_terms=["claim", "evidence", "screening"]),
+        ],
+        config.scoring,
+    )
+
+    assert label == "medium prior-art risk"
+    assert debug["evidence_sufficiency"] == "partial"
+    assert debug["high_blocked_by_insufficiency"] is True
+
+
+def test_scoring_keeps_two_strong_borderline_items_below_high_without_combination_sufficiency() -> None:
+    config = get_config()
+    _, label, _, debug = score_candidates(
+        [
+            _candidate(1.0, ["proposal"], title_terms=["proposal", "screening"], claim_terms=["claim", "evidence", "risk", "proposal"]),
+            _candidate(1.0, ["proposal"], title_terms=["proposal", "screening"], claim_terms=["claim", "evidence", "risk", "proposal"]),
+        ],
+        config.scoring,
+    )
+
+    assert label == "medium prior-art risk"
+    assert debug["evidence_sufficiency"] == "partial"
+    assert debug["scope_narrowing_required"] is True
+
+
+def test_scoring_caps_single_strong_adjacent_evidence_at_low() -> None:
+    config = get_config()
+    _, label, _, debug = score_candidates(
+        [
+            _candidate(1.0, ["workflow"], title_terms=["workflow", "review"], claim_terms=["claim", "evidence", "tracking", "review"]),
+        ],
+        config.scoring,
+    )
+
+    assert label == "low prior-art risk"
+    assert debug["evidence_sufficiency"] == "adjacent_only"
+    assert debug["high_blocked_by_insufficiency"] is True

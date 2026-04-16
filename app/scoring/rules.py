@@ -15,6 +15,80 @@ def _risk_label(score: float, config: ScoringConfig) -> str:
     return "low prior-art risk"
 
 
+def _derive_evidence_state(
+    *,
+    max_similarity: float,
+    avg_top_similarity: float,
+    count_above_threshold: int,
+    aggregate_claim_overlap: int,
+    aggregate_title_overlap: int,
+    facet_coverage: float,
+    evidence_count_ratio: float,
+    strong_support_count: int,
+    lexical_only_count: int,
+    weak_support_count: int,
+) -> tuple[str, bool, bool, str]:
+    # Evidence states intentionally use a compact deterministic rubric.
+    # High risk requires either a clearly self-sufficient overlap pattern or
+    # a corroborated multi-source combination, rather than a raw score alone.
+    self_sufficient = (
+        strong_support_count >= 2
+        and aggregate_claim_overlap >= 6
+        and aggregate_title_overlap >= 6
+        and facet_coverage >= 0.66
+    )
+    combination_sufficient = (
+        count_above_threshold >= 3
+        and strong_support_count >= 2
+        and aggregate_claim_overlap >= 4
+        and aggregate_title_overlap >= 4
+        and facet_coverage >= 0.5
+    )
+    scope_narrowing_required = (
+        not self_sufficient
+        and evidence_count_ratio < 1.0
+        and (
+            count_above_threshold <= 2
+            or aggregate_title_overlap < 6
+        )
+    )
+    adjacent_only = (
+        not self_sufficient
+        and evidence_count_ratio <= 0.34
+        and count_above_threshold <= 1
+        and strong_support_count <= 1
+        and lexical_only_count == 0
+    )
+    partial = (
+        not self_sufficient
+        and not combination_sufficient
+        and not adjacent_only
+        and (
+            strong_support_count >= 1
+            or aggregate_claim_overlap >= 2
+            or aggregate_title_overlap >= 2
+            or (facet_coverage >= 0.5 and count_above_threshold >= 2)
+        )
+    )
+
+    if self_sufficient:
+        return "self_sufficient", scope_narrowing_required, False, "self_sufficient_direct_overlap"
+    if combination_sufficient and not scope_narrowing_required:
+        return (
+            "combination_sufficient",
+            False,
+            False,
+            "combination_sufficient_corroborated_overlap",
+        )
+    if adjacent_only:
+        return "adjacent_only", scope_narrowing_required, True, "single_source_adjacent_overlap_only"
+    if partial:
+        return "partial", scope_narrowing_required, True, "meaningful_but_incomplete_overlap"
+    if weak_support_count > 0 or lexical_only_count > 0:
+        return "adjacent_only", scope_narrowing_required, True, "weak_or_lexical_support_only"
+    return "adjacent_only", scope_narrowing_required, False, "no_self_sufficient_overlap"
+
+
 def score_candidates(
     candidates: list[RetrievedCandidate],
     config: ScoringConfig,
@@ -33,6 +107,10 @@ def score_candidates(
             "shallow_support_count": 0,
             "lexical_only_count": 0,
             "weak_support_count": 0,
+            "evidence_sufficiency": "adjacent_only",
+            "scope_narrowing_required": False,
+            "high_blocked_by_insufficiency": False,
+            "evidence_state_basis": "no_retrieved_candidates",
             "evidence_sources": [],
             "decision_basis": "no_retrieved_candidates",
         }
@@ -131,17 +209,33 @@ def score_candidates(
         - weak_support_penalty * config.weak_support_penalty_weight
     )
     risk_score = round(min(max(risk_score, 0.0), 1.0), 4)
-    label = _risk_label(risk_score, config)
+    raw_label = _risk_label(risk_score, config)
+    evidence_sufficiency, scope_narrowing_required, high_blocked_by_insufficiency, evidence_state_basis = (
+        _derive_evidence_state(
+            max_similarity=max_similarity,
+            avg_top_similarity=avg_top_similarity,
+            count_above_threshold=count_above_threshold,
+            aggregate_claim_overlap=aggregate_claim_overlap,
+            aggregate_title_overlap=aggregate_title_overlap,
+            facet_coverage=facet_coverage,
+            evidence_count_ratio=evidence_count_ratio,
+            strong_support_count=strong_support_count,
+            lexical_only_count=lexical_only_count,
+            weak_support_count=weak_support_count,
+        )
+    )
     limited_evidence_high_guard_applied = False
-    if (
-        label == "high prior-art risk"
-        and evidence_count_ratio < 1.0
-        and avg_top_similarity < config.high_risk_limited_evidence_min_avg_similarity
-    ):
-        # Guardrail for compact borderline cases: two admissible pieces of evidence alone
-        # should not escalate to high risk unless their aggregate similarity is near-saturated.
-        label = "medium prior-art risk"
+    if raw_label == "high prior-art risk" and high_blocked_by_insufficiency:
         limited_evidence_high_guard_applied = True
+
+    if evidence_sufficiency in {"self_sufficient", "combination_sufficient"} and not scope_narrowing_required:
+        label = "high prior-art risk"
+    elif evidence_sufficiency == "adjacent_only":
+        label = "low prior-art risk"
+    elif evidence_sufficiency == "partial":
+        label = "medium prior-art risk" if raw_label != "low prior-art risk" else "low prior-art risk"
+    else:
+        label = "medium prior-art risk" if raw_label == "high prior-art risk" else raw_label
 
     evidence = [
         EvidenceItem(
@@ -186,6 +280,11 @@ def score_candidates(
         "shallow_support_count": shallow_support_count,
         "lexical_only_count": lexical_only_count,
         "weak_support_count": weak_support_count,
+        "raw_risk_label": raw_label,
+        "evidence_sufficiency": evidence_sufficiency,
+        "scope_narrowing_required": scope_narrowing_required,
+        "high_blocked_by_insufficiency": high_blocked_by_insufficiency,
+        "evidence_state_basis": evidence_state_basis,
         "limited_evidence_high_guard_applied": limited_evidence_high_guard_applied,
         "evidence_sources": sorted(
             {
